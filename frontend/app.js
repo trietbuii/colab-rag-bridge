@@ -149,6 +149,7 @@
     availableDocs: [],
     folders: ['Chung'],
     selectedFolderFilter: 'all',
+    expandedChatKbFolders: new Set(),
     activeChatId: 'chat-default',
     chatSessions: {},
     sidebarCollapsed: localStorage.getItem('sidebar_collapsed') === 'true',
@@ -1560,10 +1561,11 @@
 
       // Folder Group Divider Row
       html += `
-        <tr class="folder-group-divider-row" data-group-folder="${escapeHTML(folderName)}">
+        <tr class="folder-group-divider-row" data-group-folder="${escapeHTML(folderName)}" style="cursor: pointer;" title="Bấm để thu gọn / mở rộng thư mục này">
           <td colspan="7">
             <div class="folder-group-divider">
               <div class="folder-group-divider-left">
+                <i class="fa-solid fa-chevron-down table-folder-chevron" style="font-size: 0.72rem; transition: transform 0.2s; color: var(--text-muted);"></i>
                 <i class="fa-solid fa-folder-open text-accent"></i>
                 <span>Thư mục: <strong>${escapeHTML(folderName)}</strong></span>
                 <span class="folder-group-divider-badge">${docsInFolder.length} tài liệu</span>
@@ -1635,6 +1637,27 @@
     });
 
     elements.kbFullTableBody.innerHTML = html;
+
+    // Attach folder collapse/expand in KB table
+    elements.kbFullTableBody.querySelectorAll('.folder-group-divider-row').forEach(row => {
+      row.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-upload-to-specific-folder')) return;
+        const folderName = row.getAttribute('data-group-folder');
+        const isCollapsed = row.classList.toggle('collapsed');
+        const chevron = row.querySelector('.table-folder-chevron');
+        if (chevron) {
+          chevron.style.transform = isCollapsed ? 'rotate(-90deg)' : '';
+        }
+        const fileRows = elements.kbFullTableBody.querySelectorAll(`tr[data-filename][data-folder="${folderName}"]`);
+        fileRows.forEach(fr => {
+          fr.style.display = isCollapsed ? 'none' : '';
+        });
+        const emptyRow = elements.kbFullTableBody.querySelector(`tr.empty-folder-row[data-folder="${folderName}"]`);
+        if (emptyRow) {
+          emptyRow.style.display = isCollapsed ? 'none' : '';
+        }
+      });
+    });
 
     // Attach move handlers
     elements.kbFullTableBody.querySelectorAll('.btn-move-file').forEach(btn => {
@@ -2071,9 +2094,13 @@
       const docsInFolder = groups[folderName];
       const folderCheckedCount = docsInFolder.filter(d => isAll || allowed.some(a => a.toLowerCase() === (d.name || d).toLowerCase())).length;
 
+      // Folders are collapsed initially by default until user clicks the folder header or chevron
+      const isExpanded = state.expandedChatKbFolders && state.expandedChatKbFolders.has(folderName);
+      const collapsedClass = isExpanded ? '' : 'collapsed';
+
       html += `
         <div class="chat-kb-folder-group" data-folder="${escapeHTML(folderName)}">
-          <div class="chat-kb-folder-header">
+          <div class="chat-kb-folder-header ${collapsedClass}">
             <div class="chat-kb-folder-title">
               <i class="fa-solid fa-chevron-down chat-kb-folder-chevron"></i>
               <i class="fa-solid fa-folder text-accent"></i>
@@ -2088,7 +2115,7 @@
               ` : ''}
             </div>
           </div>
-          <div class="chat-kb-folder-items">
+          <div class="chat-kb-folder-items ${collapsedClass}">
             ${docsInFolder.length === 0 ? `
               <div style="padding: 0.35rem 0.5rem; font-size: 0.72rem; color: var(--text-muted); font-style: italic;">
                 (Thư mục trống)
@@ -2126,11 +2153,20 @@
       header.addEventListener('click', (e) => {
         if (e.target.closest('.btn-folder-toggle-all')) return;
         const group = header.closest('.chat-kb-folder-group');
-        const items = group.querySelector('.chat-kb-folder-items');
+        const folderName = group ? group.getAttribute('data-folder') : '';
+        const items = group ? group.querySelector('.chat-kb-folder-items') : null;
         if (items) {
           const isCollapsed = items.classList.contains('collapsed');
-          items.classList.toggle('collapsed', !isCollapsed);
-          header.classList.toggle('collapsed', !isCollapsed);
+          if (isCollapsed) {
+            items.classList.remove('collapsed');
+            header.classList.remove('collapsed');
+            if (!state.expandedChatKbFolders) state.expandedChatKbFolders = new Set();
+            if (folderName) state.expandedChatKbFolders.add(folderName);
+          } else {
+            items.classList.add('collapsed');
+            header.classList.add('collapsed');
+            if (state.expandedChatKbFolders && folderName) state.expandedChatKbFolders.delete(folderName);
+          }
         }
       });
     });
