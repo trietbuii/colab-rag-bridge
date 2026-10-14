@@ -1715,6 +1715,11 @@
     "index": 339
   },
   {
+    "text": "# Đề cương Nghiên cứu Khoa học 2026\nMục tiêu nghiên cứu: Tối ưu hóa mô hình RAG cục bộ với mô hình ngôn ngữ lớn Qwen3-4B chạy trên GPU NVIDIA Tesla T4.\nKết quả đạt được: Độ trễ trích xuất giảm 40%, tỷ lệ ảo giác giảm về dưới 2% nhờ guardrail nghiêm ngặt.",
+    "source": "Nghiên cứu khoa học 2026/de_cuong_nghien_cuu_2026.md",
+    "index": 0
+  },
+  {
     "text": "# RAG là gì?\n\nRAG (Retrieval-Augmented Generation — Sinh câu trả lời có tăng cường truy hồi) là\nmột kỹ thuật kết hợp giữa TÌM KIẾM thông tin và MÔ HÌNH NGÔN NGỮ LỚN (LLM).\n\nThay vì để LLM tự trả lời chỉ dựa trên kiến thức đã học (dễ bịa, dễ lỗi thời), RAG\nthực hiện hai việc: trước tiên tìm những đoạn tài liệu liên quan tới câu hỏi, sau đó\nđưa các đoạn này vào cho LLM làm ngữ cảnh để sinh câu trả lời có căn cứ.\n\n## Vì sao cần RAG?\n\n- Giảm hiện tượng \"ảo giác\" (hallucination): câu trả lời bám vào tài liệu thật.\n- Cập nhật kiến thức mới mà không cần huấn luyện lại mô hình: chỉ cần thêm tài liệu.\n- Trả lời được câu hỏi trên dữ liệu riêng (nội bộ doanh nghiệp, giáo trình, sổ tay...).\n- Có thể trích dẫn nguồn, giúp người dùng kiểm chứng.\n\n## Sáu bước cốt lõi của một pipeline RAG\n\n1. Load: đọc tà",
     "source": "Tài liệu môn học/01-rag-la-gi.md",
     "index": 0

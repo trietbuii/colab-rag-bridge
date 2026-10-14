@@ -1878,6 +1878,9 @@
 
     // Group documents by folder
     const groups = {};
+    (state.folders || ['Chung']).forEach(f => {
+      groups[f] = [];
+    });
     state.availableDocs.forEach(doc => {
       const folder = doc.folder || 'Chung';
       if (!groups[folder]) groups[folder] = [];
@@ -1897,14 +1900,28 @@
       const folderCheckedCount = docsInFolder.filter(d => isAll || allowed.some(a => a.toLowerCase() === (d.name || d).toLowerCase())).length;
 
       html += `
-        <div class="chat-kb-folder-group">
+        <div class="chat-kb-folder-group" data-folder="${escapeHTML(folderName)}">
           <div class="chat-kb-folder-header">
-            <i class="fa-regular fa-folder-open text-accent"></i>
-            <span class="folder-title">${escapeHTML(folderName)}</span>
-            <span class="folder-count">${folderCheckedCount}/${docsInFolder.length}</span>
+            <div class="chat-kb-folder-title">
+              <i class="fa-solid fa-chevron-down chat-kb-folder-chevron"></i>
+              <i class="fa-solid fa-folder text-accent"></i>
+              <span>${escapeHTML(folderName)}</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 0.35rem;">
+              <span class="badge-num">${folderCheckedCount}/${docsInFolder.length}</span>
+              ${docsInFolder.length > 0 ? `
+                <button type="button" class="btn-folder-toggle-all" data-folder="${escapeHTML(folderName)}" title="Chọn / Bỏ chọn tất cả tệp trong thư mục này" style="background: none; border: none; cursor: pointer; color: var(--accent-primary); font-size: 0.72rem; padding: 0.1rem 0.25rem;">
+                  <i class="fa-solid fa-check-double"></i>
+                </button>
+              ` : ''}
+            </div>
           </div>
           <div class="chat-kb-folder-items">
-            ${docsInFolder.map(doc => {
+            ${docsInFolder.length === 0 ? `
+              <div style="padding: 0.35rem 0.5rem; font-size: 0.72rem; color: var(--text-muted); font-style: italic;">
+                (Thư mục trống)
+              </div>
+            ` : docsInFolder.map(doc => {
               const name = doc.name || doc;
               const isChecked = isAll || allowed.some(a => a.toLowerCase() === name.toLowerCase());
               if (isChecked) activeCount++;
@@ -1918,7 +1935,7 @@
 
               return `
                 <label class="chat-kb-doc-item" title="${escapeHTML(name)} (${escapeHTML(folderName)})">
-                  <input type="checkbox" class="chat-kb-checkbox" data-doc="${escapeHTML(name)}" ${isChecked ? 'checked' : ''}>
+                  <input type="checkbox" class="chat-kb-checkbox" data-folder="${escapeHTML(folderName)}" data-doc="${escapeHTML(name)}" ${isChecked ? 'checked' : ''}>
                   <i class="fa-regular ${iconClass}"></i>
                   <span class="doc-name">${escapeHTML(name)}</span>
                   <span class="doc-badge">${escapeHTML(ext)}</span>
@@ -1931,6 +1948,34 @@
     });
 
     elements.chatKbDocsList.innerHTML = html;
+
+    // Attach accordion collapse / expand handlers
+    elements.chatKbDocsList.querySelectorAll('.chat-kb-folder-header').forEach(header => {
+      header.addEventListener('click', (e) => {
+        if (e.target.closest('.btn-folder-toggle-all')) return;
+        const group = header.closest('.chat-kb-folder-group');
+        const items = group.querySelector('.chat-kb-folder-items');
+        if (items) {
+          const isCollapsed = items.classList.contains('collapsed');
+          items.classList.toggle('collapsed', !isCollapsed);
+          header.classList.toggle('collapsed', !isCollapsed);
+        }
+      });
+    });
+
+    // Attach folder toggle-all handlers
+    elements.chatKbDocsList.querySelectorAll('.btn-folder-toggle-all').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const fName = btn.getAttribute('data-folder');
+        const checkboxes = elements.chatKbDocsList.querySelectorAll(`.chat-kb-checkbox[data-folder="${fName}"]`);
+        const allChecked = Array.from(checkboxes).every(cb => cb.checked);
+        checkboxes.forEach(cb => {
+          cb.checked = !allChecked;
+        });
+        updateActiveChatKbFromUI();
+      });
+    });
 
     if (elements.chatKbSelectedCount) {
       if (isAll || activeCount === state.availableDocs.length) {
