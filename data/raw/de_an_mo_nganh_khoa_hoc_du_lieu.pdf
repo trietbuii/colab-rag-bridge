@@ -1,0 +1,2411 @@
+--- [Trang 1] ---
+1 
+ĐẠI HỌC QUỐC GIA TP. HCM CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM 
+TRƯỜNG ĐẠI HỌC  
+CÔNG NGHỆ THÔNG TIN 
+Độc lập – Tự do – Hạnh phúc 
+ TP. HCM, ngày     tháng     năm  
+CHƯƠNG TRÌNH ĐÀO TẠO TRÌNH ĐỘ ĐẠI HỌC 
+ 
+1. Thông tin chung về chương trình đào tạo 
+- Tên ngành đào tạo:  
++ Tiếng Việt: Khoa học dữ liệu 
++ Tiếng Anh: Data Science 
+- Mã ngành đào tạo: 7480109 (Mã thử nghiệm). 
+- Trình độ đào tạo: Đại học 
+- Loại hình đào tạo: Chính quy tập trung. 
+- Thời gian đào tạo: 4 năm (8 học kỳ chính). 
+- Tên văn bằng sau khi tốt nghiệp:  
++ Tiếng Việt: Cử nhân khoa học ngành Khoa học dữ liệu. 
++ Tiếng Anh: Bachelor of Science in Data Science. 
+- Nơi đào tạo: Trường Đại học Công nghệ Thông tin 
+2. Mục tiêu đào tạo  
+a. Mục tiêu chung 
+Đào tạo cử nhân ngành Khoa học dữ liệu có đủ kiến thức vững chắc, năng lực 
+chuyên môn, có phẩm chất chính trị, đạo đức, có khả năng tự học, tự nghiên cứu để 
+làm việc hiệu quả trong lĩnh vực công nghệ thông tin nói chung và khoa học dữ liệu 
+nói riêng nhằm đáp ứng nhu cầu phát triển của xã hội trong thời đại cách mạng công 
+nghiệp 4.0. 
+b. Mục tiêu cụ thể 
+Sinh viên tốt nghiệp Chương trình đào tạo Cử nhân ngành Khoa học dữ liệu ph ải 
+đáp ứng các yêu cầu: 
+• Có phẩm chất chính trị, đạo đức , thái độ và sức khoẻ tốt, có trách nhiệm nghề 
+nghiệp. 
+• Nắm vững những kiến thức cơ bản và nâng cao về khoa học dữ liệu và công 
+nghệ thông tin, có năng lực tổ chức và phát triển các ứng dụng khoa học dữ 
+liệu trong hỗ trợquản lý, ra quyết định trong các tổ chức kinh tế, xã hội. 
+• Có khả năng tự học học, có kỹ năng phân tích, tổng hợp, kỹ năng nghiên cứu 
+khoa học, kỹ năng nghề nghiệp, kỹ năng quản lý thời gian và nguồn lực, phát 
+triển khả năng tư duy hệ thống, tư duy phản biện, khởi nghiệp.
+
+--- [Trang 2] ---
+2 
+• Có khả năng giao tiếp xã hội, làm việc hợp tác, làm việc nhóm và làm việc 
+trong một tổ chức; có khả năng vận dụng các kiến thức, kỹ năng và kinh 
+nghiệm để giải quyết các tình huống nghề nghiệp khác nhau. 
+• Có trình độ tiếng Anh tốt, có thể giao tiếp, l àm viêc với các chuyên gia, đồng 
+nghiệp nước ngoài. 
+3. Thông tin tuyển sinh và kế hoạch đào tạo 
+a. Đối tượng tuyển sinh:  
+Thực hiện theo quy chế, quy định tuyển sinh hệ đại học chính quy hiện hành của 
+trường ĐHCNTT, ĐHQG -HCM và Bộ Giáo dục và Đào tạo tương ứng với từng 
+khóa tuyển. 
+b. Hình thức tuyển sinh 
+Xét tuyển theo quy định chung của trường. 
+c. Tổ hợp môn xét tuyển 
+• Toán – Lý – Hóa 
+• Toán – Lý – Anh văn 
+• Toán – Ngữ văn – Anh văn 
+d. Dự kiến chỉ tiêu tuyển sinh, quy mô đào tạo 
+- Chỉ tiêu 2 năm đầu: 50 chỉ tiêu/1năm, 2 năm tiếp theo 70 chỉ tiêu/1năm. 
+Quy mô sau 4 năm: 240. 
+4. Chuẩn đầu ra của chương trình đào tạo (Cụ thể hóa từ mục tiêu cụ thể X.x) 
+Sinh viên tốt nghiệp chương trình  cử nhân ngành Khoa học dữ liệu đáp ứng các chuẩn 
+đầu ra về mặt kiến thức, kỹ năng và thái độ như sau: 
+− Có kiến thức nền tảng về khoa học tự nhiên và khoa học xã hội (LO 1). 
+− Có kiến thức nền tảng và nâng  cao của ngành Khoa học dữ liệu (ngôn ngữ lập 
+trình thống kê, các công cụ phân tích dữ liệu …) (LO 2). 
+− Có khả năng lập luận, phân tích, dự báo, thống kê cao cấp và giải quyết vấn đề 
+liên quan đến ngành Khoa học dữ liệu (LO 3). 
+− Có kỹ năng nghiên cứu khoa học và khám phá tri thức (khảo sát tài liệu, phân 
+tích, đánh giá) (LO 4).
+
+--- [Trang 3] ---
+3 
+− Có tư duy hệ thống, có khả năng thiết kế các thành phần hoặc toàn bộ hệ thống 
+thu thập và phân tích dữ liệu (LO 5). 
+− Hiểu biết về các giá trị đạo đức, có kỹ năng cá nhân và nghề nghiệp, năng lực 
+học tập suốt đời (LO 6). 
+− Có kỹ năng làm việc nhóm với tác phong chuyên nghiệp (LO 7). 
+− Có kỹ năng giao tiếp (LO 8). 
+− Có kỹ năng ngoại ngữ (LO 9). 
+− Hiểu nhu cầu xã hội, tác động của các công nghệ khai thác dữ liệu lớn trong bối 
+cảnh cách mạng công nghiệp 4.0. Có khả năng hình thành ý tưởng, phân tích, 
+thiết kế, áp dụng các công cụ th ống kê và triển khai các ứng dụng Khoa học dữ 
+liệu vào thực tiễn đáp ứng nhu cầu xã hội, giải quyết c ác bài toán kinh tế,nâng 
+cao sức cạnh tranh, phát triển, khởi nghiệp & sáng tạo (LO 10). 
+Chuẩn đầu ra trên được cụ thể hóa như sau: 
+CĐR cấp NỘI DUNG 
+1 2 3 
+LO1. Kiến thức nền tảng về khoa học tự nhiên và khoa học xã hội 
+1 1  Kiến thức nền tảng về khoa học tự nhiên 
+1 2  Kiến thức nền tảng về khoa học xã hội 
+1 3  Khối kiến thức về Ngoại ngữ 
+1 4  Khối kiến thức về Giáo dục thể chất – Giáo dục Quốc phòng 
+LO2. Kiến thức nền tảng và nâng cao của ngành Khoa học dữ liệu 
+2 1  Kiến thức kiến trúc máy tính 
+2 2  Kiến thức hệ điều hành 
+2 3  Kiến thức mạng máy tính và truyền thông 
+2 4  Kiến thức lập trình 
+2 5  Kiến thức giải thuật 
+2 6  Kiến thức quản lý dữ liệuvà thông tin 
+2 7  Kiến thức cơ sở ngành Khoa học dữ liệu 
+2 8  Kiến thức nâng cao ngành Khoa học dữ liệu 
+   Quản lý dữ liệu 
+   Phân tíchvà mô hình hóa dữ liệu 
+   Trực quan dữ liệu 
+LO3. Lập luận, phân tích và giải quyết vấn đề 
+3 1  Xác định và phát biểu bài toán 
+3 1 1 Phân tích các dữ kiện 
+3 1 2 Mô tả bài toán 
+3 2  Mô hình hóa 
+3 2 1 Các mô hình ý niệm, định tính 
+3 2 2 Các mô hình định lượng, mô phỏng
+
+--- [Trang 4] ---
+4 
+3 3  Đánh giá các giải pháp và đề xuất 
+3 3 1 Suy luận, đề xuất các giải pháp, kiểm tra 
+3 3 2    Phân tích, đối chiếu kết quả khác biệt 
+3 3 3   Tổng hợp và đề xuất 
+LO4. Kỹ năng nghiên cứu khoa học và khám phá tri thức 
+4 1  Hình thành giả thuyết khoa học 
+4 1 1 Lựa chọn câu hỏi hình thành giả thuyết 
+4 1 2 Liệt kê giả thuyết 
+4 2  Thu thập và khảo sát tài liệu 
+4 2 1 Tìm kiếm, thu thập và phân loại thông tin 
+4 2 2 Rút trích dữ liệu và trích dẫn các nguồn thông tin liên quan 
+4 3  Thực nghiệm và khám phá tri thức 
+4 3 1 Ước lượng dữ liệu 
+4 3 2 Chọn lựa và áp dụng mô hình dữ liệu 
+4 4  Kiểm chứng giả thuyết và bảo vệ luận điểm 
+4 4 1 Đề xuất mô hình dữ liệu  
+4 4 2 Xác định những hạn chế của mô hình dữ liệu đã sử dụng 
+4 4 3 Kết luận 
+4 4 4 Khả năng cải tiến 
+LO5. Tư duy hệ thống 
+5 1  Xem xét tổng thể hệ thống 
+5 1 1 Giải thích mục đích, nguyên tắc của hệ thống 
+5 1 2 Xác định hệ thống chính, phụ và các thành phần 
+5 1 3 Xác định các đặc điểm chính ('luật') của hệ thống 
+5 1 4 Phân bổ nguồn lực cho hệ thống 
+5 2  Sự tương tác giữa các thành phần trong hệ thống và những phát sinh 
+5 2 1 Xác định các yếu tố ảnh hưởng đến hành vi của hệ thống ("đầu 
+vào", "đầu ra", “thông số”, "phản hồi",..) 
+5 2 2 Phân tích tác động của các yếu tố đến hệ thống (mối liên hệ, 
+tương tác, chức năng) 
+LO6. Đạo đức nghề nghiệp và kỹ năng cá nhân 
+6 1  Tư duy phản biện 
+6 1 1 Mục tiêu và phát biểu vấn đề 
+6 1 2 Xác định những mâu thuẫn và giả thiết cơ bản 
+6 1 3 Minh chứng, thông tin và dữ kiện hỗ trợ 
+6 1 4 Sử dụng các kĩ năng tư duy phản biện (phân tích, so sánh, đánh 
+giá,…) 
+6 1 5 Điều chỉnh các quan điểm khác nhau 
+6 1 6 Kiểm tra các giả thuyết và kết luận  
+6 2  Rèn luyện và học tập suốt đời  
+6 2 1 Sử dụng các phương pháp và kỹ năng học tập (thiết lập mục tiêu, 
+kế hoạch học tập, tổ chức/tóm tắt thông tin, tiếp nhận thông tin 
+phản hồi, …) để tìm kiếm tri thức và công nghệ mới 
+6 3  Quản lý thời gian và nguồn lực 
+6 3 1 Lập kế hoạch thời gian và nguồn lực, sắp xếp công việc theo thứ
+
+--- [Trang 5] ---
+5 
+tự ưu tiên 
+6 3 2 Tầm quan trọng/tính cấp bách của công việc 
+6 4  Đạo đức, trung thực và trách nhiệm xã hội 
+6 4 1 Xác định những giá trị đạo đức cơ bản 
+6 4 2 Xác định các hành vi phù hợp chuẩn mực đạo đức 
+6 4 3 Đóng góp của cá nhân cho xã hội 
+6 5  Hành xử chuyên nghiệp 
+6 5 1 Phong cách chuyên nghiệp nơi làm việc, trong xã hội 
+6 5 2 Sử dụng tác phong văn minh, lịch sự nơi làm việc, trong xã hội 
+6 6  Luôn cập nhật thông tin mới trong lĩnh vực 
+6 6 1 Phân tích công nghệ mới và tác động thực tiễn 
+LO7. Kỹ năng làm việc nhóm 
+7 1  Thành lập, điều hành hoạt động nhóm 
+7 1 1 Xác định vai trò từng thành viên 
+7 1 2 Xác định mục tiêu và những việc phải làm 
+7 1 3 Lập lịch và địa điểm cho các cuộc họp 
+7 1 4 Áp dụng các quy tắc làm việc nhóm 
+7 1 5 Giao tiếp hiệu quả (chủ động lắng nghe, cộng tác, cung cấp và 
+tiếp nhận thông tin,..) 
+7 1 6 Hình thành các giải pháp cho các vấn đề được phân công 
+7 1 7 Thể hiện tinh thần hợp tác, thương lượng, điều chỉnh các xung 
+đột 
+LO8. Kỹ năng giao tiếp 
+8 1  Giao tiếp bằng văn bản 
+8 1 1 Tổ chức bài viết và sử dụng ngôn ngữ rõ ràng, ngắn gọn và chính 
+xác 
+8 1 2 Sử dụng đúng ngữ pháp, chính tả và dấu chấm câu 
+8 2  Giao tiếp trực quan 
+8 2 1    Chuẩn bị bài thuyết trình bằng điện tử 
+8 2 2    Các hình thức giao tiếp chuẩn của email, lời nhắn, và hội thảo 
+qua video 
+8 2 3    Các hình thức giao tiếp khác nhau (biểu đồ, trang web, …) 
+8 3  Thuyết trình 
+8 3 1 Sử dụng những nguyên tắc thiết kế để thiết kế và bố trí bài thuyết 
+trình 
+8 3 2 Trình bày rõ ràng, mạch lạc 
+8 3 3 Sử dụng giao tiếp không lời (ví dụ như tư thế, cử chỉ, ánh mắt) 
+8 4  Đặt câu hỏi, lắng nghe và đối thoại  
+8 4 1 Lắng nghe chủ động, tích cực trong một loạt các tình huống giao 
+tiếp (ví dụ: làm việc theo nhóm, trả lời các câu hỏi, …) 
+8 4 2 Hình thành câu hỏi và trả lời câu hỏi hiệu quả 
+LO9. Kỹ năng ngoại ngữ 
+9 1  Kỹ năng giao tiếp, nghe, nói, viết tổng quát 
+9 1 1     Nghe, nói, đọc, viết tiếng Anh 
+9 2  Đọc hiểu tài liệu chuyên môn bằng ngoại ngữ
+
+--- [Trang 6] ---
+6 
+9 2 1 Các thuật ngữ chuyên môn cơ bản 
+9 2 2 Đọc hiểu tài liệu chuyên ngành CNTT và Khoa học dữ liệu bằng 
+ngoại ngữ 
+LO10. Hiểu bối cảnh và nhu cầu xã hội, có kỹ năng xây dựng ý tưởng, thiết kế, 
+xây dựng và triển khai ứng dụng  
+10 1  Hiểu bối cảnh, nhu cầu xã hội 
+10 1 1           Hiểu hệ thống pháp lý, quy định cho lĩnh vực CNTT 
+10 1 2 Xác định cơ cấu tổ chức của doanh nghiệp 
+10 1 3 Có tư duy khởi nghiệp 
+10 2  Kỹ năng hình thành ý tưởng, thiết kế, xây dựng và triển khai ứng dụng 
+10 2 1 Hiểu nhu cầu, xác định mục tiêu, chức năng của hệ thống 
+10 2 2   Phân tích, thiết lập mô hình tổ chức và khai thác dữ liệu 
+10 2 3   Thiết kế 
+10 2 4 Triển khai 
+ 
+ 
+5. Quy trình đào tạo, điều kiện tốt nghiệp (ghi rõ theo quy chế đào tạo nào, số quyết 
+định, ngày ban hành) 
+• Công nhận tốt nghiệp: Sinh viên đã tích lũy tối thiểu là 123 TC, đã hoàn thành các môn 
+học bắt buộc đối với chuyên ngành đăng ký tốt nghiệp, trình độ Anh văn đ ạt yêu cầu theo 
+quy định của Trường. 
+• Ngoài ra, sinh viên phải đáp ứng đủ các tiêu chuẩn khác theo Quy chế đào tạo hiện hành. 
+• Sinh viên tốt nghiệp được cấp bằng: Cử nhân Khoa h ọc dữ liệu – chương trình chính quy 
+tập trung. 
+6. Thang điểm (theo thang điểm chính thức của trường).  
+- Theo thang điểm 10 chính thức của trường. 
+7. Khối lượng kiến thức toàn khoá 
+Tổng số tín chỉ: 123 tín chỉ, trong đó phân bổ kiến thức như sau (không bao gồm 
+giáo dục thể chất và giáo dục quốc phòng): 
+TT Các khối kiến thức Khối lượng 
+Số tín chỉ % 
+I Khối kiến thức giáo dục đại cương 44 35.8 
+II Khối kiến thức cơ sở ngành 44 35.8 
+III Kiến thức chuyên ngành 23 18.7 
+IV Kiến thức bổ trợ 0 0 
+V Thực tập, khóa luận/luận văn tốt nghiệp 12 9.7 
+ Tổng cộng 123
+
+--- [Trang 7] ---
+7 
+8. Nội dung chương trình đào tạo 
+Stt Mã MH Tên môn học (MH) 
+Loại MH 
+(bắt 
+buộc/tự 
+chọn) 
+Tín chỉ Phòng 
+TN 
+(**) 
+Tổng 
+cộng 
+Lý 
+thuyết 
+Thực 
+hành 
+I Kiến thức giáo dục đại cương      
+ Các môn lý luận chính trị  10    
+1  SS001 Những nguyên lý cơ bản của chủ nghĩa Mac-Lênin Bắt buộc 5 5 0  
+2  SS002 Đường lối cách mạng của Đảng CSVN Bắt buộc 3 3 0  
+3  SS003 Tư tưởng Hồ Chí Minh Bắt buộc 2 2 0  
+ Toán - Tin học - Khoa học tự nhiên  18    
+4  MA006 Giải tích Bắt buộc 4 4 0  
+5  MA003 Đại số tuyến tính Bắt buộc 3 3 0  
+6  MA004 Cấu trúc rời rạc Bắt buộc 4 4 0  
+7  MA005 Xác suất thống kê Bắt buộc 3 3 0  
+8  IT001 Nhập môn Lập trình Bắt buộc 4 3 1  
+ Ngoại ngữ  12    
+9  EN001 Anh văn 1  4 4 0  
+10  EN002 Anh văn 2  4 4 0  
+11  EN003 Anh văn 3  4 4 0  
+ Giáo dục thể chất – Giáo dục quốc phòng      
+12  PE001 Giáo dục thể chất 1 Bắt buộc     
+13  PE002 Giáo dục thể chất 2 Bắt buộc     
+14  ME001 Giáo dục quốc phòng Bắt buộc     
+ Môn học khác  4    
+15  SS004 Kỹ năng nghề nghiệp Bắt buộc 2 2 0  
+16  SS006 Pháp luật đại cương Bắt buộc 2 2 0  
+II Kiến thức cơ sở ngành  44    
+17  IT002 Lập trình hướng đối tượng Bắt buộc 4 3 1  
+18  IT003 Cấu trúc dữ liệu và giải thuật Bắt buộc 4 3 1  
+19  IT004 Cơ sở dữ liệu Bắt buộc 4 3 1  
+20  IT005 Nhập môn mạng máy tính Bắt buộc 4 3 1  
+21  IT010 Tổ chức và cấu trúc máy tính Bắt buộc 2 2 0  
+22  DS100 Giới thiệu ngành KHDL Bắt buộc 2 2 0  
+23  DS101 Thống kê và xác suất chuyên sâu Bắt buộc 3 2 1  
+24  DS104 Tính toán song song & phân tán Bắt buộc 4 3 1  
+25  DS105 Phân tích và trực quan dữ liệu Bắt buộc 3 2 1  
+26  DS106 Tối ứu hoá và ứng dụng Bắt buộc 3 2 1  
+27  IS211 Cơ sở dữ liệu phân tán Bắt buộc 4 3 1
+
+--- [Trang 8] ---
+8 
+28  DS102 Học máy thống kê Bắt buộc 4 3 1  
+29  DS103 Thu thập và tiền xử lý dữ liệu Bắt buộc 3 2 1  
+III Kiến thức chuyên ngành  23    
+30  DS200 Phân tích dữ liệu lớn Bắt buộc 4 3 1  
+31  DS201 Deep Learning trong khoa học dữ liệu Bắt buộc 4 3 1  
+32  DS202 Đồ án khoa học dữ liệu và ứng dụng 1 Bắt buộc 2  2  
+33  DS203 Đồ án khoa học dữ liệu và ứng dụng 2 Bắt buộc 2  2  
+34  DS300 Hệ khuyến nghị Tự chọn 4 3 1  
+35  DS302 Phân tích thống kê đa biến Tự chọn 3 2 1  
+36  DS303 Thống kê Bayes Tự chọn 3 2 1  
+37  DS304 Thiết kế và phân tích thực nghiệm Tự chọn 3 3 0  
+38  IS353 Mạng xã hội Tự chọn 3 3 0  
+39  CS221 Xử lý ngôn ngữ tự nhiên Tự chọn 4 3 1  
+40  NT532 Công nghệ Internet of things hiện đại Tự chọn 3 2 1  
+41  DS301 Các giải thuật khai phá dữ liệu lớn Tự chọn 4 3 1  
+42  DS306 Phân tích dữ liệu lớn trong tài chính Tự chọn 3 3   
+43  DS307 Phân tích dữ liệu truyền thông xã hội Tự chọn 3 3   
+44  
+DS305 Phân tích dữ liệu chuỗi thời gian 
+và ứng dụng 
+Tự chọn 3 2 1 
+ 
+45  DS308 Mô hình đồ thị xác suất Tự chọn 4 3 1  
+46  IS217 Kho dữ liệu và OLAP Tự chọn 3 3   
+47   
+Tự chọn tự do (các môn học 
+khác thuộc khoa khác tại 
+trường) 
+Tự chọn 6    
+IV Kiến thức bổ trợ      
+V Thực tập, khóa luận/luận văn tốt nghiệp  Bắt buộc 12    
+ Tổng số (tín chỉ)  123    
+Ghi chú: 
+−  (**): Ghi tên PTN. Nếu sử dụng chung PTN do CSĐT khác quản lý phải ghi rõ 
+tên CSĐT và đính kèm thỏa thuận cho phép sử dụng PTN. 
+− Số thứ tự của các môn học được đánh số tăng dần. 
+ 
+9. Khả năng liên thông với các chương trình đào tạo khác 
+9.1 Liên thông ngang
+
+--- [Trang 9] ---
+9 
+• Sinh viên có thể chuyển đổi từ ngành Khoa học Dữ liệu sang ngành khác thuộc 
+trường đại học Công nghệ Thông tin trong 6 học kỳ đầu. 
+• Sinh viên có thể đăng ký học các môn học thuộc ngành khác tối đa 12 tín chỉ. 
+9.2 Liên thông dọc 
+• Sinh viên tốt nghiệp ngành Khoa học Dữ liệu thi vào cao học Công nghệ Thông 
+tin, Khoa học Máy tính cần bổ sung môn học bổ túc là môn Hệ Điều Hành. 
+• Môn HĐH có thể là một môn tự chọn trong chương trình đại học. Sinh viên 
+chọn môn Hệ Điều Hành là môn tự chọn, không cần bổ sung khi thi cao học. 
+10. Dự kiến kế hoạch giảng dạy (phân bổ các môn học theo từng học kỳ) 
+10.1 Sơ đồ mối liên hệ thứ tự học giữa các môn 
+ 
+ 
+ 
+10.2 Chi tiết kế hoạch giang dạy dự kiến 
+ 
+Học 
+kỳ Mã MH Tên MH 
+Loại MH 
+(bắt 
+buộc/tự 
+chọn) 
+Tín chỉ Phòng 
+TN 
+(*) 
+Ghi 
+chú Tổng 
+cộng 
+Lý 
+thuyết 
+Thực 
+hành 
+I 
+IT001 Nhập môn Lập trình Bắt buộc 4 3 1   
+MA006 Giải tích Bắt buộc 4 4 0   
+MA003 Đại số tuyến tính Bắt buộc 3 3 0   
+IT010 Tổ chức và cấu trúc máy Bắt buộc 2 2 0
+
+--- [Trang 10] ---
+10 
+tính 
+IT009 Giới thiệu ngành Bắt buộc 2 2 0   
+EN004 Anh Văn 1 Bắt buộc 4 4 0   
+PE001 Giáo dục thể chất 1 Bắt buộc      
+ME001 Giáo dục quốc phòng Bắt buộc      
+ Tổng số tính chỉ HK1  19 18 1   
+II 
+SS004 Kỹ năng nghề nghiệp Bắt buộc 2 0 2   
+IT003 Cấu trúc dữ liệu và giải thuật Bắt buộc 4 3 1   
+MA004 Cấu trúc rời rạc Bắt buộc 4 4 0   
+MA005 Xác suất thống kê Bắt buộc 3 3 0   
+EN005 Anh Văn 2 Bắt buộc 4 4 0   
+PE002 Giáo dục thể chất 2 Bắt buộc      
+ Tổng số tín chỉ HK2  17 14 3   
+III 
+IT004 Cơ sở dữ liệu Bắt buộc 4 3 1   
+IT005 Nhập môn mạng máy tính Bắt buộc 4 3 1   
+IT002 Lập trình hướng đối tượng Bắt buộc 4 3 1   
+EN006 Anh Văn 3 Bắt buộc 4 4 0   
+DS101 Thống kê và xác suất chuyên sâu Bắt buộc 3 2 1   
+ Tổng số tín chỉ HK3  19 15 4   
+IV 
+SS001 Những nguyên lý cơ bản của Chủ nghĩa Mac- Lênin Bắt buộc 5 5 0   
+DS103 Thu thập và tiền xử lý dữ liệu Bắt buộc 3 2 1   
+DS106 Tối ứu hoá và ứng dụng Bắt buộc 3 2 1   
+DS102 Học máy thống kê Bắt buộc 4 3 1   
+ Tổng số tín chỉ HK4  15     
+V 
+SS002 Đường lối cách mạng của Đảng Cộng Sản Việt Nam Bắt buộc 3 3 0   
+DS104 Tính toán song song & phân tán Bắt buộc 4 3 1   
+DS105 Phân tích và trực quan dữ liệu Bắt buộc 3 2 1   
+ Tự chọn tự do 1 Tự chọn 3     
+ Tự chọn chuyên ngành 1 Tự chọn 3     
+ Tổng số tín chỉ HK5  16     
+VI 
+SS003 Tư tưởng Hồ Chí Minh Bắt buộc 2 2 0   
+IS211 Cơ sở dữ liệu phân tán Bắt buộc 4 3 1   
+DS200 Phân tích dữ liệu lớn Bắt buộc 4 3 1   
+DS202 Đồ án khoa học dữ liệu và ứng dụng 1 Bắt buộc 2     
+ Tự chọn chuyên ngành 2 Bắt buộc 3     
+ Tổng số tín chỉ HK6  15     
+VII SS006 Pháp luật đại cương Bắt buộc 2 2 0   DS201 Deep Learning trong khoa Bắt buộc 4 3 1
+
+--- [Trang 11] ---
+11 
+học dữ liệu 
+ Thực tập doanh nghiệp Bắt buộc 2 2 0   
+DS203 Đồ án khoa học dữ liệu và ứng dụng 2 Bắt buộc 2     
+ Tự chọn chuyên ngành 3 Tự chọn 2     
+ Tổng số tín chỉ HK7  12     
+VIII 
+Sinh viên chọn một trong hai hình thức  
+ Các chuyên đề tốt nghiệp  10     
+ Khóa luận tốt nghiệp  10     
+ Tổng số tín chỉ HK8  10     
+ Tổng  123     
+Ghi chú:  (*) Ghi tên PTN. 
+11. Ma trận các môn học và chuẩn đầu ra (kỹ năng) 
+(Danh sách các môn học được hệ thống theo học kỳ và phân bổ giảng dạy các kỹ năng 
+vào các môn học: mức độ giảng dạy I, T, U và trình độ năng lực yêu cầu với môn học 
+theo trình độ năng lực) 
+Học 
+kỳ 
+           
+Tên môn học LO1 LO2 LO3 LO4 LO5 LO6 LO7 LO8 LO9 LO10 
+I. 
+Nhập môn Lập 
+trình  ✓       ✓  
+Giải tích ✓          
+Đại số tuyến 
+tính ✓          
+Tổ chức và cấu 
+trúc máy tính  ✓       ✓  
+Giới thiệu 
+ngành   ✓   ✓    ✓ 
+Anh Văn 1        ✓ ✓  
+Giáo dục thể 
+chất 1 ✓          
+Giáo dục quốc 
+phòng ✓          
+II 
+Kỹ năng nghề 
+nghiệp     ✓ ✓ ✓ ✓   
+Cấu trúc dữ liệu 
+và giải thuật  ✓ ✓      ✓  
+Cấu trúc rời rạc ✓  ✓        
+Xác suất thống 
+kê ✓  ✓        
+Anh Văn 2        ✓ ✓  
+Giáo dục thể 
+chất 2 ✓          
+III 
+Cơ sở dữ liệu  ✓       ✓  
+Nhập môn 
+mạng máy tính  ✓       ✓  
+Lập trình hướng  ✓       ✓
+
+--- [Trang 12] ---
+12 
+đối tượng 
+Anh Văn 3        ✓ ✓  
+Thống kê và 
+xác suất chuyên 
+sâu 
+✓ ✓ ✓ ✓      ✓ 
+IV 
+Những nguyên 
+lý cơ bản của 
+Chủ nghĩa Mac- 
+Lênin 
+✓          
+Học máy thống 
+kê  ✓ ✓ ✓      ✓ 
+Tối ứu hoá và 
+ứng dụng ✓ ✓ ✓       ✓ 
+Thu thập và tiền 
+xử lý dữ liệu  ✓   ✓      
+V 
+Đường lối cách 
+mạng của Đảng 
+Cộng Sản Việt 
+Nam 
+✓          
+Tính toán song 
+song & phân tán  ✓ ✓ ✓      ✓ 
+Phân tích và 
+trực quan dữ 
+liệu 
+ ✓ ✓  ✓      
+Tự chọn chuyên 
+ngành 1 Chuẩn đầu ra theo ĐCMH trong danh sách môn tự chọn 
+VI 
+Tư tưởng Hồ 
+Chí Minh ✓     ✓     
+Cơ sở dữ liệu 
+phân tán  ✓ ✓ ✓ ✓ ✓ ✓   ✓ 
+Phân tích dữ 
+liệu lớn  ✓ ✓ ✓ ✓     ✓ 
+Đồ án khoa học 
+dữ liệu và ứng 
+dụng 1 
+       ✓  ✓ 
+Tự chọn chuyên 
+ngành 2 Chuẩn đầu ra theo ĐCMH trong danh sách môn tự chọn 
+VII 
+Pháp luật đại 
+cương          ✓ 
+Deep Learning 
+trong khoa học 
+dữ liệu 
+  ✓  ✓     ✓ 
+Thực tập doanh 
+nghiệp   ✓  ✓ ✓  ✓  ✓ 
+Đồ án khoa học 
+dữ liệu và ứng 
+dụng 2 
+       ✓  ✓ 
+Tự chọn chuyên 
+ngành 3 Chuẩn đầu ra theo ĐCMH trong danh sách môn tự chọn 
+VIII Khóa luận tốt 
+nghiệp    ✓ ✓ ✓  ✓ ✓ ✓
+
+--- [Trang 13] ---
+13 
+Danh sách các môn tự chọn 
+ Mạng xã hội  ✓ ✓       ✓ 
+ Mô hình đồ thị 
+xác suất  ✓ ✓ ✓      ✓ 
+ Phân tích thống 
+kê đa biến ✓ ✓ ✓ ✓      ✓ 
+ Thống kê Bayes ✓ ✓ ✓ ✓      ✓ 
+ Thiết kế và 
+phân tích thực 
+nghiệm 
+ ✓ ✓  ✓   ✓  ✓ 
+ Phân tích dữ 
+liệu chuỗi thời 
+gian và ứng 
+dụng 
+ ✓ ✓       ✓ 
+ Ứng dụng 
+BigData trong 
+tài chính 
+  ✓  ✓     ✓ 
+ Phân tích dữ 
+liệu truyền 
+thông xã hội 
+ ✓ ✓       ✓ 
+ Hệ khuyến nghị  ✓ ✓ ✓ ✓  ✓   ✓ 
+ Các giải thuật 
+khai phá dữ liệu 
+lớn 
+ ✓ ✓ ✓   ✓   ✓ 
+ Kho dữ liệu và 
+OLAP  ✓ ✓       ✓ 
+12. Mô tả vắn tắt nội dung và khối lượng các môn học (số thứ tự của môn học 
+tương ứng với số thứ tự của môn học trong nội dung chương trình đào tạo) 
+12.1 Những nguyên lý cơ bản của chủ nghĩa Mác-Lênin 
+Tên tiếng Anh: Fundamental principles of Marxism - Leninism 
+Số tín chỉ: 5 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học: Theo nội dung hiện hành của Bộ trưởng Bộ Giáo dục và Đào 
+tạo ban hành 
+12.2 Đường lối cách mạng của Đảng Cộng Sản Việt Nam 
+Tên tiếng Anh: Vietnam Communist Party's Revolutionary platform. 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học: Theo nội dung hiện hành của Bộ trưởng Bộ Giáo dục và Đào 
+tạo ban hành.
+
+--- [Trang 14] ---
+14 
+12.3 Tư tưởng Hồ Chí Minh 
+Tên tiếng Anh: Ho Chi MinhIdeology 
+Số tín chỉ: 2 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học: theo nội dung hiện hành của Bộ trưởng Bộ Giáo dục và Đào 
+tạo ban hành. 
+12.4 Giải tích 
+Tên tiếng Anh: Calculus 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học:  cung cấp cho sinh viên những kiến thức cơ bản về phép tính 
+vi phân, tích phân của hàm một biến, hàm nhiều biến: tích phân kép, tích phân bội, tích 
+phân đường, tích phân mặt, ph ương trình vi phân cấp một, ph ương trình vi phân cấp 
+hai, hệ ph ương trình vi phân , công thức Taylor, đạo hàm theo hướng . Ứng dụng của 
+hàm nhiều biến trong bài toán cực trị, trong hình học. Chuỗi số, chuỗi hàm và cách vận 
+dụng để giải quyết các bài toán kỹ thuật và công nghệ. 
+12.5 Đại số tuyến tính 
+Tên tiếng Anh: Linear Algebra 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : cung cấp những kiến thức về Ma trận, hạng, định thức, hệ 
+phương trình tuyến tính. Cách giải hệ phương trình tuyến tính bằng phương pháp 
+Cramer, phương pháp Gauss, phương pháp Gauss -Jordan; Không gian vector, sự phụ 
+thuộc, độc lập tuyến tính, tập sinh, cơ sở và số chiều của không gian vector; Ma trận 
+chéo hóa và ý nghĩa của việc chéo hóa ma trận; Ánh xạ tuyến tính, toán tử tuyến tính, 
+dạng toàn phương và phép đưa dạng toàn phương về dạng chính tắc. Sinh viên sau khi 
+hoàn thành môn học có thể nắm được kiến thức cơ bản để có thể học tốt các chuyên 
+ngành kỹ thuật có sử dụng các kiến thức này; Có các kỹ năng tư duy, phân tích, phát 
+hiện và giải quyết vấn đề, kỹ năng mô hình hóa các bài toán kỹ thuật bằng toán học. 
+12.6 Cấu trúc rời rạc 
+Tên tiếng Anh: Discrete structures
+
+--- [Trang 15] ---
+15 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Cung cấp những kiến thức cơ sở về Toán rời rạc (Cơ sở 
+lôgic; Các phương pháp đếm; Quan hệ; Đại số Bool) và Lý thuyết đồ thị (Các khái 
+niệm cơ bản của lý thuyết đồ thị; Đồ thị và cây). Sinh viên sau khi hoàn thành môn 
+học có thể trình bày được kiến thức cơ bản về Toán rời rạc và lý thuyết đồ thị cùng các 
+ứng dụng của chúng; có kỹ năng suy luận logic trong việc học tập và giải quyết các bài 
+toán cơ bản trong khoa học và kỹ thuật máy tính; có khả năng phát biểu, trình bày, mô 
+tả một câu hỏi hoặc vấn đề thực tiễn bằng cách áp dụng ngôn ngữ hoặc các mô hình 
+toán học rời rạc; có khả năng nhận thức và áp dụng được suy luận logic trong việc xây 
+dựng các ứng dụng thực tiễn. 
+12.7 Xác suất thống kê 
+Tên tiếng Anh: Probability & Statistics 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Môn học này trình bày các khái niệm và phương pháp về lý 
+thuyết xác suất (Không gian xác suất; Biến ngẫu nhiên; Hàm đăc trưng; Dãy các biến 
+ngẫu nhiên; Các quy luật phân phối xác suất; Các định lý giới hạn phân phối xác suất) 
+và Thống kê (Mẫu ngẫu nhiên; Ước lượng điểm và ước lượng khoảng; Kiểm định các 
+giả thiết thống kê; Phân tích tương quan và hồi quy; Một số vấn đề về quá trình ngẫu 
+nhiên). Giới thiệu về cách thức nhận diện, phân tích và xử lý một vấn đề thực tế; xử lý 
+các số liệu thống kê; để từ đó đưa ra các suy luận phù hợp (nhằm hỗ trợ cho quá trình 
+ra quyết định). 
+12.8 Nhập môn lập trình 
+Tên tiếng Anh: Introduction to programming 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Cung cấp cho sinh viên những khái niệm cơ bản về thuật 
+toán, lưu đồ, mã giả, chương trình, trình dịch, môi trường thực thi; các kiểu dữ liệu cơ 
+sở, các phép toán và những cấu trúc điều khiển cơ bản của một ngôn ngữ lập trình. 
+12.9 Anh văn 1 
+Tên tiếng Anh: English 1
+
+--- [Trang 16] ---
+16 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: Sinh viên có kết quả kiểm tra tiếng Anh khi nhập 
+học đạt tương đương TOEIC từ 300 trở lên. 
+Mô tả nội dung môn học:  
+- Môn học gồm 06 bài (từ Unit 7 đến 12) của giáo trình Straightforward, được 
+chia ra trong 60 tiết học tại lớp (Offline), thời gian học là 12 tuần.  
+- Môn học đề cập đến các chủ đề: công việc, giải trí, truyền hình, tương lai, 
+nghệ thuật. 
+- Môn học cung cấp sinh viên kiến thức về văn phạm, từ vựng, phát âm, ngôn 
+ngữ đặc trưng trong giao tiếp và các kỹ năng về nghe, nói, đọc viết ở trình độ 
+tương đương.  
+- Môn học còn cung cấp thêm cho sinh viên những kiến thức văn hóa bổ ích 
+trong các lĩnh vực thông qua các bài đọc và nghe và các hoạt động tại lớp.  
+12.10 Anh văn 2 
+Tên tiếng Anh: English 2 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: Anh văn 1 
+Mô tả nội dung môn học:  
+Môn học gồm 12 bài học (Units 01 – 12) bao gồm các hoạt động và bài tập về từ vựng, 
+ngữ pháp, nghe hiểu, đọc hiểu, và viết dựa trên các chủ đề: khoa học và tự nhiên, 
+trường học, nơi sinh sống, điện thoại, văn hóa, đồ vật, tiền tệ, luật pháp và lịch sử.  
+12.11 Anh văn 3 
+Tên tiếng Anh: English 3 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: Anh văn 2 
+Mô tả nội dung môn học:  
+Môn học gồm 12 bài học (Units 01 – 12) và bài kiểm tra đầu khóa, cuối khóa. Bài học 
+bao gồm các hướng dẫn từng phần được kiểm tra trong bài test TOEIC như các điểm 
+ngữ pháp, từ vựng, kỹ năng nghe và đọc , nói và viết. Giảng viên cũng phân tích bài thi 
+TOEIC và cung cấp các chiến thuật cũng như cách thức kỹ năng làm bài cho sinh viên. 
+Ngoài ra sinh viên còn được yêu cầu làm bài tập để rèn kỹ năng. 
+12.12 Giáo dục thể chất 1
+
+--- [Trang 17] ---
+17 
+Tên tiếng Anh:  
+Số tín chỉ:  
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học: 
+12.13 Giáo dục thể chất 2 
+Tên tiếng Anh:  
+Số tín chỉ:  
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học: 
+12.14 Giáo dục quốc phòng 
+Tên tiếng Anh:  
+Số tín chỉ:  
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học: 
+12.15 Kỹ năng nghề nghiệp 
+Tên tiếng Anh: Professional skills 
+Số tín chỉ: 2 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : môn học cung cấp các kỹ năng hỗ trợ năng lực chuyên môn 
+và nghề nghiệp trong lĩnh vực CNTT cần thiết cho sinh viên trường Đại học Công 
+nghệ Thông tin. Trên cơ sở phương pháp luận tiếp cận hệ thống, nội dung môn học 
+hướng sinh viên tới việc chủ động thực hiện quá trình học và tự học đại học và tốt 
+nghiệp với phẩm chất đạo đức tốt, có kiến thức và kỹ năng chuyên môn đáp ứng yêu 
+cầu làm việc của xã hội: Kỹ năng đọc, nghe và ghi chép, kỹ năng đối thoại, k ỹ năng tự 
+học, kỹ  năng làm việc nhóm, kỹ năng quan sát, nhận diện và giải quyết vấn đề, kỹ 
+năng thuyết trình và điều khiển cuộc họp, kỹ  năng tổ chức công việc, 
+kỹ năng soạn thảo văn bản, viết báo cáo. 
+12.16 Pháp luật đại cương 
+Tên tiếng Anh: Introduction to Law 
+Số tín chỉ: 2
+
+--- [Trang 18] ---
+18 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : môn học nằm trong khối kiến thức đại cương trong chương 
+trình đào tạo. Môn học hướng đến việc trang bị những kiến thức nền tảng về nhà nước 
+và pháp luật cho người học. Qua đó, người học có những kiến thức cơ bản về nhà nước 
+và pháp luật hướng đến việc hình thành kỹ năng sống và thái độ sống chuẩn mực theo 
+hiến pháp và pháp luật. 
+12.17 Lập trình hướng đối tượng 
+Tên tiếng Anh: Object Oriented Programming 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn họ c: cung cấp cho sinh viên các khái niệm và phương pháp lập 
+trình hướng đối tượng, t rình bày các nguyên lý của thiết kế hướng đối tượng, tính kế 
+thừa, đa hình và lập trình interface…  và cách thức trao đổi và truyền thông giữa các 
+đối tượng.Có khả năng sử dụng ngôn ngữ lập trình C++, C#,.. để giải quyết một số vấn 
+đề căn bản trong thực tiễn. 
+12.18 Cấu trúc dữ liệu và giải thuật 
+Tên tiếng Anh: Data structures and Algorithms 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : cung cấp kiến thức về cách t ổ chức lưu trữ  và các giải thuật 
+như các cấu trúc dữ liệu và thông tin, xử lý danh sách, xử lý cây, tìm kiếm, sắp xếp. 
+12.19 Cơ sở dữ liệu 
+Tên tiếng Anh: Fundamentals of Database Systems 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Môn học trình bày về sự cần thiết của cơ sở dữ liệu trong 
+doanh nghiệp và trong các loại hình tổ chức khác. Cung cấp sự hiểu biết về nguyên lý 
+của các hệ thống cơ sở dữ liệu, tập trung trên CSDL quan hệ (mô hình dữ liệu quan hệ, 
+các ngôn ngữ truy vấn). Sinh viên có khả năng sử dụng các kỹ thuật, công cụ để có thể 
+thiết kế, thao tác với một CSDL quan hệ thông qua hệ quản trị CSDL cụ thể (MS SQL 
+Server), phục vụ cho nhiều môn học nâng cao về CSDL trong những học kỳ kế tiếp.
+
+--- [Trang 19] ---
+19 
+12.20 Nhập môn mạng máy tính 
+Tên tiếng Anh: Computer networks 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học: môn Mạng máy tính cung cấp những khái niệm tổng quan về 
+mạng máy tính, bao gồm mô hình tham chiếu OSI, TCP/IP và các chuẩn mạng; những 
+khái niệm, nguyên lý cơ bản về tín hiệu, truyền tín hiệu. Sinh viên được tìm hiểu sâu 
+về mô hình TCP/IP như các giao thức trong các tầng đặc biệt là tầng mạng và tầng vận 
+chuyển. Ngoài ra sinh viên cũng được làm quen với các dịch vụ mạng cơ bản, kỹ thuật 
+mạng không dây và bảo mật mạng. 
+12.21 Tổ chức và cấu trúc máy tính 
+Tên tiếng Anh: Computer Organization and Architecture 
+ Số tín chỉ: 2 
+ Điều kiện tiên quyết/Môn học trước: Không có 
+ Mô tả nội dung môn học:  
+Môn học nhằm mục đích giới thiệu cho sinh viên: 
+-        Các hệ thống số cơ bản và sự chuyển đổi qua lại giữa các hệ thống số này 
+-        Đại số Boolean 
+-        Giới thiệu tổ chức của CPU 
+-        Giới thiệu tổ chức của bộ nhớ: bộ nhớ trong, bộ nhớ ngoài và bộ nhớ cache 
+-        Các thiết bị Input & Output 
+12.22 Giới thiệu ngành KHDL 
+Tên tiếng Anh: Introduction to Data Science. 
+Số tín chỉ: 2 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Môn học cung cấp các kiến thức giới thiệu về ngành CNTT 
+nói chung và các chuyên ngành sâu nói riêng gồm: Khoa học máy tính, Kỹ thuật máy 
+tính, Kỹ thuật phần mềm, Mạng máy tính & truyền thông và Hệ thống thông tin, 
+Thương mại điện tử, Khoa học dữ liệu. Trong đó cung cấp cho sinh viên biết trong 
+mỗi ngành sẽ học những gì và ra trường sẽ làm được gì, làm ở đâu. 
+12.23 Thống kê và xác suất chuyên sâu
+
+--- [Trang 20] ---
+20 
+Tên tiếng Anh: Advanced Statistic and Probabilistics 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước:  
+Mô tả nội dung môn học : Môn học cung cấp cho sinh viên những kiến thức cơ sở và 
+chuyên sâu về  xác suất và thống kê Toán học. Sinh viên có khả năng sử dụng các 
+nguyên lý thống kê kết hợp với các định đề về xác suất để giải quyết các bài toán từ 
+thực tế: các bài toán phân tích và dự báo về các đại lượng ngẫu nhiên và quá trình 
+ngẫu nhiên.  
+12.24 Tính toán song song & phân tán 
+Tên tiếng Anh: Parallel and Distributed Computing 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Môn học giới thiệu tổng quan về khái niệm, mô hình và 
+những thách thức của hệ thống xử lý song song và xử lý phân bố. Môn học đề cập đến 
+một số phương pháp và nền tảng cụ thể hỗ trợ giải quyết các bài toán dữ liệu lớn trên 
+mô hình xử lý song song và xử lý phân bố. 
+12.25 Phân tích và trực quan dữ liệu 
+Tên tiếng Anh: Data Analytics and Visulization 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Môn học nhằm cung cấp cho sinh viên những kiến thức nền 
+tảng về quy trình thu thập và xử lý dữ liệu cùng các kỹ thuật, công cụ phân tích, trực 
+quan hoá dữ liệu. 
+12.26 Tối ứu hoá và ứng dụng 
+Tên tiếng Anh: Optimization and Applications 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Môn học cung cấp cho sinh viên những kiến thức cơ sở và 
+nâng cao về tối ưu hóa và ứng dụng. Sinh viên có khả năng sử dụng các nguyên lý của 
+lý thuyết về tối ưu kết hợp với các phương pháp xử lý bằng máy tính để giải quyết các 
+bài toán các bài toán ứng dụng thực tế. Bên cạnh việc trang bị cho sinh viên kiến thức
+
+--- [Trang 21] ---
+21 
+về Tối ưu và ứng dụng, sinh viên cũng sẽ được làm quen với các công cụ như phần 
+mềm MATLAB và MABLE để có thể giải quyết các bài toán phong phú của thực tế. 
+12.27 Cơ sở dữ liệu phân tán 
+Tên tiếng Anh: Distributed Databases 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : sinh viên được trang bị các kiến thức về nguyên lý thiết kế 
+cơ sở dữ liệu phân tán, quản lý giao tác, điều khiển tương tranh và phục hồi dữ liệu... 
+Trên cơ sở này , người học có thể nắm vững phương pháp thiết kế cơ sở dữ liệu phân 
+tán, giải quyết được vấn đề về quản lý giao dịch, đặc trưng và các tính chất giao dịch. 
+Cũng như, hiểu được các thuật toán điều khiển tương tranh, phục hồi dữ liệu nhằm ứng 
+dụng vào thực tế và nghiên cứu.  Đồng thời vận dụng được kỹ thuật xử lý phân tán và 
+cách triển khai CSDL phân tán bằng Oracle/MS SQL Server. 
+12.28 Học máy thống kê 
+Tên tiếng Anh: Statistical Machine Learning 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : môn học nhằm cung cấp cho sinh viên những kiến thức nền 
+tảng và nâng cao về học máy, đặc biệt là học máy thống kê, học từ dữ liệu như: phân 
+tích dữ liệu thống kê, các phương pháp chọn mẫu dữ liệu, hồi qui tuyến tính, logistics, 
+các phương pháp học giám sát, không giám sát. Thêm vào đó, người học cũng được 
+trang bị kiến thức liên quan những khó khăn khi học từ dữ liệu: không cân bằng dữ 
+liệu, quá khớp, nhiễu. Thông qua những ví dụ thực tế, người học dễ dàng nắm bắt 
+những kiến thức về học máy thống kê và dễ dàng áp dụng những phương pháp học 
+máy thống kê vào những lĩnh vực ứng dụng khác nhau. 
+12.29 Thu thập và tiền xử lý dữ liệu 
+Tên tiếng Anh: Getting and Cleaning Data 
+Số tín chỉ: 3 (2LT + 1TH) 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học: Môn học cung cấp những cách thức để thu thập và xử lý dữ 
+liệu nhằm phục vụ cho những mục đích sử dụng dữ liệu về sau. Môn học trình bày
+
+--- [Trang 22] ---
+22 
+những điều cơ bản cần thiết để thu thập dữ liệu bao gồm lấy dữ liệu thô từ web, API, 
+cơ sở dữ liệu và từ các nguồn khác nhau ở những định dạng khác nhau, làm sạch dữ 
+liệu và làm cho dữ liệu mang tính sẵn sàng để chia sẽ. Dữ liệu sẵn sàng sẽ đem lại hiệu 
+quả đáng kể trong phân tích dữ liệu.  
+12.30 Phân tích dữ liệu lớn 
+Tên tiếng Anh: Big Data Analysis 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : môn học nhằm cung cấp cho sinh viên những kiến thức nền 
+tảng, một bức tranh tổng quan về lĩnh vực dữ liệu lớn. Môn học là nền tảng cho khoa 
+học và công nghệ dữ liệu. Bên cạnh đó, môn học giúp sinh viên bước đầu hiểu, tư duy 
+về việc tạo ra những ứng dụng, bài toán thực tế về dữ liệu lớn. Đồng thời, giúp sinh 
+viên làm quen với Hadoop framework, một nền tảng cơ bản giúp xử lý, phân tích dữ 
+liệu lớn một cách dễ dàng. 
+12.31 Deep Learning trong khoa học dữ liệu 
+Tên tiếng Anh: Deep Learning for Data Science. 
+Số tín chỉ: 4 (3LT + 1TH) 
+Điều kiện tiên quyết/Môn học trước: 
+Môn học cung cấp các kiến thức vé ứng dụng học sâu trong  khoa học dữ liệu. Môn 
+học trìng bày khái quát về học sâu và ứng dụng học sâu trong khoa học dữ liệu. Cách 
+dùng học sâu đề khám phá biểu diễn các loại dữ liệu có cấu trúc và phi cấu trúc như 
+văn bản, hình ảnh, dữ liệu chuỗi thời. Các kiến thức về học sâu có giám sát, các 
+phương pháp học sâu: convolutional networks and recurrent networks. Lý thuyết và 
+kinh nghiệm để huấn luyện các mô hình học sâu bao gồm tối ưu hóa bằng cách sử 
+dụng gradient giảm..  Các ví dụ ứng dụng về học sâu cho khoa học dữ liệu trong các 
+lĩnh vực phân tích văn bản, dự báo chuỗi  thời gian, xử lý dữ liệu ảnh. 
+12.32 Đồ án khoa học dữ liệu và ứng dụng 1 
+Tên tiếng Anh: Applied Project in Data Science 1. 
+Số tín chỉ: 2 
+Điều kiện tiên quyết/Môn học trước:
+
+--- [Trang 23] ---
+23 
+Mô tả nội dung môn học : Mục tiêu môn học là tìm hiểu về yêu cầu, quy trình triển 
+khai thu thập và lưu trữ dữ liệu phục vụ cho xử lý dữ liệu lớn. Bên cạnh đó, học viên 
+được tìm hiểu các kỹ thuật để thu thập và rút trích dữ liệu từ mạng Internet. 
+12.33 Đồ án khoa học dữ liệu và ứng dụng 2 
+Tên tiếng Anh: Applied Project in Data Science 2. 
+Số tín chỉ: 2 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Mục tiêu môn học là tìm hiểu về các thuật toán phân tích, 
+khai thác và trực quan hoá dữ liệu lớn. Học viên sẽ được trang bị kiến thức và các mô 
+hình xử lý phân tán phục vụ cho việc cài đặt các thuật toán khai thác dữ liệu lớn. 
+12.34 Hệ khuyến nghị 
+Tên tiếng Anh: Recommender Systems 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : môn học nhằm cung cấp cho sinh viên/học viên những kiến 
+thức nền tảng về hệ khuyến nghị như: tầm quan trọng, phạm vi ứng dụng của hệ 
+khuyến nghị trong thực tế; những khái niệm, thuật toán cơ bản thực hiện khuyến nghị 
+(Lọc nội dung, lọc cộng tác); phương pháp đánh giá hệ khuyến nghị (online, offline), 
+những thư viện lập trình, công cụ hỗ trợ xây dựng hệ khuyến nghị. Bên cạnh đó, môn 
+học cũng giới thiệu người học những phương pháp tiếp cận mới và xu hướng của hệ 
+khuyến nghị. 
+12.35 Phân tích thống kê đa biến 
+Tên tiếng Anh: Multivariate Statistical Analysis 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Môn học dựa trên nền tảng của thống kê kinh điển trình bày 
+về sự mở rộng củaToán thống kê sang trường hợp đa biến. Cung cấp sự hiểu biết về 
+nguyên lý xử lý dữ liệu và cách triển khai thực hiện. Sinh viên có khả năng sử dụng 
+các kỹ thuật, công cụ để có thể thiết kế, thao tác trên các bài toán cụ thể (phân tích 
+phương sai, phân tích nhân tố, phân tích chùm) phục vụ cho nhiều môn học nâng cao 
+về xác suất và thống kê (thống kê Bayes, mô phỏng số Monter – Carlo, học máy thống
+
+--- [Trang 24] ---
+24 
+kê-Statistical Learning), trong những học kỳ kế tiếp. Trong quá trình học và thực hành 
+về môn này sinh viên sẽ được trang bị những định hướng mới về thống kê đa biến và 
+những phần mềm chuyên dùng như SPSS cùng các phần mềm mã nguồn mở như R. 
+12.36 Thống kê Bayes 
+Tên tiếng Anh: Bayesian Statictics 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Môn học cung cấp cho sinh viên những kiến thức cơ sở về 
+xác suất và thống kê Bayes. Sinh viên có khả năng sử dụng các nguyên lý thống kê 
+Bayes kết hợp với các định đề về xác suất để giải quyết các bài toán từ thực tế: các bài 
+toán phân tích và dự báo về các đại lượng ngẫu nhiên và quá trình ngẫu nhiên.  
+12.37 Thiết kế và phân tích thực nghiệm 
+Tên tiếng Anh: Design and Analysis of Experiments 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Môn học cung cấp các kiến thức và phương pháp thiết kế 
+thống kê thực nghiệm ( statistical design of experiments -DOE) để thiết kế các thí 
+nghiệm, phân tích đúng đắn kết quả thu được qua thí nghiệm và trình bày rõ ràng kết 
+quả thí nghiệm. Phương pháp thống kê thí  nghiệm được dùng phổ biến trong nghiên 
+cứu học thuật và trong công nghiệp. Khóa học sử dụng Excel và các phần mềm chuyên 
+dụng như SPSS hoặc R để thực hiện phân tích dữ liệu theo yêu cầu của các bài tập 
+trong môn học. 
+12.38 Mạng xã hội  
+Tên tiếng Anh: Social network 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Khóa học nhằm mục đích giới thiệu sinh viên phân tích 
+mạng xã hội trên cả hai mạng lưới tĩnh và động. Nửa đầu của khóa học sẽ giới thiệu 
+các sinh viên làm thế nào để phân tích một mạng tĩnh bằng cách sử dụng số liệu và ý 
+nghĩa của các kết quả thu được dựa trên sự phân tích này. Nửa sau của khóa học sẽ tập 
+trung vào phân tích mạng lưới động. Mô hình mạng lưới ngẫu nhiên và các số liệu
+
+--- [Trang 25] ---
+25 
+thống kê sẽ được nêu rõ. Việc hình thành mạng lưới chiến lược cũng sẽ được giới 
+thiệu. Mạng được hình thành là một trong những đề tài nghiên cứu phổ biến nhất trong 
+phân tích mạng xã hội (social network analysis - SNA). Hình thành lý thuyết trò chơi 
+(mạng) để giải quyết các vấn đề như cân bằng, ổn định, thương lượng, chuyển giao, 
+phối hợp lựa chọn và thích ứng với những thay đổi mạng. Sử dụng phần mềm Pajek 
+giúp các sinh viên đo và hiển thị dữ liệu mạng. Sinh viên sẽ thực hành sử dụng phần 
+mềm này qua các bài tập. 
+12.39 Xử lý ngôn ngữ tự nhiên 
+Tên tiếng Anh: Natural Language Processing 
+Số tín chỉ: 4 (3 LT + 1 TH) 
+Tóm tắt nội dung:Môn học nhằm cung cấp cho sinh viên một số kiến thức nhập môn 
+của chuyên ngành xử lý ngôn ngữ tự nhiên, bao gồm những nội dung chính về: văn 
+phạm phi ngữ cảnh CFG (Context -Free Grammar), văn phạm DCG (Definite Clause 
+Grammar), cài đặt và giải thích cơ chế xử lý văn phạm DCG trên Prolog, FSA (Finite 
+State Automata). Trên cơ sở những kiến thức nền tảng này sinh viên có thể học tiếp 
+môn chuyên ngành tự chọn “Xử lý ngôn ngữ tự nhiên nâng cao” 
+12.40 Công nghệ Internet of things hiện đại 
+−     Tên tiếng Anh: Advanced Internet of things technologies 
+−     Số tín chỉ: 3 
+−     Tóm tắt nội dung: Trình bày các bộ giao thức mạng IoTs hiện đại như IEEE 
+802.15.4 WPAN/ZigBee, IEEE 802.15.1/Bluetooth, RF4CE/RFID, 6LoWPAN, 
+uIP/uIPv6,…Môn học cũng trình bày các kiến trúc mạng hiện đại khác được sử dụng 
+trong việc phát triển hạ tầng mạng, topo mạng IoTs hiện đại bao gồm Star, Tree, 
+Clustering, Bus, Ring, Chain, Sweep, Tributaries -Delta, Mesh, Grid. Thông qua môn 
+học, sinh viên nhận được những nền tảng cần thiết để có thể phát triển các ứng dụng 
+và giải pháp IoTs thông minh nhằm phục vụ tốt hơn, tiện nghi hơn cuộc sống của con 
+người (Ambient-Assisted Living). 
+12.41 Các giải thuật khai phá dữ liệu lớn 
+Tên tiếng Anh: Mining of Massive Datasets 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước:
+
+--- [Trang 26] ---
+26 
+Mô tả nội dung môn học : Môn học cung cấp các khái niệm cũng như các giải thuật 
+liên quan đến khai phá dữ liệu lớn, khả năng phân tích, thiết kế các ứng dụng khai phá 
+dữ liệu lớn trong quản lý, trang bị khả năng phát triển các giải thuật khai phá dữ liệu 
+lớn bằng kỹ thuật song song và phân tán. 
+12.42 Phân tích dữ liệu lớn trong tài chính 
+Tên tiếng Anh: Big Data in Finance 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học: môn học cung cấp các kiến thức để triển khai ứng dụng thực 
+tế về phân tích dữ liệu lớn trong lĩnh vực tài chính nhằm hỗ trợ các quyết định đầu tư.  
+Môn học tập trung vào các ứng dụng các mô hình phân tích dữ liệu lớn  để giải quyết 
+các bài toán trong lĩnh vực tài chính như dư báo, phân tích khách hàng, phân tích gian 
+lận, phân tích hồi qui,phân tích rủi ro,... 
+Môn học sẽ kết hợp của Lý thuyết và thực tiễn với các trường hợp dữ liệu tài chính  
+như các báo cáo tài chính của các công ty được niêm yết trên thị trường chứng khoán, 
+dự báo giá cổ phiếu, phát hiện các gian lận trong bào cáo tài chính,... Bên cạnh đó các  
+kỹ thuật trực quan hóa được áp dụng để nêu bật kết quả phân tích. Môn học có sự tham 
+gia của các giảng viên từ các khoa kế toán -tài chính nhắm giúp sinh viên có các hiểu 
+biết cụ thể về ứng dụng phân tích dữ liệu lớn trong lĩnh vực tài chính. 
+12.43 Phân tích dữ liệu truyền thông xã hội 
+Tên tiếng Anh: Social Media Data Analytics 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước:  
+Mô tả nội dung môn học : Môn học nhằm cung cấp cho sinh viên những kiến thức về 
+thu thập, phân tích, xử lý dữ liệu trong lĩnh vực truyền thông xã hội. Bên cạnh đó, sinh 
+viên được tiếp cận với một số bài toán trong lĩnh vực truyền thông xã hội như: bài toán 
+phân tích cảm xúc (Sentiment Analysis), khái thác quan điểm công đồng (Opinion 
+Mining), bài toán nhận biết tin nóng, sự kiện thời sự nhất từ mạng xã hội (Top Story 
+Detection). 
+12.44 Phân tích dữ liệu chuỗi thời gian và ứng dụng 
+Tên tiếng Anh: Applied Time Series Analysis
+
+--- [Trang 27] ---
+27 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : Môn học cung cấp cho sinh viên những kiến thức cơ sở về 
+quá trình ngẫu nhiên với thời gian rời rạc – chuỗi thời gian. Sinh viên có khả năng sử 
+dụng các nguyên lý của xác suất thống kê kết hợp với các kiến thức toán khác như giải 
+tích, đại số tuyến tính để giải quyết các bài toán từ thực tế: Các bài toán phân tích và 
+dự báo về chuỗi thời gian trong công nghệ và trong kinh tế. 
+12.45 Mô hình đồ thị xác suất 
+Tên tiếng Anh: Probabilistic Graphical Models 
+Số tín chỉ: 4 
+Điều kiện tiên quyết/Môn học trước: 
+Mô tả nội dung môn học : môn học nhằm cung cấp cho sinh viên những kiến thức nền 
+tảng về các mô hình đồ thị xác suất (PGM) và ứng dụng của nó: biểu diễn và suy luận 
+và học trên các mô hình đồ thị xác suất. Các bài toán từ thế giới thực sẽ được biểu diễn 
+thông qua các PGM như thế nào dùng Bayesian Networks dựa trên đồ thị có hướng và 
+Markov Networks dựa trên đồ thị vô hướng. Việc suy diễn dựa trên các mô hình PGM 
+như thế nào và làm thế nào có thể học được các tham số mô hình PGM từ một tập dữ 
+liệu huấn luyện. 
+12.46 Kho dữ liệu và OLAP 
+Tên tiếng Anh: Data Warehouse and OLAP 
+Số tín chỉ: 3 
+Điều kiện tiên quyết/Môn học trước:  Cơ sở dữ liệu 
+Mô tả nội dung môn học : Sinh viên được trang bị kiến thức  về kho dữ liệu và các phương 
+pháp phân tích, thiết kế kho dữ liệu, các mô hình dữ liệu đa chiều, ngôn ngữ truy vấn cơ sở dữ 
+liệu đa chiều để xây dựng  các ứng dụng thực tế cho doanh nghiệp, và các kỹ năng mô phỏng 
+CSDL dạng khối, kỹ năng phân tích dữ liệu đa chiều , khai phá dữ liệu, kỹ năng trích xuất, 
+biến đổi và nạp dữ liệu vào kho, vận dụng công cụ BI thành thạo và ngôn ngữ truy vấn dữ liệu 
+đa chiều. 
+13. Danh sách đội ngũ giảng viên thực hiện chương trình đào tạo:  
+13.1 Danh sách giảng viên cơ hữu đúng ngành đào tạo 
+Stt Họ tên Năm sinh Chức danh khoa học, Văn bằng cao nhất, Năm được cấp bằng, Kinh nghiệm Khoa, bộ môn Môn học sẽ giảng dạy (bổ
+
+--- [Trang 28] ---
+28 
+năm phong ngành đào 
+tạo 
+CSĐT cấp 
+bằng 
+giảng dạy 
+(*) 
+đang 
+công tác 
+sung số thứ 
+tự theo bảng 
+2 sau tên 
+môn học) 
+         
+13.2 Danh sách giảng viên cơ hữu tham gia giảng dạy các môn học trong chương trình 
+đào tạo 
+Stt Họ tên Năm sinh Chức danh khoa học, năm phong Văn bằng cao nhất, ngành đào tạo Năm được cấp bằng, CSĐT cấp bằng Kinh nghiệm giảng dạy (*) Khoa, bộ môn đang công tác 
+Môn học sẽ 
+giảng dạy (bổ 
+sung số thứ 
+tự theo bảng 
+2 sau tên 
+môn học) 
+1 
+Nguyễn 
+Gia 
+Tuấn 
+Anh 
+1964   
+TS 
+Toán - Tin 
+học 
+2013 
+ĐH Khoa 
+học tự 
+nhiên 
+ĐHQG 
+HCM 
+  
+Bộ môn 
+Kỹ thuật 
+thông 
+tin 
+Giới thiệu 
+ngành KHDL 
+Phân tích 
+mạng xã  hội 
+và ứng dụng 
+2 
+Phan 
+Hoàng 
+Chương 
+1966   CN 1990   
+Trung 
+tâm 
+ngoại 
+ngữ 
+  
+3 
+Dương 
+Tôn 
+Đảm 
+1952   TS 1985   Bộ môn Toán-Lý 
+Đại số tuyến 
+tính 
+Xác suất 
+thống kê 
+Giải tích 
+Thống kê & 
+xác suất 
+chuyên sâu 
+Phân tích 
+thống kê đa 
+biến 
+4 
+Nguyễn 
+Tuấn 
+Đăng 
+1972   TS Tin học 
+2006 
+Đại Caen 
+Basse-
+Normandie 
+  
+Khoa 
+Khoa 
+học máy 
+tính 
+Học máy 
+thống kê 
+Xử lý ngôn 
+ngữ tự nhiên 
+5 
+Mai 
+Tiến 
+Dũng 
+1977   
+TS 
+Công nghệ 
+thông tin 
+2018 
+Đại học 
+CNTT - 
+DHQG 
+HCM 
+  
+Khoa 
+Khoa 
+học máy 
+tính 
+Nhập môn 
+lập trình 
+6 
+Lê 
+Đình 
+Duy 
+1974 PGS 2014 TS 2006   
+Khoa 
+Khoa 
+học máy 
+tính 
+Học máy 
+thống kê 
+7 
+Phan 
+Đình 
+Duy 
+1988   
+ThS 
+Khoa học 
+máy tính 
+2014 
+Đại học 
+Công nghệ 
+thông tin - 
+  
+Khoa 
+Kỹ thuật 
+máy tính 
+Hệ điều hành
+
+--- [Trang 29] ---
+29 
+ĐHQG 
+HCM 
+8 
+Dương 
+Ngọc 
+Hảo 
+1974   
+TS 
+Cơ kỹ 
+thuật 
+2015 
+Viện cơ 
+học 
+  Bộ môn Toán-Lý 
+TK &XS 
+chuyên sâu 
+Phân tích 
+thống kê đa 
+biến 
+Thống kê 
+Bayes 
+Phân tích dữ 
+liệu chuỗi 
+thời gian và 
+ứng dụng 
+9 
+Nguyễn 
+Đình 
+Hiển 
+1986   
+ThS 
+Toán - Tin 
+học 
+2011 
+Đại học 
+KHoa học 
+tự nhiên 
+ĐHQG 
+HCM 
+  
+Khoa 
+Khoa 
+học máy 
+tính 
+Kỹ năng 
+nghề nghiệp 
+10 
+Mai 
+Xuân 
+Hùng 
+1979   
+ThS 
+Khoa học 
+máy tính 
+2007 
+Đại học 
+Công nghệ 
+thông tin - 
+ĐQG 
+HCM 
+  
+Khoa 
+Hệ 
+thống 
+thông 
+tin 
+Công cụ phân 
+tích trực quan 
+đữ liệu 
+11 
+Ngô 
+Thanh 
+Hùng 
+1980   
+TS 
+Công nghệ 
+thông tin 
+2008 
+Đại học kỹ 
+thuật quốc 
+gia vùng 
+sông Đông 
+  
+Khoa 
+Hệ 
+thống 
+thông 
+tin 
+Các kỹ thuật 
+khai phá dữ 
+liệu lớn 
+12 
+Hà 
+Mạnh 
+Linh 
+1985   
+ThS 
+Toán - Tin 
+học 
+2011 
+Đại học 
+KHoa học 
+tự nhiên 
+ĐHQG 
+HCM 
+  Bộ môn Toán-Lý 
+Cấu trúc rời 
+rạc 
+Giải tích 
+Thống kê 
+Bayes 
+13 
+Võ Thị 
+Thanh 
+Lý 
+1977   ThS Anh văn 2008 Đại học Curtin   Bộ môn Anh văn Anh văn 3 
+14 
+Nguyễn 
+Lưu 
+Thuỳ 
+Ngân 
+1981   
+TS 
+Khoa học 
+máy tính 
+2012 
+Đại học 
+Tokyo 
+  
+Khoa 
+Khoa 
+học máy 
+tính 
+Xử lý ngôn 
+ngữ tự nhiên 
+15 
+Trần 
+Quang 
+Nguyên 
+1986   
+ThS 
+Điện tử - 
+Viễn 
+thông - 
+Máy tính 
+2013 
+ĐH Khoa 
+học tự 
+nhiên 
+ĐHQG 
+HCM 
+  Bộ môn Toán-Lý Nhập môn điện tử 
+16 Đỗ Văn Nhơn 1962 PGS 2010 TS 2003 Đại học Khoa học   Khoa Khoa học máy Cấu trúc dữ liệu
+
+--- [Trang 30] ---
+30 
+tự nhiên - 
+ĐHQG 
+HCM 
+tính 
+17 
+Nguyễn 
+Thị 
+Huỳnh 
+Như 
+1986   ThS 2013   Bộ môn Anh văn Anh văn 1 
+18 Đỗ Phúc 1958 PGS 2006 TSTin học 
+2003Đại 
+học Khoa 
+học tự 
+nhiên - 
+ĐHQG 
+HCM 
+  
+Bộ môn 
+Kỹ thuật 
+thông 
+tin 
+Giới thiệu 
+ngành,Các 
+giải thuật 
+khai phá dữ 
+liệu lớn, Phân 
+tích dữ liệu 
+lớn, Tính 
+toán song 
+song và phân 
+tán, Thiết kế 
+và phân tích 
+thực nghiệm 
+19 
+Đỗ Thị 
+Minh 
+Phụng 
+1979   
+ThS 
+Công nghệ 
+thông tin 
+2005 
+Đại học 
+Khoa học 
+tự nhiên - 
+ĐHQG 
+HCM 
+  
+Khoa 
+Hệ 
+thống 
+thông 
+tin 
+Hệ khuyến 
+nghị 
+20 
+Nguyễn 
+Thị 
+Kim 
+Phụng 
+1978   
+ThS 
+Công nghệ 
+thông tin 
+2005 
+Đại học 
+Khoa học 
+tự nhiên - 
+ĐHQG 
+HCM 
+  
+Khoa 
+Hệ 
+thống 
+thông 
+tin 
+Cơ sở dữ liệu 
+Phân tích 
+mạng xã hội 
+và ứng dụng 
+21 
+Lê 
+Trung 
+Quân 
+1975 PGS 2016 TS Hệ thống và Mạng 
+2007 
+Đại học 
+Johannes-
+Kepler 
+Linz 
+ĐH Oslo, 
+Nauy 
+02 năm 
+Khoa 
+MMT-
+TT, 
+Bộ môn 
+An toàn 
+thông 
+tin 
+Nhập môn 
+mạng máy 
+tính,  
+Công nghệ 
+IoT hiện đại 
+22 
+Vũ 
+Minh 
+Sang 
+1985   
+ThS 
+Công nghệ 
+thông tin 
+2011 
+Đại học kỹ 
+thuật 
+Swinburne 
+  
+Khoa 
+Hệ 
+thống 
+thông 
+tin 
+Kỹ năng 
+nghề nghiệp 
+23 
+Nguyễn 
+Minh 
+Sơn 
+1978   
+TS 
+Kỹ thuật 
+máy tính 
+2010 
+Đại học 
+Ulsan 
+  
+Khoa 
+Kỹ thuật 
+máy tính 
+Kiến trúc 
+máy tính, 
+24 
+Trịnh 
+Quốc 
+Sơn 
+1978   
+ThS 
+Khoa học 
+máy tính 
+2008 
+Đại học 
+quốc gia 
+TP.HCM 
+  
+Khoa 
+Khoa 
+học máy 
+tính 
+Cấu trúc dữ 
+liệu 
+25 Lê Nguyễn 1986   ThS Vật lý 2011 Đại học   Bộ môn Toán-Lý Nhập môn điện tử
+
+--- [Trang 31] ---
+31 
+Bảo 
+Thư 
+quang học KHoa học 
+tự nhiên 
+ĐHQG 
+HCM 
+26 
+Nguyễn 
+Trác 
+Thức 
+1980   
+ThS 
+Công nghệ 
+thông tin 
+2006 
+Đại học 
+khoa học 
+tự nhiên - 
+ĐHQG 
+HCM 
+  
+Khoa 
+Công 
+nghệ 
+phần 
+mềm 
+Bộ môn 
+phát 
+triên 
+phần 
+mềm 
+Lập trình 
+hướng đối 
+tượng 
+Công cụ phân 
+tích & trực 
+quan dữ liệu 
+Tính toán 
+song song & 
+phân tán 
+Thiết kế & 
+phân tích 
+thực nghiệm 
+27 
+Huỳnh 
+Thị 
+Thanh 
+Thương 
+1985   
+ThS 
+Đảm bảo 
+toán học 
+cho máy 
+tính và hệ 
+thống tính 
+toán 
+2012 
+Đại học 
+Khoa học 
+tự nhiên - 
+ĐHQG 
+HCM 
+  
+Khoa 
+Khoa 
+học máy 
+tính 
+Nhập môn 
+lập trình 
+28 
+Đặng 
+Lệ 
+Thuý 
+1984   
+ThS 
+Toán - 
+Giải tích 
+2010 
+Đại học 
+Vinh 
+  Bộ môn Toán-Lý Đại số tuyến tính Giải tích 
+29 
+Huỳnh 
+Ngọc 
+Tín 
+1975   
+TS 
+Khoa học 
+máy tính 
+2016 
+Đại học 
+Công nghệ 
+thông tin - 
+ĐHQG 
+HCM 
+  
+Khoa 
+Công 
+nghệ 
+phần 
+mềm 
+Bộ môn 
+phát 
+triên 
+phần 
+mềm 
+Dữ liệu lớn, 
+Phân tích dữ 
+liệu truyền 
+thông xã hội, 
+Hệ khuyến 
+nghị 
+ 
+ 
+30 
+Cao 
+Thanh 
+Tình 
+1981   
+TS 
+Tối ưu & 
+Hệ thống 
+2016 
+Đại học 
+Khoa học 
+tự nhiên - 
+ĐHQG 
+HCM 
+  Bộ môn Toán-Lý 
+Đại số tuyến 
+tính 
+Cấu trúc rời 
+rạc 
+Tối ưu hóa và 
+ứng dụng 
+31 
+Nguyễn 
+Văn 
+Toàn  
+1979   ThS Tin học 
+2005 
+Đại học 
+Khoa học 
+tự nhiên - 
+ĐHQG 
+HCM 
+  
+Khoa 
+Khoa 
+học máy 
+tính 
+Giới thiệu 
+ngành 
+32 
+Lê 
+Thanh 
+Trọng 
+1988   
+ThS 
+Khoa học 
+máy tính 
+2014 
+Đại học 
+Công nghệ 
+thông tin - 
+  
+Khoa 
+Công 
+nghệ 
+phần 
+Lập trình 
+hướng đối 
+tượng
+
+--- [Trang 32] ---
+32 
+ĐHQG 
+HCM 
+mềm 
+Bộ môn 
+phát 
+triên 
+phần 
+mềm 
+33 
+Lê 
+Hoàng 
+Tuấn 
+1981   
+ThS 
+Toán-Tin 
+học 
+2006 
+Đại học 
+khoa học 
+tự nhiên - 
+ĐHQG 
+HCM 
+  Bộ môn Toán-Lý 
+Cấu trúc rời 
+rạc 
+Xác suất thốn 
+kê 
+Phân tích dữ 
+liệu chuỗi 
+thời gian và 
+ứng dụng 
+34 
+Nguyễn 
+Anh 
+Tuấn 
+1976   
+TS 
+Khoa học 
+máy tính 
+2012 
+Đại học La 
+Trobe 
+ĐH La 
+Trobe 
+Khoa 
+MMT-
+TT 
+Công nghệ 
+IoT hiện đại 
+35 
+Lê 
+Huỳnh 
+Mỹ 
+Vân 
+1984   
+ThS 
+Toán đại 
+số 
+2010 
+Đại học 
+tổng hợp 
+miền nam 
+LB Nga 
+  Bộ môn Toán-Lý Cấu trúc rời rạc 
+36 
+Nguyễn 
+Ngọc 
+Ái Vân 
+1983   TS 2014   Bộ môn Toán-Lý Giải tích, Tối ưu hóa và ứng dụng 
+37 
+Nguyễn 
+Thị 
+Tuyết 
+Vinh 
+1962   ThS Anh văn 
+2001 
+Đại học 
+ngoại ngữ 
+Hà Nội 
+  Bộ môn Anh văn Anh văn 2 
+38 
+Phạm 
+Thi 
+Vương 
+1981   ThS 
+2009 
+Đại học 
+Khoa học 
+tự nhiên - 
+ĐHQG 
+HCM 
+  
+Khoa 
+Công 
+nghệ 
+phần 
+mềm 
+Lập trình 
+hướng đối 
+tượng 
+13.3. Danh sách giảng viên thỉnh giảng tham gia giảng dạy các môn học trong chương 
+trình đào tạo 
+ 
+Stt Họ tên Năm sinh Chức danh khoa học, năm phong Văn bằng cao nhất, ngành đào tạo Năm được cấp bằng, CSĐT cấp bằng Kinh nghiệm giảng dạy (*) Khoa, bộ môn, CSĐT đang công tác Môn học sẽ giảng dạy (bổ sung số thứ tự của môn học sau tên môn học) 
+1 Hồ Tú Bảo 1952 GS.TSKH TS - Tin học   Viện JVN 
+Học máy 
+thống kê,  
+Mô hình đồ 
+thị xác suất 
+2 Hồ Bảo Quốc 1965 PGS.TS TS - Tin học   Khoa CNTT – ĐHKHTN
+
+--- [Trang 33] ---
+33 
+– ĐHQG 
+TpHCM 
+ Ghi chú: (*) Kinh nghiệm giảng dạy bằng tiếng nước ngoài (nơi giảng dạy, thời gian, 
+loại ngôn ngữ, tên môn học giảng dạy)  
+Nêu rõ yêu cầu trình độ ngoại ngữ đối với giảng viên tham gia các chương trình 
+đào tạo bằng tiếng nước ngoài (nếu có). 
+13.3. Kế hoạch đào tạo, tuyển dụng giảng viên (nếu có)  
+14. Danh sách cố vấn học tập 
+STT Họ và tên Chức danh, 
+Học vị 
+Ngành Vị trí công 
+tác 
+Ghi chú 
+1 Nguyễn Văn Xanh ThS HTTT ĐL Giảng viên  
+2 Võ Ngọc Tân ThS HTTT Giảng viên  
+3 Nguyễn Văn Kiệt ThS KHMT Giảng viên  
+4 Nguyễn Thị Anh Thư ThS KHMT Giảng viên  
+5 Tạ Thu Thủy ThS KHMT Giảng viên  
+6 Nguyễn Thành Trung ThS Toán tin Giảng viên  
+7 Võ Tấn Khoa ThS CNTT Giáo vụ,   
+Giảng viên 
+ 
+ 
+15. Cơ sở vật chất phục vụ học tập (nêu CSVC hiện có tại Trường và Trường dùng 
+chung trong ĐHQG-HCM nếu có): 
+15.1. Phòng học 
+ 
+STT 
+ 
+Loại 
+phòng học  
+Số 
+lượng 
+ 
+Diện 
+tích 
+(m2) 
+Danh mục trang thiết bị chính hỗ trợ giảng dạy  
+Tên thiết bị  Số lượng  Phục vụ học phần  
+1 
+Phòng học 
+từ 30 – 50 
+chỗ  
+34 1.929 
+Máy chiếu, 
+hệ thống âm 
+thanh, bảng, 
+...  
+Tất cả các phòng đều được 
+trang bị đầy đủ máy chiếu, hệ 
+thống âm thanh, một số phòng 
+học chất lượng cao được trang 
+bị máy lạnh.  
+ 
+Các giờ học 
+lý thuyết, 
+làm bài tập  
+ 2 
+Phòng học 
+từ trên 50 
+– 100 chỗ  
+ 
+8 
+ 
+647 
+Máy chiếu, 
+hệ thống âm 
+thanh, bảng, 
+...  
+Tất cả các phòng đều được 
+trang bị đầy đủ máy chiếu, hệ 
+thống âm thanh, một số phòng 
+học chất lượng cao được trang 
+bị máy lạnh.
+
+--- [Trang 34] ---
+34 
+3 
+Phòng học 
+trên 100 
+chỗ  
+8 1.120 
+Máy chiếu, 
+hệ thống âm 
+thanh, bảng, 
+... 
+Tất cả các phòng đều được 
+trang bị đầy đủ máy chiếu, hệ 
+thống âm thanh, một số phòng 
+học chất lượng cao được trang 
+bị máy lạnh. 
+ 
+15.2. Phòng thí nghiệm và hệ thống thiết bị thí nghiệm chính 
+Bảng 1: Danh sách phòng thí nghiệm, cơ sở thực hành và trang thiết bị phục vụ thí nghiệm, 
+thực hành 
+Số 
+TT 
+Tên phòng thí 
+nghiệm, xưởng, 
+trạm trại, cơ sở 
+thực hành 
+Diện tích 
+(m2) 
+Danh mục trang thiết bị chính hỗ trợ thí 
+nghiệm, thực hành 
+Tên thiết bị Số lượng Phục vụ học phần 
+1  Phòng thực hành máy tính 1.543,5  Máy tính cấu hình mạnh  608 
+  
+  
+Các giờ học thực 
+hành của các môn 
+học 
+  
+2  Phòng thí nghiệm 405 
+ Máy tính, 
+máy chủ 
+server, thiết 
+bị thí 
+nghiệm 
+chuyên 
+ngành, các 
+bản quyền 
+phần mềm 
+ Chi tiết 
+trang thiết 
+bị ở phần 
+phụ lục 
+3  Phòng thực tập 65 
+ Không gian 
+cho việc 
+thực tập, 
+chạy thử các 
+chương trình 
+  
+Bảng 2:  Phần mềm phục vụ thí nghiệm, thực hành 
+ 
+STT Tên phần mềm  Bản quyền  Phục vụ học phần  
+1 Microsoft Windows  MSDNAA  
+Các giờ học thực hành của các môn học  
+ 
+2 Microsoft Visual Studio  MSDNAA  
+3 Microsoft Office  MSDNAA  
+4 Apache Spark Mã nguồn mở 
+5 RStudio Mã nguồn mở  6 PyCharm Mã nguồn mở 
+7 Matlab  MMLab  Nghiên cứu và các học phần liên quan  
+15.3. Thư viện
+
+--- [Trang 35] ---
+35 
+- Thư viện Trung tâm của ĐHQG -HCM, hệ thống mạng thông tin tư liệu của ĐHQG -HCM 
+kết nối Internet và các đơn vị thành viên của ĐHQG-HCM. 
+- Thư viện của Trường Đại học Công nghệ thông tin. 
+- Các đầu sách chuyên ngành bản quyền tiếng Anh thuộc Chương trình tiên tiến. 
+1 Diện tích M2 1.266m2 
+2 Số đầu sách Quyển >200 tựa/18000 cuốn 
+3 Số đầu sách chuyên ngành Quyển >100tựa/15000 cuốn 
+Ngoài ra Trường còn dùng chung tài liệu từ các Thư viện trong Hệ thống Thư viện 
+ĐHQG-HCM (Thư viện Trung tâm, Thư viện ĐH Bách Khoa, Thư viện ĐH Khoa học 
+Tự nhiên, Thư viện ĐH Kinh tế-Luật, Thư viện ĐH Khoa học xã hội và nhân văn, Thư 
+viện ĐH Quốc tế, Thư viện Viện tài nguyên môi trường). Thư viện Trung tâm ĐHQG-
+HCM cấp thẻ miễn phí để sử dụng. Các thư vi ện khác mượn tài liệu theo ch ính sách 
+mượn liên thư vi ện miễn phí, bạn đọc mượn trực tiếp tại thư viện trường mình (chính 
+sách đã thống nhất và ban hành) 
+Thống kê s ố liệu d ùng chung riêng Thư vi ện trung tâm ĐHQG -HCM: Chỉ 
+thống kê tài liệu chuyên về công nghệ thông tin. 
+- Tài liệu bản in: 4.383 tựa/ 2.536 bản 
+- Tài liệu số: 
++ Sách: 17.982 tài liệu 
++ Tạp chí: 685 tài liệu 
++ Dữ liệu media: 6.500 tài liệu 
++ Tài liệu tham khảo: 37 tài liệu 
+15.4. Giáo trình, tài liệu học tập 
+Stt Tên 
+môn 
+học 
+Tên giáo 
+trình, tài liệu 
+học tập 
+Tên tác giả Nhà xuất 
+bản 
+Năm 
+xuất 
+bản 
+Địa chỉ 
+website 
+(nếu 
+có) 
+Hiện 
+trạng 
+(*) 
+1 Anh văn 1 
+Outcomes Pre-
+intermediate 
+ 
+ 
+Hugh Dellar, 
+Andrew 
+Walkley 
+Cenage 
+Learning    
+2 Anh văn Outcomes Pre- Hugh Dellar, Cenage
+
+--- [Trang 36] ---
+36 
+2 intermediate 
+ 
+ 
+Andrew 
+Walkley 
+Learning 
+3 Anh văn 3 
+Longman 
+Preparation 
+series for the 
+TOEIC TEST 
+ 
+Lin Lougheed     
+4 
+Nhập 
+môn lập 
+trình 
+ 
+C++ 
+Programming, 
+5th Edition 
+ 
+DS Malik  2011   
+5 
+Lập 
+trình 
+hướng 
+đối 
+tượng 
+ 
+Tài liệu hướng 
+dẫn lập trình 
+hướng đối 
+tượng 
+ 
+ 
+NXB 
+ĐHQG 
+HCM 
+2017  đã có 
+6 
+Cấu trúc 
+dữ liệu 
+và giải 
+thuật 
+ 
+Giáo trình cấu 
+trúc dữ liệu và 
+giải thuật 
+Đỗ Văn Nhơn, 
+Trịnh Quốc 
+Sơn 
+NXB 
+ĐHQG 
+HCM 
+2015  đã có 
+7 Cơ sở dữ liệu Database systems - The complete book 
+Hector Garcia-
+Mollina, 
+Jeffrey 
+D..Ulman and 
+Jennifer 
+Widom 
+Prentice 
+Hall    
+8 
+Nhập 
+môn 
+mạng 
+máy tính 
+ 
+Data 
+communication 
+and 
+Networking, 
+4h edition 
+Behrouz A 
+Forouzan 
+McGraw-
+Hill 2007   
+9 
+Kiến 
+trúc máy 
+tính 
+ 
+Giáo trình kiến 
+trúc máy tính Vũ Đức Lung 
+NXB 
+ĐHQG 
+HCM 
+2009  đã có 
+10 Hệ điều hành Giáo trình Hệ điều hành 
+Trần Hạnh 
+Nhi, Lê Khắc 
+Nhiên Ân 
+ 
+NXB 
+ĐHQG 
+HCM 
+2005  đã có 
+11 
+Đại số 
+tuyến 
+tính 
+ 
+Đại số tuyến 
+tính Lê Tuấn Hoa NXB ĐHQG HN 2005   
+12 
+Cấu trúc 
+rời rạc 
+ 
+Toán rời rạc Đỗ Đức Giáo NXB ĐHQG HN 2004   
+13 Xác suất thống kê Xác suất & thống kê. Lý thuyết và thực Trần Mạnh Tuấn NXB ĐHQG HN 2004
+
+--- [Trang 37] ---
+37 
+hành tính toán 
+ 
+14 Giải tích 
+Giải tích hàm 
+một biến và lý 
+thuyết chuỗi 
+ 
+Đỗ Công 
+Khanh 
+ 
+NXB 
+ĐHQG 
+HCM 
+2012  đã có 
+15 
+Nhập 
+môn 
+điện tử 
+ 
+Giáo trình điện 
+tử cơ bản 
+Trần Thu Hà , 
+Trương Thị 
+Bích Ngà 
+NXB 
+ĐHQG 
+HCM 
+2013  đã có 
+16 
+Phân 
+tích 
+chuỗi 
+thời gian 
+ 
+Time series: 
+Theory and 
+Methods 
+Brokwell P.J, 
+David R Springer    
+17 Thống kê Bayes Introduction to Bayesian Statistics K.R.Koch Springer 2007   
+18 
+Thống 
+kê đa 
+biến 
+ 
+Methods of 
+Multivariate 
+Analysis 
+Alvin 
+C.Rencher 
+Willey-
+Interscience 2002   
+19 
+Tối ưu 
+hóa và 
+ứng 
+dụng 
+An 
+introduction to 
+optimization 
+Edwin 
+K.P.Chong, 
+Stanislaw 
+H.Zak 
+John Wiley 
+& Sons 2001   
+20 
+Xác suất 
+thống kê 
+nâng cao 
+Probability and 
+Statistics for 
+Computer 
+Scientists 
+Michael Baron CRC Press 2014   
+21 
+Giới 
+thiệu 
+ngành 
+khoa học 
+dữ liệu 
+ 
+Introduction to 
+data science 
+Davy Cielen, 
+Arno 
+D.B.Meysman, 
+Mohamed Ai 
+Manning 2016   
+22 
+Khai phá 
+dữ liệu 
+lớn 
+Mining of 
+massive 
+datasets 
+Jure Leskovec, 
+Arnand 
+Rajaman, 
+Jeffrey 
+D.Ullman 
+ 
+ 2014   
+23 
+Phân 
+tích dữ 
+liệu lớn 
+trong 
+lĩnh vực 
+tài chính 
+ 
+Python for 
+Finance 
+analysis big 
+financial data 
+Yves Hilpich O'Reilly 2015   
+24 
+Thiết kế 
+& phân 
+tích thí 
+Phương pháp 
+bố trí thí 
+nghiệm và xử  
+Phan Hiếu 
+Hiền 
+NXB Nông 
+nghiệp 2001
+
+--- [Trang 38] ---
+38 
+nghiệm 
+ 
+lý số liệu 
+25 
+Tính 
+toán 
+song 
+song & 
+phân bố 
+ 
+Practical data 
+science with 
+Hadoop and 
+Spark 
+Ofer 
+Mendelevitch, 
+Casey Stella, 
+Douglas 
+Eadline 
+Addison 
+Wesley 2017   
+26 
+Công cụ 
+phân 
+tích, trực 
+quan dữ 
+liệu 
+ 
+Python for data 
+analysis Wes McKenny O'Reilly 2013   
+27 
+Dữ liệu 
+lớn 
+ 
+Big data 
+Specialization      
+28 
+Hệ 
+khuyến 
+nghị 
+Introduction to 
+recommender 
+system 
+handbook 
+Ricci, 
+Fransessco, 
+Lior Rokach 
+and Bracha 
+Shapira 
+Springer 2011   
+29 Học máy thống kê 
+An 
+introduction to 
+statistical 
+learning in R 
+Gareth James, 
+Daniela 
+Witten, Trevor 
+Hastie, Robert 
+Tibshirani 
+Springer 2017   
+30 
+Mô hình 
+đồ thị 
+xác suất 
+ 
+Probilistics 
+graphical 
+models 
+Daphne 
+Kolller MIT Press 2009   
+31 
+Phân 
+tích dữ 
+liệu 
+truyền 
+thông 
+mạng xã 
+hội 
+ 
+Socia media 
+data analysis      
+        
+Ghi chú: (*) Nêu rõ là đã có hoặc chưa có 
+16. Hướng dẫn thực hiện chương trình 
+Stt Họ và tên  Chức danh 
+khoa học, 
+học vị 
+Ngành, chuyên 
+ngành 
+Vị trí công tác Ghi chú 
+1 Nguyễn Hoàng Tú Anh PGS.TS Khoa học Máy tính Hiệu trưởng   
+2 Vũ Đức Lung PGS.TS Khoa học Máy tính Hiệu phó   
+3 Đỗ Phúc PGS.TS Khoa học Máy tính Giảng viên  
+4 Nguyễn Gia Tuấn Anh TS Khoa học Máy tính Trưởng bộ môn   
+5 Huỳnh Ngọc Tín TS Khoa học Máy tính Trưởng bộ môn
+
+--- [Trang 39] ---
+39 
+ 
+ 
+17. Kế hoạch đảm bảo chất lượng và kiểm định chương trình đào tạo 
+ Dự kiến sau khi triển khai 2 năm sẽ tiến hành rà soát cập nhật lại CTĐT dựa theo ý kiến 
+phản hồi các bên liên quan và xu hướng phát triển mới của thế giới. 
+ Sau khi có 1-2 khoá đầu tiên ra trường sẽ tiến hành đánh giá, kiểm định chương trình 
+đào tạo theo AUN-QA. 
+ 
+                                                                                    HIỆU TRƯỞNG 
+                                                                                       (ký và ghi rõ họ tên)
+
+--- [Trang 40] ---
+40 
+TÀI LIỆU THAM KHẢO: 
+[1]  Vasant Dhar. 2013. Data science and prediction.  Commun. ACM  56, 12, 
+December 2013, 64-73. 
+[2]  https://datascience.berkeley.edu/about/what-is-data-science/ 
+[3]  https://datascience.nyu.edu/what-is-data-science/ 
+[4]  https://gigaom.com/2015/01/24/why-data-science-matters-and-how-technology-
+makes-it-possible/ 
+[5]  https://www.seagate.com/as/en/our-story/data-age-2025/ 
+[6]  Chương trình đào tạo ngành DS của Đại học Quốc gia Singapore 
+NUShttp://www.nus.edu.sg/nusbulletin/faculty-of-science/undergraduate-
+education/degree-requirements/bachelor-of-sciencebachelor-of-science-hons-
+programme-requirements-b-sc-b-sc-hons/data-science-and-analytics/ 
+[7]  Chương trình đào tạo ngành Khoa học dữ liệu – Đại học Michigan (University of 
+Michigan),  
+https://www.eecs.umich.edu/eecs/undergraduate/data-science/16_17_ds_eng.pdf 
+[8]  Chương trình đào tạo thạc sĩ ngành Khoa học máy tính định hướng Khoa học 
+Phân tích Dữ liệu – Viện John von Neumann. 
+[9]  https://www.maths.unsw.edu.au/futurestudents/data-science-and-decisions 
+[10]  https://datascience.berkeley.edu/academics/curriculum/ 
+[11]  http://datascience.columbia.edu/course-inventory 
+[12]  https://cds.nyu.edu/academics/ms-in-data-science/ms-curriculum/ 
+[13]  https://datascience.umn.edu/current-students/curriculum/courses 
+[14]  https://www.coursera.org

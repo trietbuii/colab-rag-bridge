@@ -1,0 +1,17 @@
+# ===== Dependencies cho hệ thống RAG Từ Zero & Google Colab GPU Qwen =====
+# Cài đặt:  pip install -r requirements.txt
+
+# --- Embedding: MIỄN PHÍ, chạy cục bộ trên máy (không tốn quota API) ---
+sentence-transformers>=3.0.0  # Tạo vector embedding tại chỗ (intfloat/multilingual-e5-small)
+torch>=2.2.0
+
+# --- LLM: Kết nối Google Colab GPU T4 Qwen3-4B API ---
+gradio_client>=1.0.0          # Gọi API Gradio /ask trên Google Colab
+
+# --- Xử lý dữ liệu & Vector Store thuần NumPy ---
+numpy>=1.26.0                 # Tính toán ma trận vector & độ tương đồng cosine
+pypdf>=4.0.0                  # Đọc nội dung file PDF trong data/raw
+
+# --- Tiện ích & Kiểm thử ---
+python-dotenv>=1.0.0          # Đọc biến môi trường từ .env
+pytest>=8.0.0                 # Chạy kiểm thử tự động

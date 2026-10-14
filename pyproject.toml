@@ -1,0 +1,20 @@
+[project]
+name = "local-ai-rag"
+version = "0.1.0"
+description = "Hệ thống RAG từ Zero theo chuẩn video hướng dẫn — tích hợp Google Colab GPU Qwen3-4B"
+requires-python = ">=3.10"
+dependencies = [
+    "sentence-transformers>=3.0.0",
+    "gradio_client>=1.0.0",
+    "python-dotenv>=1.0.0",
+    "numpy>=1.26.0",
+    "pypdf>=4.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+# Package nằm trong thư mục src/ (layout "src" chuẩn, tránh import nhầm)
+[tool.setuptools.packages.find]
+where = ["src"]

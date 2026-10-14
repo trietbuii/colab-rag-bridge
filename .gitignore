@@ -1,0 +1,26 @@
+# Môi trường ảo & Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+env/
+
+# Biến môi trường & phiên bảo mật
+.env
+data/colab_session.json
+data/feedback.jsonl
+
+# File media & ảnh chụp tạm
+*.mp4
+frontend/verification_*.png
+
+# Vector store sinh ra (chạy lại bằng scripts/ingest.py)
+# data/processed/*.npz
+# data/processed/*.meta.json
+
+# Cache kiểm thử & IDE
+.pytest_cache/
+.ipynb_checkpoints/
+.vscode/
+.idea/

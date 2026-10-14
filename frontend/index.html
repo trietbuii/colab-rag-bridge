@@ -1,0 +1,773 @@
+<!DOCTYPE html>
+<html lang="vi" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ResearchMate - Your AI Research Assistant</title>
+  <meta name="description" content="Hệ thống trợ lý nghiên cứu & học tập thông minh với RAG và Colab GPU Qwen">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  
+  <link rel="stylesheet" href="styles.css?v=20261014_2">
+</head>
+<body>
+
+  <!-- ==========================================================================
+       APP CONTAINER: 3-COLUMN LAYOUT (RESEARCHMATE - IDENTICAL TO REFERENCE UI)
+       ========================================================================== -->
+  <div class="app-layout">
+    
+    <!-- ==================== CỘT 1: SIDEBAR TRÁI ==================== -->
+    <aside class="sidebar-left">
+      <!-- App Brand -->
+      <div class="brand-header">
+        <div class="brand-logo">
+          <i class="fa-solid fa-sparkles"></i>
+        </div>
+        <div class="brand-info">
+          <h1 class="brand-name">ResearchMate</h1>
+          <p class="brand-sub">Your AI Research Assistant</p>
+        </div>
+      </div>
+
+      <!-- Main Navigation Menu (Chuẩn 4 mục theo đúng ảnh) -->
+      <nav class="nav-menu">
+        <button type="button" class="nav-item active" data-view="chat" id="nav-chat">
+          <i class="fa-regular fa-comment-dots"></i>
+          <span>Chat</span>
+        </button>
+        <button type="button" class="nav-item" data-view="knowledge" id="nav-knowledge">
+          <i class="fa-regular fa-bookmark"></i>
+          <span>Knowledge Base</span>
+        </button>
+        <button type="button" class="nav-item" data-view="projects" id="nav-projects">
+          <i class="fa-regular fa-folder"></i>
+          <span>Projects</span>
+        </button>
+        <button type="button" class="nav-item" data-view="dashboard" id="nav-dashboard">
+          <i class="fa-solid fa-chart-simple"></i>
+          <span>Dashboard</span>
+        </button>
+      </nav>
+
+      <!-- Recent Chats Section -->
+      <div class="recent-chats-section">
+        <div class="recent-header">
+          <span>Recent Chats</span>
+          <button type="button" class="btn-new-chat-icon" id="btn-new-chat" title="Tạo cuộc hội thoại mới">
+            <i class="fa-solid fa-plus"></i>
+          </button>
+        </div>
+        <div class="recent-list" id="recent-chats-list">
+          <!-- Dynamically populated from localStorage/activity -->
+        </div>
+      </div>
+
+      <!-- User Profile Footer -->
+      <div class="user-profile-footer" id="btn-user-profile">
+        <div class="user-avatar-circle">T</div>
+        <div class="user-profile-text">
+          <span class="user-name" id="user-display-name">Triết Bùi</span>
+          <span class="user-email">trietbui@example.com</span>
+        </div>
+        <button type="button" class="btn-profile-settings" id="btn-open-settings-shortcut" title="Đổi cổng kết nối Colab / Đăng xuất">
+          <i class="fa-solid fa-gear"></i>
+        </button>
+      </div>
+    </aside>
+
+    <!-- ==================== CỘT 2: KHUNG CHÍNH (MAIN WORKSPACE) ==================== -->
+    <main class="main-content">
+      
+      <!-- ==================== VIEW 1: CHAT WORKSPACE ==================== -->
+      <section class="view-panel active" id="view-chat">
+        
+        <!-- Chat Header Bar -->
+        <header class="chat-header">
+          <div class="chat-header-title">
+            <h2>Chat</h2>
+          </div>
+
+          <div class="chat-header-controls">
+            <!-- Google Colab Connection Pill Button -->
+            <button type="button" class="colab-status-btn" id="btn-colab-status-badge" title="Cấu hình Google Colab GPU (Tesla T4)">
+              <span class="status-dot-green" id="topbar-colab-dot"></span>
+              <span id="topbar-colab-text">Colab GPU (Tesla T4)</span>
+            </button>
+
+            <!-- Model Selector Dropdown -->
+            <div class="custom-select-wrapper">
+              <select id="select-model" class="model-select">
+                <option value="qwen3-4b" selected>Qwen3-4B (Google Colab GPU T4)</option>
+                <option value="colab-custom">URL Colab Tuỳ chỉnh</option>
+              </select>
+              <i class="fa-solid fa-chevron-down select-chevron"></i>
+            </div>
+
+            <!-- RAG Toggle Switch -->
+            <div class="rag-switch-pill" title="Bật hoặc Tắt tính năng tra cứu RAG từ kho tài liệu">
+              <span class="rag-switch-label">RAG</span>
+              <label class="switch">
+                <input type="checkbox" id="check-enable-rag" checked>
+                <span class="slider round"></span>
+              </label>
+            </div>
+
+            <!-- Theme Toggle Button (Light / Dark) -->
+            <button type="button" class="btn-icon-soft" id="btn-theme-toggle" title="Chuyển chế độ Sáng / Tối">
+              <i class="fa-regular fa-moon" id="theme-toggle-icon"></i>
+            </button>
+
+            <!-- Fullscreen / Window Toggle Button -->
+            <button type="button" class="btn-icon-soft" id="btn-fullscreen-toggle" title="Chế độ toàn màn hình">
+              <i class="fa-regular fa-square"></i>
+            </button>
+          </div>
+        </header>
+
+        <!-- Chat Messages Stream Container -->
+        <div class="chat-messages-scroll" id="chat-messages-container">
+          
+          <!-- Dynamic Welcome State (Shown when no chat yet) -->
+          <div class="chat-welcome-container" id="chat-welcome-container">
+            <div class="welcome-avatar">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+            </div>
+            <h3 class="welcome-title">Xin chào Triết Bùi!</h3>
+            <p class="welcome-desc">
+              Trợ lý RAG tra cứu tri thức nghiên cứu khoa học. Mô hình LLM được xử lý trên <strong>Google Colab GPU (Tesla T4)</strong> kết hợp tìm kiếm vector ngữ nghĩa cục bộ siêu nhẹ.
+            </p>
+            <div class="welcome-chips-grid" id="welcome-prompt-chips">
+              <button type="button" class="prompt-chip" data-prompt="Tóm tắt nội dung chính của đề án mở ngành Khoa học Dữ liệu">
+                <i class="fa-regular fa-file-pdf text-red"></i>
+                <span>Tóm tắt đề án mở ngành Khoa học Dữ liệu</span>
+              </button>
+              <button type="button" class="prompt-chip" data-prompt="RAG là gì và kiến trúc hoạt động từ Zero như thế nào?">
+                <i class="fa-solid fa-brain text-blue"></i>
+                <span>RAG là gì & kiến trúc từ Zero?</span>
+              </button>
+              <button type="button" class="prompt-chip" data-prompt="Chương trình đào tạo ngành Khoa học Dữ liệu gồm những môn học nào?">
+                <i class="fa-solid fa-graduation-cap text-purple"></i>
+                <span>Các môn học ngành Khoa học Dữ liệu</span>
+              </button>
+              <button type="button" class="prompt-chip" data-prompt="Embedding và Vector Store hoạt động như thế nào trong RAG?">
+                <i class="fa-solid fa-vector-square text-orange"></i>
+                <span>Embedding & Vector Store hoạt động ra sao?</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Loading Box (Hidden by default) -->
+          <div class="loading-state-card" id="chat-loading-box" style="display: none;">
+            <div class="pulse-spinner"></div>
+            <div class="loading-text-group">
+              <span class="loading-main-step" id="loading-step-text">Đang đối chiếu tài liệu và truy xuất vector...</span>
+              <span class="loading-timer" id="loading-timer">0.0s</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sticky Chat Input Area at Bottom -->
+        <footer class="chat-input-sticky">
+          <!-- Attached File Preview Badge (if file chosen) -->
+          <div class="attached-file-preview" id="attached-file-pill" style="display: none;">
+            <i class="fa-solid fa-file-lines"></i>
+            <span id="attached-file-name">tailieu.pdf</span>
+            <button type="button" id="btn-remove-attached-file" class="btn-remove-pill">&times;</button>
+          </div>
+
+          <div class="chat-input-container">
+            <!-- Attachment Button (Attach PDF / Doc / TXT) -->
+            <input type="file" id="file-attachment-input" accept=".pdf,.txt,.md,.csv,.doc,.docx" style="display: none;">
+            <button type="button" class="btn-input-addon" id="btn-trigger-attachment" title="Đính kèm tài liệu PDF/Word/TXT">
+              <i class="fa-solid fa-paperclip"></i>
+            </button>
+
+            <!-- Text Input Box -->
+            <textarea 
+              id="prompt-input" 
+              class="chat-textarea" 
+              rows="1" 
+              placeholder="Nhập câu hỏi của bạn... (Bấm Enter hoặc Ctrl+Enter để gửi)"
+            ></textarea>
+
+            <!-- Scope / Knowledge Base Selector Icon -->
+            <button type="button" class="btn-input-addon" id="btn-choose-scope" title="Chọn phạm vi tra cứu (Toàn bộ kho / File đính kèm)">
+              <i class="fa-regular fa-folder-open"></i>
+            </button>
+
+            <!-- Send Button -->
+            <button type="button" class="btn-send-message" id="btn-submit-task" title="Gửi câu hỏi cho AI">
+              <i class="fa-solid fa-paper-plane"></i>
+            </button>
+          </div>
+        </footer>
+
+      </section>
+
+      <!-- ==================== VIEW 2: KNOWLEDGE BASE (QUẢN LÝ TÀI LIỆU) ==================== -->
+      <section class="view-panel" id="view-knowledge" style="display: none;">
+        <header class="section-top-header">
+          <div>
+            <h2>Knowledge Base</h2>
+            <p class="section-sub-text">Quản lý kho tri thức, tài liệu học tập và nghiên cứu (data/raw/)</p>
+          </div>
+          <div class="section-header-actions">
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-reindex-kb-view">
+              <i class="fa-solid fa-arrows-rotate"></i> Lập chỉ mục lại (Re-index)
+            </button>
+            <input type="file" id="kb-view-upload-input" accept=".pdf,.txt,.md,.csv,.doc,.docx" style="display: none;">
+            <button type="button" class="btn btn-primary btn-sm" id="btn-upload-new-doc">
+              <i class="fa-solid fa-plus"></i> Thêm tài liệu
+            </button>
+          </div>
+        </header>
+
+        <div class="kb-content-area">
+          <!-- Search & Filter Ribbon -->
+          <div class="kb-search-row">
+            <div class="search-input-wrapper">
+              <i class="fa-solid fa-magnifying-glass"></i>
+              <input type="text" id="kb-search-box" placeholder="Tìm kiếm tài liệu theo tên...">
+            </div>
+            <div class="kb-type-filter-tabs">
+              <button class="filter-tab active" data-ext="all">Tất cả (<span id="kb-count-all">3</span>)</button>
+              <button class="filter-tab" data-ext="pdf">PDF (<span id="kb-count-pdf">1</span>)</button>
+              <button class="filter-tab" data-ext="docx">DOCX (0)</button>
+              <button class="filter-tab" data-ext="txt">TXT (0)</button>
+              <button class="filter-tab" data-ext="md">Markdown (2)</button>
+            </div>
+          </div>
+
+          <!-- Documents Data Table -->
+          <div class="table-card-wrapper">
+            <table class="modern-data-table">
+              <thead>
+                <tr>
+                  <th>Tên tài liệu</th>
+                  <th>Loại</th>
+                  <th>Dung lượng</th>
+                  <th>Ngày thêm</th>
+                  <th>Trạng thái</th>
+                  <th style="text-align: center;">Thao tác</th>
+                </tr>
+              </thead>
+              <tbody id="kb-full-table-body">
+                <!-- Dynamically rendered from backend -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 3: PROJECTS (KHÔNG GIAN DỰ ÁN) ==================== -->
+      <section class="view-panel" id="view-projects" style="display: none;">
+        <header class="section-top-header">
+          <div>
+            <h2>Projects</h2>
+            <p class="section-sub-text">Không gian phân loại kiến thức theo đề tài nghiên cứu & học phần</p>
+          </div>
+          <button type="button" class="btn btn-primary btn-sm" id="btn-create-project">
+            <i class="fa-solid fa-plus"></i> Tạo dự án
+          </button>
+        </header>
+
+        <div class="projects-grid" id="projects-grid-container">
+          <!-- Dynamically rendered projects from localStorage -->
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 4: DASHBOARD (BẢNG ĐIỀU KHIỂN) ==================== -->
+      <section class="view-panel" id="view-dashboard" style="display: none;">
+        <header class="section-top-header">
+          <div>
+            <h2>Dashboard</h2>
+            <p class="section-sub-text">Tổng quan hoạt động tra cứu tri thức và tài nguyên RAG</p>
+          </div>
+        </header>
+
+        <div class="dashboard-content">
+          <!-- Metric KPI Cards -->
+          <div class="dashboard-metrics-row">
+            <div class="kpi-card">
+              <div class="kpi-title">Tổng tài liệu</div>
+              <div class="kpi-value" id="kpi-total-docs">0</div>
+              <div class="kpi-trend text-green"><i class="fa-solid fa-folder-open"></i> Thư mục data/raw/</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-title">Dung lượng kho</div>
+              <div class="kpi-value" id="kpi-total-size">0 KB</div>
+              <div class="kpi-trend text-blue"><i class="fa-solid fa-hard-drive"></i> Lưu trữ cục bộ</div>
+            </div>
+            <div class="kpi-card">
+              <div class="kpi-title">Tổng Vector Chunks</div>
+              <div class="kpi-value" id="kpi-total-chunks">0</div>
+              <div class="kpi-trend text-purple"><i class="fa-solid fa-cubes-stacked"></i> NumPy Vector Store</div>
+            </div>
+          </div>
+
+          <!-- Activity Chart Card & Model Details -->
+          <div class="dashboard-split-grid">
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <h3>Nhật ký hoạt động & Truy vấn RAG</h3>
+                <span class="badge-tag" id="dash-activity-count">0 truy vấn</span>
+              </div>
+              <div class="dash-activity-scroll" id="dash-activity-list">
+                <!-- Dynamically populated from real queries -->
+              </div>
+            </div>
+
+            <div class="dash-card">
+              <div class="dash-card-header">
+                <h3>Kiến trúc hệ thống RAG</h3>
+              </div>
+              <div class="dash-info-list">
+                <div class="dash-info-row">
+                  <span>Mô hình LLM:</span>
+                  <span class="font-bold text-indigo" id="dash-model-name">Qwen3-4B Q4_K_M (Google Colab GPU Tesla T4)</span>
+                </div>
+                <div class="dash-info-row">
+                  <span>Embedding Model:</span>
+                  <span class="font-mono">intfloat/multilingual-e5-small (Cục bộ)</span>
+                </div>
+                <div class="dash-info-row">
+                  <span>Vector Database:</span>
+                  <span class="font-bold">NumPy Cosine Engine (data/processed/)</span>
+                </div>
+                <div class="dash-info-row">
+                  <span>Trạng thái kết nối:</span>
+                  <span class="badge-status-green" id="dash-connection-status"><i class="fa-solid fa-circle-check"></i> Google Colab GPU & RAG Cục bộ</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ==================== VIEW 5: CÀI ĐẶT (SETTINGS) ==================== -->
+      <section class="view-panel" id="view-settings" style="display: none;">
+        <header class="section-top-header">
+          <div>
+            <h2>Cài đặt</h2>
+            <p class="section-sub-text">Tinh chỉnh mô hình AI, thông số RAG và giao diện hệ thống</p>
+          </div>
+        </header>
+
+        <div class="settings-container">
+          <!-- Settings Group 1: AI Model -->
+          <div class="settings-group-card">
+            <h3>Mô hình AI</h3>
+            <div class="settings-form-row">
+              <label>Model mặc định:</label>
+              <select id="settings-default-model" class="input-box">
+                <option value="qwen3-4b" selected>Qwen3-4B (Google Colab GPU T4)</option>
+                <option value="mock">Local Mock Server</option>
+              </select>
+            </div>
+            <div class="settings-form-row">
+              <label>Embedding model:</label>
+              <input type="text" value="intfloat/multilingual-e5-small (384-dim)" disabled class="input-box font-mono">
+            </div>
+          </div>
+
+          <!-- Settings Group 2: RAG Parameters -->
+          <div class="settings-group-card">
+            <h3>Tham số RAG (Baseline Config)</h3>
+            
+            <div class="settings-form-row">
+              <div>
+                <label>Số đoạn trích dẫn (Top-K Chunks):</label>
+                <p class="setting-desc">Số lượng đoạn văn bản liên quan nhất cung cấp cho LLM</p>
+              </div>
+              <div class="top-k-pill-group">
+                <button type="button" class="btn-chunk-k" data-k="1">1</button>
+                <button type="button" class="btn-chunk-k" data-k="2">2</button>
+                <button type="button" class="btn-chunk-k active" data-k="3">3</button>
+                <button type="button" class="btn-chunk-k" data-k="4">4</button>
+                <button type="button" class="btn-chunk-k" data-k="5">5</button>
+                <button type="button" class="btn-chunk-k" data-k="6">6</button>
+              </div>
+            </div>
+
+            <div class="settings-form-row">
+              <div>
+                <label>Ngưỡng tương đồng (Similarity Threshold):</label>
+                <p class="setting-desc">Chỉ giữ các đoạn có Cosine Similarity lớn hơn ngưỡng này</p>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.8rem;">
+                <input type="range" id="slider-threshold" min="0.0" max="0.90" step="0.05" value="0.40" style="width: 130px;">
+                <span id="label-threshold-val" class="font-mono font-bold text-indigo">0.40</span>
+              </div>
+            </div>
+
+            <div class="settings-form-row">
+              <div>
+                <label>Nhiệt độ sinh từ (Temperature):</label>
+                <p class="setting-desc">0.0 - 0.2 là chuẩn vàng triệt tiêu hoàn toàn ảo giác (hallucination)</p>
+              </div>
+              <div style="display: flex; align-items: center; gap: 0.8rem;">
+                <input type="range" id="slider-temperature" min="0.0" max="0.80" step="0.05" value="0.20" style="width: 130px;">
+                <span id="label-temperature-val" class="font-mono font-bold text-indigo">0.20</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Settings Group 3: Interface -->
+          <div class="settings-group-card">
+            <h3>Giao diện & Ngôn ngữ</h3>
+            <div class="settings-form-row">
+              <label>Chế độ hiển thị:</label>
+              <div class="theme-choice-buttons">
+                <button type="button" class="btn-theme-choice active" id="btn-set-light-theme">
+                  <i class="fa-solid fa-sun"></i> Sáng
+                </button>
+                <button type="button" class="btn-theme-choice" id="btn-set-dark-theme">
+                  <i class="fa-solid fa-moon"></i> Tối
+                </button>
+              </div>
+            </div>
+            <div class="settings-form-row">
+              <label>Ngôn ngữ:</label>
+              <select class="input-box">
+                <option value="vi">Tiếng Việt</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- ==================== CỘT 3: BẢNG TRÍCH DẪN BÊN PHẢI (INSPECTOR PANEL) ==================== -->
+    <aside class="sidebar-right">
+      <!-- Right Panel Header Tabs -->
+      <div class="right-panel-tabs">
+        <button type="button" class="right-tab-item active" data-tab="sources" id="tab-rel-docs" title="Xem danh sách trích dẫn tài liệu RAG">
+          <i class="fa-solid fa-book-open"></i>
+          <span>Tài liệu liên quan</span>
+        </button>
+        <button type="button" class="right-tab-item" data-tab="info" id="tab-sys-info" title="Xem thông tin kiến trúc & Đăng nhập Google Colab GPU">
+          <i class="fa-solid fa-server"></i>
+          <span>Thông tin & Colab GPU</span>
+        </button>
+      </div>
+
+      <!-- Tab Content 1: Tài liệu sử dụng & Thông tin mô hình/hệ thống chuẩn xác -->
+      <div class="right-tab-pane active" id="pane-sources">
+        <!-- Section 0: Kho Tri Thức riêng cho đoạn chat này (Per-Chat Knowledge Base) -->
+        <div class="chat-kb-scope-card" id="chat-kb-scope-card">
+          <div class="pane-section-title" style="display: flex; align-items: center; justify-content: space-between;">
+            <span><i class="fa-solid fa-layer-group" style="color: var(--accent-primary); margin-right: 0.35rem;"></i> KB Cho Đoạn Chat Này</span>
+            <span class="badge-num" id="chat-kb-selected-count">Tất cả</span>
+          </div>
+          <p class="chat-kb-subdesc">Chọn tài liệu cho phép AI tra cứu trong đoạn chat hiện tại:</p>
+          <div class="chat-kb-actions-bar">
+            <button type="button" class="btn-text-action" id="btn-chat-kb-select-all">Tất cả</button>
+            <span class="divider-dot">•</span>
+            <button type="button" class="btn-text-action" id="btn-chat-kb-clear-all">Bỏ chọn</button>
+            <button type="button" class="btn-action-pill" id="btn-upload-to-chat" title="Nạp tệp mới trực tiếp vào đoạn chat này">
+              <i class="fa-solid fa-plus"></i> Nạp tệp cho chat
+            </button>
+            <input type="file" id="chat-kb-file-input" accept=".pdf,.txt,.md,.csv,.doc,.docx" style="display: none;">
+          </div>
+          <div class="chat-kb-doc-list" id="chat-kb-docs-list">
+            <div class="kb-loading-hint">Đang tải danh sách tài liệu...</div>
+          </div>
+        </div>
+
+        <!-- Section 1: Tài liệu được sử dụng trong câu trả lời gần nhất -->
+        <div class="pane-section-title">
+          <span>Tài liệu trích dẫn thực tế</span>
+          <span class="badge-num" id="right-panel-sources-count">0</span>
+        </div>
+
+        <div class="sources-card-list" id="right-panel-sources-list">
+          <div class="empty-sources-state" id="empty-sources-state">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <p>Chưa có trích dẫn nào.<br>Hãy đặt câu hỏi để AI đối chiếu nguồn từ Kho Tri Thức.</p>
+          </div>
+        </div>
+
+        <!-- Section 2: Thông tin mô hình -->
+        <div class="system-status-box">
+          <div class="pane-section-title">Thông tin mô hình</div>
+          <div class="info-kv-table">
+            <div class="kv-row">
+              <span class="kv-key">Model</span>
+              <span class="kv-val" id="inspector-model-name">Qwen3-4B (Google Colab GPU T4)</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Embedding</span>
+              <span class="kv-val" id="inspector-embed-name">multilingual-e5-small (Cục bộ)</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Vector DB</span>
+              <span class="kv-val" id="inspector-vectordb-name">NumPy Vector Store</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Nguồn dữ liệu</span>
+              <span class="kv-val" id="inspector-kb-count">Kho Tri Thức (Đang nạp...)</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Section 3: Trạng thái hệ thống -->
+        <div class="system-status-box">
+          <div class="pane-section-title">
+            <span>Trạng thái hệ thống</span>
+            <span style="font-size: 0.7rem; color: var(--text-muted);">Tesla T4 / Local</span>
+          </div>
+          <div class="status-items-list">
+            <div class="status-check-row" id="row-colab-status-click" style="cursor: pointer;" title="Bấm vào đây để dán link & mật khẩu Google Colab">
+              <span class="status-dot-green" id="inspector-colab-dot"></span>
+              <span class="status-label">Google Colab GPU</span>
+              <div style="margin-left: auto; display: flex; align-items: center; gap: 0.4rem;">
+                <span class="status-live-green" id="inspector-colab-status">Sẵn sàng</span>
+                <span style="font-size: 0.72rem; color: var(--accent-primary); font-weight: 700; text-decoration: underline;"><i class="fa-solid fa-gear"></i> Cấu hình</span>
+              </div>
+            </div>
+            <div class="status-check-row">
+              <span class="status-dot-green"></span>
+              <span class="status-label">Vector Store</span>
+              <span class="status-live-green" id="inspector-vector-status">Đang nạp...</span>
+            </div>
+            <div class="status-check-row">
+              <span class="status-dot-green"></span>
+              <span class="status-label">RAG Engine</span>
+              <span class="status-live-green" id="inspector-rag-status">Sẵn sàng</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tab Content 2: Chi tiết kết nối & Cổng đăng nhập Google Colab -->
+      <div class="right-tab-pane" id="pane-info" style="display: none;">
+        <!-- Card: Trạng thái & Đăng nhập Colab -->
+        <div class="colab-card-box">
+          <div class="pane-section-title">
+            <span>Cổng Kết Nối Google Colab GPU</span>
+            <i class="fa-solid fa-server" style="color: var(--accent-primary);"></i>
+          </div>
+
+          <div class="colab-status-banner disconnected" id="panel-colab-banner">
+            <span id="panel-colab-banner-text"><i class="fa-solid fa-circle-xmark"></i> Chưa kết nối Colab</span>
+            <span class="badge-tag" style="background: rgba(0,0,0,0.06);">Tesla T4</span>
+          </div>
+
+          <div class="form-group" style="margin-top: 0.25rem;">
+            <label class="form-label" style="font-size: 0.78rem;">Đường link Colab Tunnel URL:</label>
+            <input type="text" id="panel-colab-url" class="input-box font-mono" value="https://6a000f9cfeae6b5ad6.gradio.live" placeholder="https://xxxx.gradio.live hoặc cloudflare">
+          </div>
+
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem;">
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.78rem;">Tài khoản:</label>
+              <input type="text" id="panel-colab-user" value="triet" class="input-box">
+            </div>
+            <div class="form-group">
+              <label class="form-label" style="font-size: 0.78rem;">Mật khẩu:</label>
+              <input type="password" id="panel-colab-pass" value="QwenFedora7392!" class="input-box">
+            </div>
+          </div>
+
+          <div class="colab-btn-group">
+            <button type="button" class="btn btn-primary btn-sm" id="btn-panel-colab-connect" style="width: 100%;">
+              <i class="fa-solid fa-bolt"></i> Lưu & Kết Nối Colab GPU
+            </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-panel-colab-mock" style="width: 100%;">
+              <i class="fa-solid fa-flask"></i> Dùng Mock Test Nhanh (Offline)
+            </button>
+          </div>
+          <p style="font-size: 0.73rem; color: var(--text-muted); line-height: 1.4; margin-top: 0.2rem;">
+            💡 Mở file <code>colab/Nghien_Cuu_Khoa_Hoc_Chuan.ipynb</code> trên Google Colab, chạy cell khởi động để lấy link <code>.gradio.live</code> dán vào ô trên.
+          </p>
+        </div>
+
+        <!-- Card: Cấu hình mô hình chi tiết -->
+        <div class="system-status-box">
+          <div class="pane-section-title">Kiến Trúc Hoạt Động</div>
+          <div class="info-kv-table">
+            <div class="kv-row">
+              <span class="kv-key">Mô hình LLM:</span>
+              <span class="kv-val text-indigo">Qwen3-4B Q4_K_M (Tesla T4 GPU)</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Mô hình Embedding:</span>
+              <span class="kv-val font-mono">multilingual-e5-small</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Vector Engine:</span>
+              <span class="kv-val">NumPy Cosine Engine</span>
+            </div>
+            <div class="kv-row">
+              <span class="kv-key">Chống ảo giác:</span>
+              <span class="kv-val" style="color: #10b981;">Bắt buộc trích dẫn số [1]</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </aside>
+
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: CHI TIẾT ĐỐI CHIẾU TRÍCH DẪN GỐC (CITATION PREVIEW DRAWER)
+       ========================================================================== -->
+  <div class="modal-overlay" id="citation-preview-modal" style="display: none;">
+    <div class="modal-card" style="max-width: 650px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <span class="badge-num" id="citation-modal-badge">[1]</span>
+          <span>Đối Chiếu Văn Bản Gốc & Trích Dẫn RAG</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-close-citation-modal">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="citation-meta-box">
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span style="color: var(--text-muted); font-size: 0.85rem;">Tài liệu nguồn:</span>
+            <span style="font-weight: 700; color: var(--accent-primary);" id="citation-modal-source">-</span>
+          </div>
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 0.4rem;">
+            <span style="color: var(--text-muted); font-size: 0.85rem;">Độ tương đồng Cosine:</span>
+            <span style="font-weight: 700; color: #10b981; font-family: var(--font-mono);" id="citation-modal-score">-</span>
+          </div>
+        </div>
+
+        <div style="margin-top: 1rem;">
+          <div style="font-size: 0.82rem; font-weight: 700; color: var(--text-secondary); margin-bottom: 0.4rem;">
+            <i class="fa-solid fa-highlighter" style="color: #f59e0b;"></i> Đoạn văn bản trong tài liệu được AI đối chiếu:
+          </div>
+          <div class="citation-preview-text" id="citation-modal-content">
+            <!-- Populated with <mark class="rag-highlight"> -->
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer" style="display: flex; justify-content: space-between;">
+        <button type="button" class="btn btn-secondary btn-sm" id="btn-copy-citation-text">
+          <i class="fa-regular fa-copy"></i> Sao chép đoạn trích
+        </button>
+        <button type="button" class="btn btn-primary btn-sm" id="btn-close-citation-footer">Đã hiểu</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: CỔNG ĐĂNG NHẬP VÀO COLAB (GATEWAY AUTHENTICATION)
+       ========================================================================== -->
+  <div class="modal-overlay" id="colab-gateway-modal" style="display: none;">
+    <div class="modal-card">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-lock" style="color: var(--accent-primary);"></i>
+          <span>Kết Nối Google Colab GPU</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-close-gateway">&times;</button>
+      </div>
+      <form id="colab-login-form">
+        <div class="modal-body">
+          <p style="font-size: 0.88rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Nhập đường dẫn <strong>Google Colab Tunnel URL</strong> và tài khoản để kết nối GPU T4.
+          </p>
+
+          <div class="form-group">
+            <label class="form-label" for="gateway-colab-url">Colab Tunnel URL:</label>
+            <input 
+              type="text" 
+              id="gateway-colab-url" 
+              class="input-box font-mono" 
+              value="https://6a000f9cfeae6b5ad6.gradio.live"
+              placeholder="https://xxxx.gradio.live (hoặc cloudflare)" 
+              required
+            >
+          </div>
+
+          <div class="form-row" style="display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem;">
+            <div class="form-group">
+              <label class="form-label" for="gateway-colab-user">Tài khoản:</label>
+              <input type="text" id="gateway-colab-user" value="triet" class="input-box" placeholder="admin" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="gateway-colab-pass">Mật khẩu:</label>
+              <input type="password" id="gateway-colab-pass" value="QwenFedora7392!" class="input-box" placeholder="••••••••" required>
+            </div>
+          </div>
+
+          <div style="margin-top: 0.5rem; display: flex; justify-content: space-between; align-items: center;">
+            <button type="button" class="btn-link" id="btn-fill-mock-url">
+              <i class="fa-solid fa-bolt"></i> Dùng Local Mock (Test nhanh)
+            </button>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="submit" class="btn btn-primary" id="btn-gateway-submit" style="width: 100%;">
+            <i class="fa-solid fa-right-to-bracket"></i> Kết Nối Máy Chủ
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: TẠO DỰ ÁN MỚI (CREATE PROJECT MODAL)
+       ========================================================================== -->
+  <div class="modal-overlay" id="create-project-modal" style="display: none;">
+    <div class="modal-card" style="max-width: 480px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-folder-plus" style="color: var(--accent-primary);"></i>
+          <span>Tạo Dự Án Nghiên Cứu Mới</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-close-project-modal">&times;</button>
+      </div>
+      <form id="create-project-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="input-new-project-title">Tên dự án / Học phần:</label>
+            <input type="text" id="input-new-project-title" class="input-box" placeholder="Ví dụ: Khoa học Dữ liệu, Xử lý Ngôn ngữ Tự nhiên" required>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="input-new-project-desc">Mô tả mục tiêu nghiên cứu:</label>
+            <textarea id="input-new-project-desc" class="input-box" rows="3" placeholder="Mục tiêu nghiên cứu, tài liệu tham khảo chính..."></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="select-new-project-icon">Chủ đề biểu tượng:</label>
+            <select id="select-new-project-icon" class="input-box">
+              <option value="robot">🤖 Trí tuệ Nhân tạo & LLMs</option>
+              <option value="database">🗄️ Dữ liệu lớn & Kho dữ liệu</option>
+              <option value="eye">👁️ Thị giác máy tính (Computer Vision)</option>
+              <option value="briefcase">💼 Doanh nghiệp & Ứng dụng</option>
+              <option value="graduation-cap">🎓 Học phần & Đề thi Đại học</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-cancel-project-modal">Hủy</button>
+          <button type="submit" class="btn btn-primary btn-sm" id="btn-submit-create-project">Tạo Dự Án</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Toast Notification Container -->
+  <div class="toast-container" id="toast-container"></div>
+
+  <!-- Markdown Parser (Marked.js) -->
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <script src="app.js?v=20261014_7"></script>
+</body>
+</html>
