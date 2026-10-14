@@ -658,6 +658,7 @@ class ColabAIRequestHandler(http.server.SimpleHTTPRequestHandler):
         similarity_threshold = float(data.get('similarity_threshold', 0.40))
         temperature = float(data.get('temperature', 0.20))
         search_scope = data.get('search_scope', 'all')  # 'all' | 'file' | 'url'
+        ai_response_language = data.get('ai_response_language', 'vi')  # 'vi' | 'en' | 'auto'
 
         file_text = ""
         file_title = ""
@@ -707,7 +708,11 @@ class ColabAIRequestHandler(http.server.SimpleHTTPRequestHandler):
             if not sources and file_text:
                 sources = local_rag_process(prompt, file_text, top_k=top_k)
 
-            src_desc = f"Tệp `{file_name}`" if (file_name and search_scope == 'file') else ("URL `" + target_url + "`" if target_url else "Toàn bộ Kho Tri Thức (`data/raw/`)")
+            is_en = (ai_response_language == 'en')
+            if is_en:
+                src_desc = f"File `{file_name}`" if (file_name and search_scope == 'file') else ("URL `" + target_url + "`" if target_url else "Entire Knowledge Base (`data/raw/`)")
+            else:
+                src_desc = f"Tệp `{file_name}`" if (file_name and search_scope == 'file') else ("URL `" + target_url + "`" if target_url else "Toàn bộ Kho Tri Thức (`data/raw/`)")
             top_src = sources[0]["source"] if sources and "source" in sources[0] else (file_name or "Kho Tri Thức RAG")
             
             # Xây dựng câu trả lời có chứa các thẻ trích dẫn [1], [2] để UI parse thành badge xem trước
@@ -717,15 +722,37 @@ class ColabAIRequestHandler(http.server.SimpleHTTPRequestHandler):
                 for idx, s in enumerate(sources):
                     c_num = idx + 1
                     preview_snippet = s['text'][:140].replace('\n', ' ').strip()
-                    bullet_points.append(
-                        f"- Dựa trên căn cứ từ **{s.get('source', 'Tài liệu')}** [ {c_num} ]: "
-                        f"\"{preview_snippet}...\" (Độ tương đồng Cosine: `{s.get('score', 0.88)}`)."
-                    )
+                    if is_en:
+                        bullet_points.append(
+                            f"- Based on factual grounding from **{s.get('source', 'Document')}** [ {c_num} ]: "
+                            f"\"{preview_snippet}...\" (Cosine Similarity: `{s.get('score', 0.88)}`)."
+                        )
+                    else:
+                        bullet_points.append(
+                            f"- Dựa trên căn cứ từ **{s.get('source', 'Tài liệu')}** [ {c_num} ]: "
+                            f"\"{preview_snippet}...\" (Độ tương đồng Cosine: `{s.get('score', 0.88)}`)."
+                        )
                 citations_text = "\n".join(bullet_points)
             else:
-                citations_text = "- Không tìm thấy đoạn trích nào vượt qua ngưỡng tương đồng (" + str(similarity_threshold) + ")."
+                citations_text = ("- No document chunks exceeded similarity threshold (" + str(similarity_threshold) + ").") if is_en else ("- Không tìm thấy đoạn trích nào vượt qua ngưỡng tương đồng (" + str(similarity_threshold) + ").")
 
-            mock_res = f"""# 🧠 Phân Tích Tra Cứu Tri Thức RAG
+            if is_en:
+                mock_res = f"""# 🧠 RAG Knowledge Analysis
+
+> **Search Scope:** {src_desc}  
+> **Similarity Threshold:** `{similarity_threshold}` | **Temperature:** `{temperature}`  
+> **Your Question:** *"{prompt}"*
+
+### 💡 Synthesized Answer (Anti-Hallucination Guardrails):
+The system verified your inquiry against the semantic vector knowledge base. Below are the verified factual findings with citations [ 1 ]:
+
+{citations_text}
+
+---
+*💡 Tip: Click citation badges **[1]**, **[2]** to view original source excerpts and verify accuracy!*
+"""
+            else:
+                mock_res = f"""# 🧠 Phân Tích Tra Cứu Tri Thức RAG
 
 > **Phạm vi tra cứu:** {src_desc}  
 > **Ngưỡng tương đồng (Threshold):** `{similarity_threshold}` | **Nhiệt độ (Temp):** `{temperature}`  
@@ -765,7 +792,8 @@ Hệ thống đã đối chiếu câu hỏi của bạn với kho dữ liệu ng
                 colab_url, token, target_url, prompt, use_rag, top_k,
                 file_name=file_name, file_text=file_text,
                 username=username, password=password,
-                allowed_docs=allowed_docs, model=model
+                allowed_docs=allowed_docs, model=model,
+                ai_response_language=ai_response_language
             )
             if res['success']:
                 self.send_json_response(200, res['data'])
@@ -780,10 +808,17 @@ Hệ thống đã đối chiếu câu hỏi của bạn với kho dữ liệu ng
         else:
             self.send_json_response(res.get('status', 500), {"detail": res['error']})
 
-    def execute_gradio_predict(self, colab_url, cookie, target_url, prompt, use_rag=True, top_k=3, file_name="", file_text="", username="", password="", allowed_docs=None, model=""):
+    def execute_gradio_predict(self, colab_url, cookie, target_url, prompt, use_rag=True, top_k=3, file_name="", file_text="", username="", password="", allowed_docs=None, model="", ai_response_language="vi"):
         """Performs local RAG on Fedora with optional chat-specific allowed_docs and sends prompt to Colab Qwen model."""
         title = file_name or target_url or "Chat trực tiếp Qwen"
         rag_sources = []
+
+        if ai_response_language == 'en':
+            lang_instruction = "Please read the documents above carefully and answer concisely, accurately, strictly in English:"
+        elif ai_response_language == 'auto':
+            lang_instruction = "Please answer in the same language as the user's question (Vietnamese or English):"
+        else:
+            lang_instruction = "Hãy đọc kỹ thông tin tài liệu trên và trả lời chi tiết, chính xác hoàn toàn bằng tiếng Việt:"
 
         # 1. Local RAG trên Fedora từ File PDF / Văn bản tải lên
         if file_text and file_text.strip():
@@ -796,7 +831,7 @@ Hệ thống đã đối chiếu câu hỏi của bạn với kho dữ liệu ng
                     f"{context_str}\n\n"
                     f"==================================================\n"
                     f"CÂU HỎI / YÊU CẦU: {prompt}\n\n"
-                    f"Hãy đọc kỹ thông tin tài liệu trên và trả lời chi tiết, chính xác bằng tiếng Việt:"
+                    f"{lang_instruction}"
                 )
             else:
                 final_message = f"{prompt}\n\n[Dữ liệu từ file: {file_name}]\n{file_text[:2500]}"
@@ -813,7 +848,7 @@ Hệ thống đã đối chiếu câu hỏi của bạn với kho dữ liệu ng
                     f"{context_str}\n\n"
                     f"==================================================\n"
                     f"CÂU HỎI / YÊU CẦU: {prompt}\n\n"
-                    f"Hãy đọc kỹ thông tin tài liệu trên và trả lời chi tiết, chính xác bằng tiếng Việt:"
+                    f"{lang_instruction}"
                 )
             else:
                 final_message = f"{prompt}\n\n[Nguồn URL tài liệu: {target_url}]"
@@ -828,17 +863,28 @@ Hệ thống đã đối chiếu câu hỏi của bạn với kho dữ liệu ng
                             {"chunk_id": i + 1, "text": s.text, "score": round(float(s.score), 3), "source": s.source}
                             for i, s in enumerate(search_results)
                         ]
-                        from rag.prompts import SYSTEM_PROMPT, RAG_PROMPT_TEMPLATE, build_context
+                        from rag.prompts import get_system_prompt, RAG_PROMPT_TEMPLATE, build_context
+                        sys_prompt = get_system_prompt(ai_response_language)
                         context_str = build_context(search_results)
-                        final_message = f"{SYSTEM_PROMPT}\n\n{RAG_PROMPT_TEMPLATE.format(context=context_str, question=prompt)}"
+                        final_message = f"{sys_prompt}\n\n{RAG_PROMPT_TEMPLATE.format(context=context_str, question=prompt)}"
                         title = f"Kho Tri Thức RAG ({len(search_results)} tài liệu liên quan)"
                     else:
-                        final_message = prompt
+                        if ai_response_language == 'en':
+                            final_message = f"[System: Please answer strictly in English.]\n\n{prompt}"
+                        elif ai_response_language == 'vi':
+                            final_message = f"[Chỉ dẫn: Hãy trả lời hoàn toàn bằng tiếng Việt.]\n\n{prompt}"
+                        else:
+                            final_message = prompt
                 except Exception as e:
                     print(f"RAG search notice: {e}")
                     final_message = prompt
             else:
-                final_message = prompt
+                if ai_response_language == 'en':
+                    final_message = f"[System: Please answer strictly in English.]\n\n{prompt}"
+                elif ai_response_language == 'vi':
+                    final_message = f"[Chỉ dẫn: Hãy trả lời hoàn toàn bằng tiếng Việt.]\n\n{prompt}"
+                else:
+                    final_message = prompt
 
         session = GRADIO_SESSIONS.get(colab_url, {})
         u = session.get('username') or username

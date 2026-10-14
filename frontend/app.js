@@ -6,12 +6,146 @@
 (function () {
   'use strict';
 
+  // --- Multi-language (i18n) Dictionary ---
+  const TRANSLATIONS = {
+    vi: {
+      nav_chat: "Đoạn Chat",
+      nav_kb: "Kho Tri Thức",
+      nav_projects: "Dự Án",
+      nav_dashboard: "Bảng Điều Khiển",
+      nav_settings: "Cài Đặt",
+      recent_chats_title: "CÁC ĐOẠN CHAT GẦN ĐÂY",
+      new_chat_btn: "Đoạn chat mới",
+      chat_title: "Chat",
+      welcome_title: "Trợ lý Nghiên cứu Khoa học RAG",
+      welcome_sub: "Tra cứu tài liệu độ chính xác cao bằng Vector Embeddings & LLM Qwen3-4B",
+      input_placeholder: "Nhập câu hỏi nghiên cứu, đối chiếu tài liệu...",
+      send_btn: "Gửi",
+      tab_sources: "Tài liệu liên quan",
+      tab_info: "Thông tin & Colab GPU",
+      kb_for_chat: "KB CHO ĐOẠN CHAT NÀY",
+      kb_for_chat_sub: "Chọn tài liệu cho phép AI tra cứu trong đoạn chat hiện tại:",
+      select_all: "Tất cả",
+      clear_all: "Bỏ chọn",
+      btn_upload_chat: "+ Nạp tệp cho chat",
+      cited_sources: "TÀI LIỆU TRÍCH DẪN THỰC TẾ",
+      empty_sources: "Chưa có trích dẫn nào.\nHãy đặt câu hỏi để AI đối chiếu nguồn từ Kho Tri Thức.",
+      system_status: "Trạng thái hệ thống",
+      kb_view_title: "Kho Tri Thức",
+      kb_view_sub: "Quản lý kho tri thức, tài liệu học tập và nghiên cứu (data/raw/)",
+      btn_reindex: "Lập chỉ mục lại (Re-index)",
+      btn_upload_new: "+ Thêm tài liệu",
+      btn_create_folder: "+ Tạo thư mục",
+      kb_search_placeholder: "Tìm kiếm tài liệu theo tên...",
+      filter_all: "Tất cả",
+      filter_folders_all: "📂 Tất cả thư mục",
+      th_doc_name: "Tên tài liệu",
+      th_folder: "Thư mục",
+      th_type: "Loại",
+      th_size: "Dung lượng",
+      th_date: "Ngày thêm",
+      th_status: "Trạng thái",
+      th_actions: "Thao tác",
+      status_indexed: "Đã nạp Vector",
+      settings_title: "Cài đặt",
+      settings_desc: "Tinh chỉnh mô hình AI, thông số RAG và giao diện hệ thống",
+      settings_modal_title: "Cài Đặt Hệ Thống",
+      settings_group_ai: "Mô hình AI",
+      settings_group_rag: "Tham số RAG (Baseline Config)",
+      settings_group_ui: "Giao diện & Ngôn ngữ",
+      settings_group_lang: "Ngôn ngữ & Phản hồi AI",
+      label_default_model: "Model mặc định:",
+      label_theme: "Chế độ hiển thị:",
+      theme_light: "Sáng",
+      theme_dark: "Tối",
+      label_ui_lang: "Ngôn ngữ giao diện (UI Language):",
+      desc_ui_lang: "Ngôn ngữ hiển thị toàn bộ nút bấm, bảng và thanh công cụ",
+      label_ai_lang: "Ngôn ngữ phản hồi của AI (AI Response):",
+      desc_ai_lang: "Quy định ngôn ngữ mà mô hình Qwen3-4B sẽ trả lời bạn",
+      label_top_k: "Số đoạn trích dẫn (Top-K Chunks):",
+      desc_top_k: "Số lượng đoạn văn bản liên quan nhất cung cấp cho LLM",
+      label_threshold: "Ngưỡng tương đồng (Similarity Threshold):",
+      desc_threshold: "Chỉ giữ các đoạn có Cosine Similarity lớn hơn ngưỡng này",
+      label_temperature: "Nhiệt độ sinh từ (Temperature):",
+      desc_temperature: "0.0 - 0.2 là chuẩn vàng triệt tiêu hoàn toàn ảo giác (hallucination)",
+      btn_back_to_chat: "Quay lại Chat",
+      btn_save_close: "Lưu & Đóng",
+      btn_open_full_settings: "Xem toàn màn hình"
+    },
+    en: {
+      nav_chat: "Chat",
+      nav_kb: "Knowledge Base",
+      nav_projects: "Projects",
+      nav_dashboard: "Dashboard",
+      nav_settings: "Settings",
+      recent_chats_title: "RECENT CHATS",
+      new_chat_btn: "New Chat",
+      chat_title: "Chat",
+      welcome_title: "RAG Scientific Research Assistant",
+      welcome_sub: "High-precision document retrieval using Vector Embeddings & Qwen3-4B LLM",
+      input_placeholder: "Ask research questions, verify documents...",
+      send_btn: "Send",
+      tab_sources: "Relevant Sources",
+      tab_info: "Info & Colab GPU",
+      kb_for_chat: "KB FOR THIS CHAT",
+      kb_for_chat_sub: "Select documents allowed for AI retrieval in this chat session:",
+      select_all: "Select All",
+      clear_all: "Deselect",
+      btn_upload_chat: "+ Upload for chat",
+      cited_sources: "ACTUAL CITED SOURCES",
+      empty_sources: "No citations yet.\nAsk a question to cross-examine Knowledge Base sources.",
+      system_status: "System Status",
+      kb_view_title: "Knowledge Base",
+      kb_view_sub: "Manage knowledge repositories, academic papers & datasets (data/raw/)",
+      btn_reindex: "Re-index Store",
+      btn_upload_new: "+ Add Document",
+      btn_create_folder: "+ New Folder",
+      kb_search_placeholder: "Search documents by name...",
+      filter_all: "All",
+      filter_folders_all: "📂 All Folders",
+      th_doc_name: "Document Name",
+      th_folder: "Folder",
+      th_type: "Type",
+      th_size: "Size",
+      th_date: "Date Added",
+      th_status: "Status",
+      th_actions: "Actions",
+      status_indexed: "Vector Indexed",
+      settings_title: "Settings",
+      settings_desc: "Configure AI models, RAG parameters and system interface",
+      settings_modal_title: "System Settings",
+      settings_group_ai: "AI Model",
+      settings_group_rag: "RAG Parameters (Baseline Config)",
+      settings_group_ui: "Interface & Language",
+      settings_group_lang: "Language & AI Response",
+      label_default_model: "Default Model:",
+      label_theme: "Display Theme:",
+      theme_light: "Light",
+      theme_dark: "Dark",
+      label_ui_lang: "UI Language:",
+      desc_ui_lang: "Display language for buttons, panels and navigation",
+      label_ai_lang: "AI Response Language:",
+      desc_ai_lang: "Directs the language Qwen3-4B will use to reply to you",
+      label_top_k: "Retrieved Chunks (Top-K):",
+      desc_top_k: "Number of most relevant context chunks supplied to LLM",
+      label_threshold: "Similarity Threshold:",
+      desc_threshold: "Retain only chunks with Cosine Similarity above this cutoff",
+      label_temperature: "Temperature:",
+      desc_temperature: "0.0 - 0.2 is the gold standard eliminating hallucination",
+      btn_back_to_chat: "Back to Chat",
+      btn_save_close: "Save & Close",
+      btn_open_full_settings: "View Fullscreen"
+    }
+  };
+
   // --- App State ---
   const state = {
     colabUrl: localStorage.getItem('colab_url') || 'https://6a000f9cfeae6b5ad6.gradio.live',
     backendType: 'gradio',
     token: 'auth-session-active',
     selectedModel: localStorage.getItem('selected_model') || 'qwen3-4b',
+    uiLanguage: localStorage.getItem('ui_language') || 'vi',
+    aiResponseLanguage: localStorage.getItem('ai_response_language') || 'vi',
     availableDocs: [],
     folders: ['Chung'],
     selectedFolderFilter: 'all',
@@ -165,7 +299,7 @@
     inputNewProjectDesc: document.getElementById('input-new-project-desc'),
     selectNewProjectIcon: document.getElementById('select-new-project-icon'),
 
-    // Settings
+    // Settings & Language
     topKButtons: document.querySelectorAll('.btn-chunk-k'),
     sliderThreshold: document.getElementById('slider-threshold'),
     labelThresholdVal: document.getElementById('label-threshold-val'),
@@ -173,6 +307,28 @@
     labelTemperatureVal: document.getElementById('label-temperature-val'),
     btnSetLightTheme: document.getElementById('btn-set-light-theme'),
     btnSetDarkTheme: document.getElementById('btn-set-dark-theme'),
+    selectUiLanguage: document.getElementById('select-ui-language'),
+    selectAiResponseLanguage: document.getElementById('select-ai-response-language'),
+    btnQuickAiLang: document.getElementById('btn-quick-ai-lang'),
+    labelQuickAiLang: document.getElementById('label-quick-ai-lang'),
+    btnHeaderSettings: document.getElementById('btn-header-settings'),
+    btnBackToChat: document.getElementById('btn-back-to-chat'),
+    btnOpenSettingsShortcut: document.getElementById('btn-open-settings-shortcut'),
+
+    // Quick Settings Modal
+    settingsModal: document.getElementById('settings-modal'),
+    btnCloseSettingsModal: document.getElementById('btn-close-settings-modal'),
+    btnSaveSettingsModal: document.getElementById('btn-save-settings-modal'),
+    btnFullSettingsView: document.getElementById('btn-full-settings-view'),
+    modalSelectUiLanguage: document.getElementById('modal-select-ui-language'),
+    modalSelectAiLanguage: document.getElementById('modal-select-ai-language'),
+    modalBtnLightTheme: document.getElementById('modal-btn-light-theme'),
+    modalBtnDarkTheme: document.getElementById('modal-btn-dark-theme'),
+    modalBtnChunkK: document.querySelectorAll('.modal-btn-chunk-k'),
+    modalSliderThreshold: document.getElementById('modal-slider-threshold'),
+    modalLabelThresholdVal: document.getElementById('modal-label-threshold-val'),
+    modalSliderTemperature: document.getElementById('modal-slider-temperature'),
+    modalLabelTemperatureVal: document.getElementById('modal-label-temperature-val'),
 
     // Citation Modal
     citationPreviewModal: document.getElementById('citation-preview-modal'),
@@ -204,6 +360,7 @@
   // --- Initializer ---
   function init() {
     initTheme();
+    initLanguage();
     loadChatSessions();
     setupSidebarResizeAndCollapse();
     setupNavigation();
@@ -222,6 +379,109 @@
     loadActivityLog();
   }
 
+  // --- Language Management (i18n) & AI Response Language ---
+  function initLanguage() {
+    applyLanguage(state.uiLanguage);
+    setAiResponseLanguage(state.aiResponseLanguage, false);
+  }
+
+  function applyLanguage(lang) {
+    if (!TRANSLATIONS[lang]) lang = 'vi';
+    state.uiLanguage = lang;
+    localStorage.setItem('ui_language', lang);
+
+    const t = TRANSLATIONS[lang];
+
+    // 1. Translate all data-i18n elements
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+      const key = el.getAttribute('data-i18n');
+      if (t[key] !== undefined) {
+        el.textContent = t[key];
+      }
+    });
+
+    // 2. Translate specific placeholders and inputs
+    if (elements.promptInput) {
+      elements.promptInput.placeholder = t.input_placeholder;
+    }
+    if (elements.kbSearchBox) {
+      elements.kbSearchBox.placeholder = t.kb_search_placeholder;
+    }
+
+    // 3. Sync UI Language dropdowns
+    if (elements.selectUiLanguage) elements.selectUiLanguage.value = lang;
+    if (elements.modalSelectUiLanguage) elements.modalSelectUiLanguage.value = lang;
+
+    // 4. Update dynamic empty sources if present
+    const emptyState = document.getElementById('empty-sources-state');
+    if (emptyState && (!state.currentSources || state.currentSources.length === 0)) {
+      const p = emptyState.querySelector('p');
+      if (p) p.innerHTML = t.empty_sources.replace('\n', '<br>');
+    }
+  }
+
+  function setAiResponseLanguage(lang, showNotification = true) {
+    if (!['vi', 'en', 'auto'].includes(lang)) lang = 'vi';
+    state.aiResponseLanguage = lang;
+    localStorage.setItem('ai_response_language', lang);
+
+    if (elements.selectAiResponseLanguage) elements.selectAiResponseLanguage.value = lang;
+    if (elements.modalSelectAiLanguage) elements.modalSelectAiLanguage.value = lang;
+
+    if (elements.labelQuickAiLang) {
+      elements.labelQuickAiLang.textContent = `AI: ${lang.toUpperCase()}`;
+    }
+
+    if (showNotification) {
+      const msg = lang === 'en' 
+        ? 'AI sẽ trả lời bằng English' 
+        : (lang === 'auto' ? 'AI sẽ tự động nhận diện ngôn ngữ câu hỏi' : 'AI sẽ trả lời bằng Tiếng Việt');
+      showToast(msg, 'success');
+    }
+  }
+
+  // --- Quick Settings Modal Logic ---
+  function openSettingsModal() {
+    if (!elements.settingsModal) return;
+    elements.settingsModal.style.display = 'flex';
+
+    // Sync values into modal
+    if (elements.modalSelectUiLanguage) elements.modalSelectUiLanguage.value = state.uiLanguage;
+    if (elements.modalSelectAiLanguage) elements.modalSelectAiLanguage.value = state.aiResponseLanguage;
+
+    // Sync Top-K
+    if (elements.modalBtnChunkK) {
+      elements.modalBtnChunkK.forEach(b => {
+        b.classList.toggle('active', parseInt(b.getAttribute('data-k'), 10) === state.topK);
+      });
+    }
+
+    // Sync Threshold
+    if (elements.modalSliderThreshold) {
+      elements.modalSliderThreshold.value = state.similarityThreshold;
+      if (elements.modalLabelThresholdVal) {
+        elements.modalLabelThresholdVal.textContent = state.similarityThreshold.toFixed(2);
+      }
+    }
+
+    // Sync Temperature
+    if (elements.modalSliderTemperature) {
+      elements.modalSliderTemperature.value = state.temperature;
+      if (elements.modalLabelTemperatureVal) {
+        elements.modalLabelTemperatureVal.textContent = state.temperature.toFixed(2);
+      }
+    }
+
+    // Sync Theme in Modal
+    const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+    if (elements.modalBtnDarkTheme) elements.modalBtnDarkTheme.classList.toggle('active', isDark);
+    if (elements.modalBtnLightTheme) elements.modalBtnLightTheme.classList.toggle('active', !isDark);
+  }
+
+  function closeSettingsModal() {
+    if (elements.settingsModal) elements.settingsModal.style.display = 'none';
+  }
+
   // --- Theme Management (Mặc định Dark Theme chuẩn ảnh chụp) ---
   function initTheme() {
     const savedTheme = localStorage.getItem('researchmate_theme') || 'dark';
@@ -234,11 +494,15 @@
       if (elements.themeToggleIcon) elements.themeToggleIcon.className = 'fa-regular fa-moon';
       if (elements.btnSetDarkTheme) elements.btnSetDarkTheme.classList.add('active');
       if (elements.btnSetLightTheme) elements.btnSetLightTheme.classList.remove('active');
+      if (elements.modalBtnDarkTheme) elements.modalBtnDarkTheme.classList.add('active');
+      if (elements.modalBtnLightTheme) elements.modalBtnLightTheme.classList.remove('active');
     } else {
       document.documentElement.setAttribute('data-theme', 'light');
       if (elements.themeToggleIcon) elements.themeToggleIcon.className = 'fa-solid fa-sun';
       if (elements.btnSetLightTheme) elements.btnSetLightTheme.classList.add('active');
       if (elements.btnSetDarkTheme) elements.btnSetDarkTheme.classList.remove('active');
+      if (elements.modalBtnLightTheme) elements.modalBtnLightTheme.classList.add('active');
+      if (elements.modalBtnDarkTheme) elements.modalBtnDarkTheme.classList.remove('active');
     }
     localStorage.setItem('researchmate_theme', theme);
   }
@@ -261,7 +525,19 @@
     if (shortcutSettings) {
       shortcutSettings.addEventListener('click', (e) => {
         e.stopPropagation();
-        switchView('settings');
+        openSettingsModal();
+      });
+    }
+
+    if (elements.btnHeaderSettings) {
+      elements.btnHeaderSettings.addEventListener('click', () => {
+        openSettingsModal();
+      });
+    }
+
+    if (elements.btnBackToChat) {
+      elements.btnBackToChat.addEventListener('click', () => {
+        switchView('chat');
       });
     }
   }
@@ -514,6 +790,7 @@
       similarity_threshold: state.similarityThreshold,
       temperature: state.temperature,
       search_scope: state.selectedAttachedFile ? 'file' : 'all',
+      ai_response_language: state.aiResponseLanguage || 'vi',
       file_name: state.selectedAttachedFile ? state.selectedAttachedFile.name : '',
       file_base64: state.selectedAttachedFile ? state.selectedAttachedFile.base64 : '',
       username: localStorage.getItem('colab_user') || 'triet',
@@ -1378,28 +1655,146 @@
     }
   }
 
-  // --- Settings View Events ---
+  // --- Settings View Events & Synchronization ---
   function setupSettingsEvents() {
+    // 1. Top-K Buttons (Page & Modal synchronization)
+    function setTopK(k) {
+      state.topK = k;
+      elements.topKButtons.forEach(b => {
+        b.classList.toggle('active', parseInt(b.getAttribute('data-k'), 10) === k);
+      });
+      if (elements.modalBtnChunkK) {
+        elements.modalBtnChunkK.forEach(b => {
+          b.classList.toggle('active', parseInt(b.getAttribute('data-k'), 10) === k);
+        });
+      }
+    }
+
     elements.topKButtons.forEach(btn => {
       btn.addEventListener('click', () => {
-        elements.topKButtons.forEach(b => b.classList.remove('active'));
-        btn.classList.add('active');
-        state.topK = parseInt(btn.getAttribute('data-k'), 10);
+        setTopK(parseInt(btn.getAttribute('data-k'), 10));
       });
     });
 
-    elements.sliderThreshold.addEventListener('input', (e) => {
-      state.similarityThreshold = parseFloat(e.target.value);
-      elements.labelThresholdVal.textContent = state.similarityThreshold.toFixed(2);
-    });
+    if (elements.modalBtnChunkK) {
+      elements.modalBtnChunkK.forEach(btn => {
+        btn.addEventListener('click', () => {
+          setTopK(parseInt(btn.getAttribute('data-k'), 10));
+        });
+      });
+    }
 
-    elements.sliderTemperature.addEventListener('input', (e) => {
-      state.temperature = parseFloat(e.target.value);
-      elements.labelTemperatureVal.textContent = state.temperature.toFixed(2);
-    });
+    // 2. Similarity Threshold (Page & Modal synchronization)
+    function setThreshold(val) {
+      state.similarityThreshold = val;
+      const valStr = val.toFixed(2);
+      if (elements.sliderThreshold) elements.sliderThreshold.value = val;
+      if (elements.labelThresholdVal) elements.labelThresholdVal.textContent = valStr;
+      if (elements.modalSliderThreshold) elements.modalSliderThreshold.value = val;
+      if (elements.modalLabelThresholdVal) elements.modalLabelThresholdVal.textContent = valStr;
+    }
 
-    elements.btnSetLightTheme.addEventListener('click', () => applyTheme('light'));
-    elements.btnSetDarkTheme.addEventListener('click', () => applyTheme('dark'));
+    if (elements.sliderThreshold) {
+      elements.sliderThreshold.addEventListener('input', (e) => {
+        setThreshold(parseFloat(e.target.value));
+      });
+    }
+    if (elements.modalSliderThreshold) {
+      elements.modalSliderThreshold.addEventListener('input', (e) => {
+        setThreshold(parseFloat(e.target.value));
+      });
+    }
+
+    // 3. Temperature (Page & Modal synchronization)
+    function setTemperature(val) {
+      state.temperature = val;
+      const valStr = val.toFixed(2);
+      if (elements.sliderTemperature) elements.sliderTemperature.value = val;
+      if (elements.labelTemperatureVal) elements.labelTemperatureVal.textContent = valStr;
+      if (elements.modalSliderTemperature) elements.modalSliderTemperature.value = val;
+      if (elements.modalLabelTemperatureVal) elements.modalLabelTemperatureVal.textContent = valStr;
+    }
+
+    if (elements.sliderTemperature) {
+      elements.sliderTemperature.addEventListener('input', (e) => {
+        setTemperature(parseFloat(e.target.value));
+      });
+    }
+    if (elements.modalSliderTemperature) {
+      elements.modalSliderTemperature.addEventListener('input', (e) => {
+        setTemperature(parseFloat(e.target.value));
+      });
+    }
+
+    // 4. Theme Choice Buttons
+    if (elements.btnSetLightTheme) elements.btnSetLightTheme.addEventListener('click', () => applyTheme('light'));
+    if (elements.btnSetDarkTheme) elements.btnSetDarkTheme.addEventListener('click', () => applyTheme('dark'));
+    if (elements.modalBtnLightTheme) elements.modalBtnLightTheme.addEventListener('click', () => applyTheme('light'));
+    if (elements.modalBtnDarkTheme) elements.modalBtnDarkTheme.addEventListener('click', () => applyTheme('dark'));
+
+    // 5. UI Language Selection (Both on Page & Modal)
+    if (elements.selectUiLanguage) {
+      elements.selectUiLanguage.value = state.uiLanguage;
+      elements.selectUiLanguage.addEventListener('change', (e) => {
+        applyLanguage(e.target.value);
+        showToast(e.target.value === 'en' ? 'Interface switched to English' : 'Đã đổi giao diện sang Tiếng Việt', 'info');
+      });
+    }
+    if (elements.modalSelectUiLanguage) {
+      elements.modalSelectUiLanguage.value = state.uiLanguage;
+      elements.modalSelectUiLanguage.addEventListener('change', (e) => {
+        applyLanguage(e.target.value);
+        showToast(e.target.value === 'en' ? 'Interface switched to English' : 'Đã đổi giao diện sang Tiếng Việt', 'info');
+      });
+    }
+
+    // 6. AI Response Language Selection (Both on Page & Modal)
+    if (elements.selectAiResponseLanguage) {
+      elements.selectAiResponseLanguage.value = state.aiResponseLanguage;
+      elements.selectAiResponseLanguage.addEventListener('change', (e) => {
+        setAiResponseLanguage(e.target.value, true);
+      });
+    }
+    if (elements.modalSelectAiLanguage) {
+      elements.modalSelectAiLanguage.value = state.aiResponseLanguage;
+      elements.modalSelectAiLanguage.addEventListener('change', (e) => {
+        setAiResponseLanguage(e.target.value, true);
+      });
+    }
+
+    // 7. Quick AI Language Toggle Button in Header
+    if (elements.btnQuickAiLang) {
+      elements.btnQuickAiLang.addEventListener('click', () => {
+        const order = ['vi', 'en', 'auto'];
+        const curIdx = order.indexOf(state.aiResponseLanguage);
+        const nextLang = order[(curIdx + 1) % order.length];
+        setAiResponseLanguage(nextLang, true);
+      });
+    }
+
+    // 8. Settings Modal Open & Close Buttons
+    if (elements.btnCloseSettingsModal) {
+      elements.btnCloseSettingsModal.addEventListener('click', closeSettingsModal);
+    }
+    if (elements.btnSaveSettingsModal) {
+      elements.btnSaveSettingsModal.addEventListener('click', () => {
+        closeSettingsModal();
+        showToast('Đã lưu cấu hình cài đặt thành công!', 'success');
+      });
+    }
+    if (elements.btnFullSettingsView) {
+      elements.btnFullSettingsView.addEventListener('click', () => {
+        closeSettingsModal();
+        switchView('settings');
+      });
+    }
+    if (elements.settingsModal) {
+      elements.settingsModal.addEventListener('click', (e) => {
+        if (e.target === elements.settingsModal) {
+          closeSettingsModal();
+        }
+      });
+    }
   }
 
   // --- Feedback ---
