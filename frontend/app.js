@@ -266,7 +266,15 @@
     btnCancelMoveModal: document.getElementById('btn-cancel-move-modal'),
     kbSearchBox: document.getElementById('kb-search-box'),
     kbFilterTabs: document.querySelectorAll('.filter-tab'),
+    kbCountAll: document.getElementById('kb-count-all'),
+    kbCountPdf: document.getElementById('kb-count-pdf'),
     kbCountDocx: document.getElementById('kb-count-docx'),
+    kbCountTxt: document.getElementById('kb-count-txt'),
+    kbCountMd: document.getElementById('kb-count-md'),
+    kbFoldersSection: document.getElementById('kb-folders-section'),
+    kbFoldersGrid: document.getElementById('kb-folders-grid'),
+    kbFoldersCount: document.getElementById('kb-folders-count'),
+    btnQuickNewFolder: document.getElementById('btn-quick-new-folder'),
     sidebarKbCount: document.getElementById('sidebar-kb-count'),
     kpiTotalDocs: document.getElementById('kpi-total-docs'),
     kpiTotalSize: document.getElementById('kpi-total-size'),
@@ -1204,9 +1212,11 @@
     if (elements.kbViewUploadInput) {
       elements.kbViewUploadInput.addEventListener('change', (e) => {
         if (e.target.files && e.target.files[0]) {
-          const targetFolder = (elements.kbFolderFilter && elements.kbFolderFilter.value !== 'all') 
+          const explicitFolder = elements.kbViewUploadInput.getAttribute('data-target-folder');
+          const targetFolder = explicitFolder || ((elements.kbFolderFilter && elements.kbFolderFilter.value !== 'all') 
             ? elements.kbFolderFilter.value 
-            : 'Chung';
+            : 'Chung');
+          elements.kbViewUploadInput.removeAttribute('data-target-folder');
           uploadFileWithProgress(e.target.files[0], targetFolder, false);
           e.target.value = '';
         }
@@ -1236,15 +1246,17 @@
 
   function setupFolderModals() {
     // 1. Create Folder Modal
-    if (elements.btnCreateFolderModal && elements.createFolderModal) {
-      elements.btnCreateFolderModal.addEventListener('click', () => {
+    const openCreateFolder = () => {
+      if (elements.createFolderModal) {
         elements.createFolderModal.style.display = 'flex';
         if (elements.inputNewFolderName) {
           elements.inputNewFolderName.value = '';
           elements.inputNewFolderName.focus();
         }
-      });
-    }
+      }
+    };
+    if (elements.btnCreateFolderModal) elements.btnCreateFolderModal.addEventListener('click', openCreateFolder);
+    if (elements.btnQuickNewFolder) elements.btnQuickNewFolder.addEventListener('click', openCreateFolder);
 
     const closeCreateFolder = () => {
       if (elements.createFolderModal) elements.createFolderModal.style.display = 'none';
@@ -1332,18 +1344,117 @@
     const extFilter = activeTab ? activeTab.getAttribute('data-ext') : 'all';
     const searchVal = elements.kbSearchBox ? elements.kbSearchBox.value.toLowerCase().trim() : '';
 
-    const rows = elements.kbFullTableBody.querySelectorAll('tr[data-filename]');
-    rows.forEach(r => {
-      const rowFolder = r.getAttribute('data-folder') || 'Chung';
-      const rowExt = r.getAttribute('data-ext') || '';
-      const rowText = r.innerText.toLowerCase();
+    const folderGroups = state.folders || ['Chung'];
 
-      const matchFolder = (filterFolder === 'all') || (rowFolder === filterFolder);
-      const matchExt = (extFilter === 'all') || (rowExt === extFilter);
-      const matchSearch = !searchVal || rowText.includes(searchVal);
+    folderGroups.forEach(folderName => {
+      const dividerRow = elements.kbFullTableBody.querySelector(`tr.folder-group-divider-row[data-group-folder="${folderName}"]`);
+      const emptyRow = elements.kbFullTableBody.querySelector(`tr.empty-folder-row[data-folder="${folderName}"]`);
+      const fileRows = elements.kbFullTableBody.querySelectorAll(`tr[data-filename][data-folder="${folderName}"]`);
 
-      r.style.display = (matchFolder && matchExt && matchSearch) ? '' : 'none';
+      const folderMatches = (filterFolder === 'all') || (folderName === filterFolder);
+
+      let visibleFilesCount = 0;
+      fileRows.forEach(r => {
+        const rowExt = r.getAttribute('data-ext') || '';
+        const rowText = r.innerText.toLowerCase();
+
+        const matchExt = (extFilter === 'all') || (rowExt === extFilter);
+        const matchSearch = !searchVal || rowText.includes(searchVal);
+
+        const isVisible = folderMatches && matchExt && matchSearch;
+        r.style.display = isVisible ? '' : 'none';
+        if (isVisible) visibleFilesCount++;
+      });
+
+      if (emptyRow) {
+        emptyRow.style.display = (folderMatches && extFilter === 'all' && !searchVal) ? '' : 'none';
+      }
+
+      if (dividerRow) {
+        if (filterFolder === 'all') {
+          const shouldShow = visibleFilesCount > 0 || (fileRows.length === 0 && extFilter === 'all' && !searchVal);
+          dividerRow.style.display = shouldShow ? '' : 'none';
+        } else {
+          dividerRow.style.display = folderMatches ? '' : 'none';
+        }
+      }
     });
+
+    // Update active state on folder cards
+    if (elements.kbFoldersGrid) {
+      elements.kbFoldersGrid.querySelectorAll('.kb-folder-card').forEach(card => {
+        const cFolder = card.getAttribute('data-folder');
+        if (cFolder === filterFolder) {
+          card.classList.add('active');
+        } else {
+          card.classList.remove('active');
+        }
+      });
+    }
+  }
+
+  function renderKbFoldersGrid(files) {
+    if (!elements.kbFoldersGrid) return;
+    const folders = state.folders || ['Chung'];
+    if (elements.kbFoldersCount) elements.kbFoldersCount.textContent = folders.length;
+
+    const currentFolder = state.selectedFolderFilter || 'all';
+
+    let html = `
+      <div class="kb-folder-card all-card ${currentFolder === 'all' ? 'active' : ''}" data-folder="all">
+        <i class="fa-solid fa-layer-group kb-folder-card-icon"></i>
+        <div class="kb-folder-card-info">
+          <span class="kb-folder-card-name">Tất cả thư mục</span>
+          <span class="kb-folder-card-count">${files.length} tệp (${folders.length} thư mục)</span>
+        </div>
+      </div>
+    `;
+
+    folders.forEach(f => {
+      const count = files.filter(x => (x.folder || 'Chung') === f).length;
+      const isActive = currentFolder === f;
+      html += `
+        <div class="kb-folder-card ${isActive ? 'active' : ''}" data-folder="${escapeHTML(f)}">
+          <i class="fa-solid fa-folder kb-folder-card-icon"></i>
+          <div class="kb-folder-card-info">
+            <span class="kb-folder-card-name" title="${escapeHTML(f)}">${escapeHTML(f)}</span>
+            <span class="kb-folder-card-count">${count} tài liệu</span>
+          </div>
+        </div>
+      `;
+    });
+
+    html += `
+      <div class="kb-folder-card kb-folder-card-add" id="card-quick-add-folder">
+        <i class="fa-solid fa-folder-plus" style="font-size: 1.15rem; color: var(--accent-primary);"></i>
+        <div class="kb-folder-card-info">
+          <span class="kb-folder-card-name" style="color: var(--accent-primary);">+ Thư mục mới</span>
+        </div>
+      </div>
+    `;
+
+    elements.kbFoldersGrid.innerHTML = html;
+
+    // Attach card click handlers
+    elements.kbFoldersGrid.querySelectorAll('.kb-folder-card[data-folder]').forEach(card => {
+      card.addEventListener('click', () => {
+        const folder = card.getAttribute('data-folder');
+        state.selectedFolderFilter = folder;
+        if (elements.kbFolderFilter) elements.kbFolderFilter.value = folder;
+        filterKbTable();
+      });
+    });
+
+    const addCard = elements.kbFoldersGrid.querySelector('#card-quick-add-folder');
+    if (addCard && elements.createFolderModal) {
+      addCard.addEventListener('click', () => {
+        elements.createFolderModal.style.display = 'flex';
+        if (elements.inputNewFolderName) {
+          elements.inputNewFolderName.value = '';
+          elements.inputNewFolderName.focus();
+        }
+      });
+    }
   }
 
   async function loadRagStatus() {
@@ -1362,7 +1473,7 @@
         if (elements.kbFolderFilter) {
           const currentVal = elements.kbFolderFilter.value || 'all';
           elements.kbFolderFilter.innerHTML = `
-            <option value="all">📂 Tất cả thư mục (${files.length})</option>
+            <option value="all">📂 Tất cả thư mục (${state.folders.length})</option>
             ${state.folders.map(f => {
               const count = files.filter(x => (x.folder || 'Chung') === f).length;
               return `<option value="${escapeHTML(f)}">📁 ${escapeHTML(f)} (${count})</option>`;
@@ -1399,10 +1510,14 @@
         if (elements.kpiTotalChunks) elements.kpiTotalChunks.textContent = totalChunks;
         if (elements.kpiTotalChats) elements.kpiTotalChats.textContent = state.recentChats.length;
 
-        // Update DOCX counter
-        const docxCount = files.filter(f => (f.ext || '').toLowerCase() === 'docx').length;
-        if (elements.kbCountDocx) elements.kbCountDocx.textContent = `(${docxCount})`;
+        // Update all type filter counters accurately
+        if (elements.kbCountAll) elements.kbCountAll.textContent = files.length;
+        if (elements.kbCountPdf) elements.kbCountPdf.textContent = files.filter(f => (f.ext || '').toLowerCase() === 'pdf').length;
+        if (elements.kbCountDocx) elements.kbCountDocx.textContent = files.filter(f => (f.ext || '').toLowerCase() === 'docx').length;
+        if (elements.kbCountTxt) elements.kbCountTxt.textContent = files.filter(f => (f.ext || '').toLowerCase() === 'txt').length;
+        if (elements.kbCountMd) elements.kbCountMd.textContent = files.filter(f => (f.ext || '').toLowerCase() === 'md').length;
 
+        renderKbFoldersGrid(files);
         renderKbTable(files);
       }
     } catch (e) {
@@ -1412,7 +1527,8 @@
 
   function renderKbTable(files) {
     if (!elements.kbFullTableBody) return;
-    if (files.length === 0) {
+    const folders = state.folders || ['Chung'];
+    if (files.length === 0 && folders.length === 0) {
       elements.kbFullTableBody.innerHTML = `
         <tr>
           <td colspan="7" style="padding: 2.5rem; text-align: center; color: var(--text-muted);">
@@ -1423,56 +1539,102 @@
       return;
     }
 
-    elements.kbFullTableBody.innerHTML = files.map(f => {
-      const ext = f.ext || 'txt';
+    const groups = {};
+    folders.forEach(f => { groups[f] = []; });
+    files.forEach(f => {
       const folder = f.folder || 'Chung';
-      const isDocx = ext.toLowerCase() === 'docx';
-      const isPdf = ext.toLowerCase() === 'pdf';
-      const isMd = ext.toLowerCase() === 'md';
+      if (!groups[folder]) groups[folder] = [];
+      groups[folder].push(f);
+    });
 
-      let icon = 'fa-regular fa-file-lines text-purple';
-      let badgeClass = 'docx-purple';
-      if (isPdf) {
-        icon = 'fa-regular fa-file-pdf text-red';
-        badgeClass = 'pdf-purple';
-      } else if (isMd) {
-        icon = 'fa-regular fa-file-code text-blue';
-        badgeClass = 'pdf-blue';
-      } else if (isDocx) {
-        icon = 'fa-regular fa-file-word text-blue';
-        badgeClass = 'docx-purple';
-      }
+    const folderKeys = Object.keys(groups).sort((a, b) => {
+      if (a === 'Chung') return -1;
+      if (b === 'Chung') return 1;
+      return a.localeCompare(b);
+    });
 
-      return `
-        <tr data-ext="${escapeHTML(ext.toLowerCase())}" data-folder="${escapeHTML(folder)}" data-filename="${escapeHTML(f.name)}">
-          <td style="font-weight: 700;">
-            <i class="${icon}" style="margin-right: 0.5rem;"></i>
-            ${escapeHTML(f.name)}
-          </td>
-          <td>
-            <span class="folder-badge" title="Thư mục: ${escapeHTML(folder)}">
-              <i class="fa-regular fa-folder"></i> ${escapeHTML(folder)}
-            </span>
-          </td>
-          <td><span class="badge-num" style="text-transform: uppercase;">${escapeHTML(ext)}</span></td>
-          <td class="font-mono text-muted">${f.size_kb} KB</td>
-          <td class="text-muted">${escapeHTML(f.mtime)}</td>
-          <td>
-            <span class="status-badge-live"><i class="fa-solid fa-check"></i> Đã nạp Vector</span>
-          </td>
-          <td style="text-align: center;">
-            <div style="display: inline-flex; gap: 0.35rem;">
-              <button type="button" class="msg-action-btn btn-move-file" data-name="${escapeHTML(f.name)}" data-folder="${escapeHTML(folder)}" title="Chuyển thư mục cho tệp này">
-                <i class="fa-solid fa-folder-tree" style="color: var(--accent-primary);"></i>
-              </button>
-              <button type="button" class="msg-action-btn btn-delete-file" data-name="${escapeHTML(f.name)}" title="Xóa tài liệu này">
-                <i class="fa-regular fa-trash-can" style="color: #ef4444;"></i>
+    let html = '';
+
+    folderKeys.forEach(folderName => {
+      const docsInFolder = groups[folderName];
+
+      // Folder Group Divider Row
+      html += `
+        <tr class="folder-group-divider-row" data-group-folder="${escapeHTML(folderName)}">
+          <td colspan="7">
+            <div class="folder-group-divider">
+              <div class="folder-group-divider-left">
+                <i class="fa-solid fa-folder-open text-accent"></i>
+                <span>Thư mục: <strong>${escapeHTML(folderName)}</strong></span>
+                <span class="folder-group-divider-badge">${docsInFolder.length} tài liệu</span>
+              </div>
+              <button type="button" class="btn-text-action btn-upload-to-specific-folder" data-folder="${escapeHTML(folderName)}" title="Tải tài liệu vào thư mục ${escapeHTML(folderName)}" style="font-size: 0.72rem;">
+                <i class="fa-solid fa-plus"></i> Thêm tệp vào đây
               </button>
             </div>
           </td>
         </tr>
       `;
-    }).join('');
+
+      if (docsInFolder.length === 0) {
+        html += `
+          <tr class="empty-folder-row" data-folder="${escapeHTML(folderName)}">
+            <td colspan="7">
+              <i class="fa-regular fa-folder-open" style="margin-right: 0.35rem;"></i> Thư mục trống. Bạn có thể kéo thả hoặc nạp tài liệu vào thư mục này.
+            </td>
+          </tr>
+        `;
+      } else {
+        docsInFolder.forEach(f => {
+          const ext = f.ext || 'txt';
+          const folder = f.folder || 'Chung';
+          const isDocx = ext.toLowerCase() === 'docx';
+          const isPdf = ext.toLowerCase() === 'pdf';
+          const isMd = ext.toLowerCase() === 'md';
+
+          let icon = 'fa-regular fa-file-lines text-purple';
+          if (isPdf) {
+            icon = 'fa-regular fa-file-pdf text-red';
+          } else if (isMd) {
+            icon = 'fa-regular fa-file-code text-blue';
+          } else if (isDocx) {
+            icon = 'fa-regular fa-file-word text-blue';
+          }
+
+          html += `
+            <tr data-ext="${escapeHTML(ext.toLowerCase())}" data-folder="${escapeHTML(folder)}" data-filename="${escapeHTML(f.name)}">
+              <td style="font-weight: 700;">
+                <i class="${icon}" style="margin-right: 0.5rem;"></i>
+                ${escapeHTML(f.name)}
+              </td>
+              <td>
+                <span class="folder-badge" title="Thư mục: ${escapeHTML(folder)}">
+                  <i class="fa-regular fa-folder"></i> ${escapeHTML(folder)}
+                </span>
+              </td>
+              <td><span class="badge-num" style="text-transform: uppercase;">${escapeHTML(ext)}</span></td>
+              <td class="font-mono text-muted">${f.size_kb} KB</td>
+              <td class="text-muted">${escapeHTML(f.mtime)}</td>
+              <td>
+                <span class="status-badge-live"><i class="fa-solid fa-check"></i> Đã nạp Vector</span>
+              </td>
+              <td style="text-align: center;">
+                <div style="display: inline-flex; gap: 0.35rem;">
+                  <button type="button" class="msg-action-btn btn-move-file" data-name="${escapeHTML(f.name)}" data-folder="${escapeHTML(folder)}" title="Chuyển thư mục cho tệp này">
+                    <i class="fa-solid fa-folder-tree" style="color: var(--accent-primary);"></i>
+                  </button>
+                  <button type="button" class="msg-action-btn btn-delete-file" data-name="${escapeHTML(f.name)}" title="Xóa tài liệu này">
+                    <i class="fa-regular fa-trash-can" style="color: #ef4444;"></i>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          `;
+        });
+      }
+    });
+
+    elements.kbFullTableBody.innerHTML = html;
 
     // Attach move handlers
     elements.kbFullTableBody.querySelectorAll('.btn-move-file').forEach(btn => {
@@ -1496,7 +1658,17 @@
       });
     });
 
-    // Re-apply filter in case an active filter exists
+    // Attach upload-to-specific-folder handlers
+    elements.kbFullTableBody.querySelectorAll('.btn-upload-to-specific-folder').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const fld = btn.getAttribute('data-folder');
+        if (elements.kbViewUploadInput) {
+          elements.kbViewUploadInput.setAttribute('data-target-folder', fld);
+          elements.kbViewUploadInput.click();
+        }
+      });
+    });
+
     filterKbTable();
   }
 

@@ -17,7 +17,7 @@
   <!-- Font Awesome Icons -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
   
-  <link rel="stylesheet" href="styles.css?v=20261014_2">
+  <link rel="stylesheet" href="styles.css?v=20261014_12">
 </head>
 <body>
 
@@ -265,11 +265,28 @@
               </select>
             </div>
             <div class="kb-type-filter-tabs">
-              <button class="filter-tab active" data-ext="all">Tất cả (<span id="kb-count-all">4</span>)</button>
-              <button class="filter-tab" data-ext="pdf">PDF (<span id="kb-count-pdf">1</span>)</button>
-              <button class="filter-tab" data-ext="docx">DOCX (<span id="kb-count-docx">1</span>)</button>
-              <button class="filter-tab" data-ext="txt">TXT (0)</button>
-              <button class="filter-tab" data-ext="md">Markdown (2)</button>
+              <button class="filter-tab active" data-ext="all">Tất cả (<span id="kb-count-all">0</span>)</button>
+              <button class="filter-tab" data-ext="pdf">PDF (<span id="kb-count-pdf">0</span>)</button>
+              <button class="filter-tab" data-ext="docx">DOCX (<span id="kb-count-docx">0</span>)</button>
+              <button class="filter-tab" data-ext="txt">TXT (<span id="kb-count-txt">0</span>)</button>
+              <button class="filter-tab" data-ext="md">Markdown (<span id="kb-count-md">0</span>)</button>
+            </div>
+          </div>
+
+          <!-- Folders Explorer Section -->
+          <div class="kb-folders-section" id="kb-folders-section">
+            <div class="kb-folders-header">
+              <div class="kb-folders-header-title">
+                <i class="fa-solid fa-folder-tree text-accent"></i>
+                <span>Thư mục lưu trữ</span>
+                <span class="badge-num" id="kb-folders-count">0</span>
+              </div>
+              <button type="button" class="btn-text-action" id="btn-quick-new-folder" style="display: flex; align-items: center; gap: 0.3rem;">
+                <i class="fa-solid fa-plus"></i> Thư mục mới
+              </button>
+            </div>
+            <div class="kb-folders-grid" id="kb-folders-grid">
+              <!-- Dynamically populated from backend folders -->
             </div>
           </div>
 
@@ -1029,6 +1046,6 @@
 
   <!-- Markdown Parser (Marked.js) -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="app.js?v=20261014_10"></script>
+  <script src="app.js?v=20261014_12"></script>
 </body>
 </html>
