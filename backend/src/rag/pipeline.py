@@ -140,8 +140,13 @@ class RAGPipeline:
         return RAGAnswer(answer=answer_text, sources=results)
 
     def delete_document(self, filename: str) -> int:
-        """Xóa file khỏi data/raw/ và re-ingest lại toàn bộ."""
+        """Xóa file khỏi data/raw/ (kể cả trong thư mục con) và re-ingest lại toàn bộ."""
         target_file = self.settings.raw_dir / filename
+        if not target_file.exists():
+            for p in self.settings.raw_dir.rglob("*"):
+                if p.is_file() and (p.name == filename or str(p.relative_to(self.settings.raw_dir)) == filename):
+                    target_file = p
+                    break
         if target_file.exists():
             target_file.unlink()
         return self.ingest()

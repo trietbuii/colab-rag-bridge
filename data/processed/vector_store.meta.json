@@ -1,15 +1,5 @@
 [
   {
-    "text": "# RAG là gì?\n\nRAG (Retrieval-Augmented Generation — Sinh câu trả lời có tăng cường truy hồi) là\nmột kỹ thuật kết hợp giữa TÌM KIẾM thông tin và MÔ HÌNH NGÔN NGỮ LỚN (LLM).\n\nThay vì để LLM tự trả lời chỉ dựa trên kiến thức đã học (dễ bịa, dễ lỗi thời), RAG\nthực hiện hai việc: trước tiên tìm những đoạn tài liệu liên quan tới câu hỏi, sau đó\nđưa các đoạn này vào cho LLM làm ngữ cảnh để sinh câu trả lời có căn cứ.\n\n## Vì sao cần RAG?\n\n- Giảm hiện tượng \"ảo giác\" (hallucination): câu trả lời bám vào tài liệu thật.\n- Cập nhật kiến thức mới mà không cần huấn luyện lại mô hình: chỉ cần thêm tài liệu.\n- Trả lời được câu hỏi trên dữ liệu riêng (nội bộ doanh nghiệp, giáo trình, sổ tay...).\n- Có thể trích dẫn nguồn, giúp người dùng kiểm chứng.\n\n## Sáu bước cốt lõi của một pipeline RAG\n\n1. Load: đọc tà",
-    "source": "01-rag-la-gi.md",
-    "index": 0
-  },
-  {
-    "text": "ay...).\n- Có thể trích dẫn nguồn, giúp người dùng kiểm chứng.\n\n## Sáu bước cốt lõi của một pipeline RAG\n\n1. Load: đọc tài liệu thô (txt, md, pdf...).\n2. Chunk: chia tài liệu dài thành các đoạn nhỏ có phần chồng lấn.\n3. Embed: biến mỗi đoạn thành một vector số bằng mô hình embedding.\n4. Store: lưu các vector vào một \"vector store\" để tìm kiếm nhanh.\n5. Retrieve: với mỗi câu hỏi, tìm các đoạn có vector gần nghĩa nhất (cosine).\n6. Generate: đưa các đoạn tìm được cùng câu hỏi vào LLM để sinh câu trả lời.\n\nBốn bước đầu chạy MỘT LẦN (offline) khi có tài liệu mới. Hai bước cuối chạy mỗi khi\ncó câu hỏi (online).",
-    "source": "01-rag-la-gi.md",
-    "index": 1
-  },
-  {
     "text": "# Embedding và Vector Store\n\n## Embedding là gì?\n\nEmbedding (vector nhúng) là cách biến một đoạn văn bản thành một dãy số thực, ví dụ\n768 chiều. Dãy số này biểu diễn \"ý nghĩa\" của đoạn văn. Đặc điểm quan trọng: hai đoạn\nvăn có nội dung gần nghĩa nhau sẽ cho ra hai vector nằm gần nhau trong không gian.\n\nNhờ đó máy tính có thể so sánh NGỮ NGHĨA thay vì chỉ so khớp từ khoá. Ví dụ \"xe hơi\"\nvà \"ô tô\" tuy khác chữ nhưng vector của chúng rất gần nhau.\n\nTrong project này, embedding được tạo bằng mô hình MIỄN PHÍ chạy cục bộ trên máy\n(intfloat/multilingual-e5-small qua thư viện sentence-transformers), nên không tốn\nquota API và chạy được cả khi offline. Model họ E5 thêm tiền tố \"passage:\" cho tài liệu\nvà \"query:\" cho câu hỏi để tối ưu chất lượng tìm kiếm. Google Gemini chỉ còn được dùng\nở bước cuối",
     "source": "02-embedding-va-vector-store.md",
     "index": 0
@@ -1723,6 +1713,16 @@
     "text": "el and Notation,” Wikimedia Foundation, [Trực tuyến]. Available: https://en.wikipedia.org/wiki/Business_Process_Model_and_Notation. [Đã truy cập 26 May 2026].",
     "source": "Báo cáo Hoạch định Nguồn lực doanh nghiệp.docx",
     "index": 339
+  },
+  {
+    "text": "# RAG là gì?\n\nRAG (Retrieval-Augmented Generation — Sinh câu trả lời có tăng cường truy hồi) là\nmột kỹ thuật kết hợp giữa TÌM KIẾM thông tin và MÔ HÌNH NGÔN NGỮ LỚN (LLM).\n\nThay vì để LLM tự trả lời chỉ dựa trên kiến thức đã học (dễ bịa, dễ lỗi thời), RAG\nthực hiện hai việc: trước tiên tìm những đoạn tài liệu liên quan tới câu hỏi, sau đó\nđưa các đoạn này vào cho LLM làm ngữ cảnh để sinh câu trả lời có căn cứ.\n\n## Vì sao cần RAG?\n\n- Giảm hiện tượng \"ảo giác\" (hallucination): câu trả lời bám vào tài liệu thật.\n- Cập nhật kiến thức mới mà không cần huấn luyện lại mô hình: chỉ cần thêm tài liệu.\n- Trả lời được câu hỏi trên dữ liệu riêng (nội bộ doanh nghiệp, giáo trình, sổ tay...).\n- Có thể trích dẫn nguồn, giúp người dùng kiểm chứng.\n\n## Sáu bước cốt lõi của một pipeline RAG\n\n1. Load: đọc tà",
+    "source": "Tài liệu môn học/01-rag-la-gi.md",
+    "index": 0
+  },
+  {
+    "text": "ay...).\n- Có thể trích dẫn nguồn, giúp người dùng kiểm chứng.\n\n## Sáu bước cốt lõi của một pipeline RAG\n\n1. Load: đọc tài liệu thô (txt, md, pdf...).\n2. Chunk: chia tài liệu dài thành các đoạn nhỏ có phần chồng lấn.\n3. Embed: biến mỗi đoạn thành một vector số bằng mô hình embedding.\n4. Store: lưu các vector vào một \"vector store\" để tìm kiếm nhanh.\n5. Retrieve: với mỗi câu hỏi, tìm các đoạn có vector gần nghĩa nhất (cosine).\n6. Generate: đưa các đoạn tìm được cùng câu hỏi vào LLM để sinh câu trả lời.\n\nBốn bước đầu chạy MỘT LẦN (offline) khi có tài liệu mới. Hai bước cuối chạy mỗi khi\ncó câu hỏi (online).",
+    "source": "Tài liệu môn học/01-rag-la-gi.md",
+    "index": 1
   },
   {
     "text": "--- [Trang 1] ---\n1 \nĐẠI HỌC QUỐC GIA TP. HCM CỘNG HÒA XÃ HỘI CHỦ NGHĨA VIỆT NAM \nTRƯỜNG ĐẠI HỌC  \nCÔNG NGHỆ THÔNG TIN \nĐộc lập – Tự do – Hạnh phúc \n TP. HCM, ngày     tháng     năm  \nCHƯƠNG TRÌNH ĐÀO TẠO TRÌNH ĐỘ ĐẠI HỌC \n \n1. Thông tin chung về chương trình đào tạo \n- Tên ngành đào tạo:  \n+ Tiếng Việt: Khoa học dữ liệu \n+ Tiếng Anh: Data Science \n- Mã ngành đào tạo: 7480109 (Mã thử nghiệm). \n- Trình độ đào tạo: Đại học \n- Loại hình đào tạo: Chính quy tập trung. \n- Thời gian đào tạo: 4 năm (8 học kỳ chính). \n- Tên văn bằng sau khi tốt nghiệp:  \n+ Tiếng Việt: Cử nhân khoa học ngành Khoa học dữ liệu. \n+ Tiếng Anh: Bachelor of Science in Data Science. \n- Nơi đào tạo: Trường Đại học Công nghệ Thông tin \n2. Mục tiêu đào tạo  \na. Mục tiêu chung \nĐào tạo cử nhân ngành Khoa học dữ liệu có đủ kiến",

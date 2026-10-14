@@ -13,8 +13,12 @@
     token: 'auth-session-active',
     selectedModel: localStorage.getItem('selected_model') || 'qwen3-4b',
     availableDocs: [],
+    folders: ['Chung'],
+    selectedFolderFilter: 'all',
     activeChatId: 'chat-default',
     chatSessions: {},
+    sidebarCollapsed: localStorage.getItem('sidebar_collapsed') === 'true',
+    movingFile: null,
     useRag: true,
     topK: 3,
     similarityThreshold: 0.40,
@@ -43,6 +47,8 @@
     checkEnableRag: document.getElementById('check-enable-rag'),
     btnThemeToggle: document.getElementById('btn-theme-toggle'),
     themeToggleIcon: document.getElementById('theme-toggle-icon'),
+    btnFullscreenToggle: document.getElementById('btn-fullscreen-toggle'),
+    btnToggleRightPanel: document.getElementById('btn-toggle-right-panel'),
     btnReconnectSwitch: document.getElementById('btn-reconnect-switch'),
     btnColabStatusBadge: document.getElementById('btn-colab-status-badge'),
     topbarColabDot: document.getElementById('topbar-colab-dot'),
@@ -69,11 +75,18 @@
     btnDownloadMd: document.getElementById('btn-download-md'),
 
     // Right Inspector Panel
+    sidebarRight: document.getElementById('sidebar-right'),
+    sidebarResizer: document.getElementById('sidebar-resizer'),
+    btnToggleSidebar: document.getElementById('btn-toggle-sidebar'),
+    btnFloatingExpandSidebar: document.getElementById('btn-floating-expand-sidebar'),
     tabRelDocs: document.getElementById('tab-rel-docs'),
     tabSysInfo: document.getElementById('tab-sys-info'),
     paneSources: document.getElementById('pane-sources'),
     paneInfo: document.getElementById('pane-info'),
     chatKbScopeCard: document.getElementById('chat-kb-scope-card'),
+    chatKbCardHeader: document.getElementById('chat-kb-card-header'),
+    chatKbCardBody: document.getElementById('chat-kb-card-body'),
+    chatKbChevron: document.getElementById('chat-kb-chevron'),
     chatKbSelectedCount: document.getElementById('chat-kb-selected-count'),
     btnChatKbSelectAll: document.getElementById('btn-chat-kb-select-all'),
     btnChatKbClearAll: document.getElementById('btn-chat-kb-clear-all'),
@@ -104,8 +117,22 @@
     btnUploadNewDoc: document.getElementById('btn-upload-new-doc'),
     kbViewUploadInput: document.getElementById('kb-view-upload-input'),
     btnReindexKbView: document.getElementById('btn-reindex-kb-view'),
+    btnCreateFolderModal: document.getElementById('btn-create-folder-modal'),
+    createFolderModal: document.getElementById('create-folder-modal'),
+    createFolderForm: document.getElementById('create-folder-form'),
+    inputNewFolderName: document.getElementById('input-new-folder-name'),
+    btnCloseFolderModal: document.getElementById('btn-close-folder-modal'),
+    btnCancelFolderModal: document.getElementById('btn-cancel-folder-modal'),
+    kbFolderFilter: document.getElementById('kb-folder-filter'),
+    moveFileModal: document.getElementById('move-file-modal'),
+    moveFileForm: document.getElementById('move-file-form'),
+    moveFileTargetName: document.getElementById('move-file-target-name'),
+    selectMoveTargetFolder: document.getElementById('select-move-target-folder'),
+    btnCloseMoveModal: document.getElementById('btn-close-move-modal'),
+    btnCancelMoveModal: document.getElementById('btn-cancel-move-modal'),
     kbSearchBox: document.getElementById('kb-search-box'),
     kbFilterTabs: document.querySelectorAll('.filter-tab'),
+    kbCountDocx: document.getElementById('kb-count-docx'),
     sidebarKbCount: document.getElementById('sidebar-kb-count'),
     kpiTotalDocs: document.getElementById('kpi-total-docs'),
     kpiTotalSize: document.getElementById('kpi-total-size'),
@@ -115,6 +142,17 @@
     dashConnectionStatus: document.getElementById('dash-connection-status'),
     dashActivityList: document.getElementById('dash-activity-list'),
     dashActivityCount: document.getElementById('dash-activity-count'),
+
+    // Upload Progress Modal
+    uploadProgressModal: document.getElementById('upload-progress-modal'),
+    uploadProgressFilename: document.getElementById('upload-progress-filename'),
+    uploadProgressSub: document.getElementById('upload-progress-sub'),
+    uploadProgressPct: document.getElementById('upload-progress-pct'),
+    uploadProgressFill: document.getElementById('upload-progress-fill'),
+    stepUpload: document.getElementById('step-upload'),
+    stepExtract: document.getElementById('step-extract'),
+    stepEmbed: document.getElementById('step-embed'),
+    stepDone: document.getElementById('step-done'),
 
     // Projects View
     projectsGridContainer: document.getElementById('projects-grid-container'),
@@ -167,12 +205,14 @@
   function init() {
     initTheme();
     loadChatSessions();
+    setupSidebarResizeAndCollapse();
     setupNavigation();
     setupChatEvents();
     setupChatKbEvents();
     setupRightPanelTabs();
     setupSettingsEvents();
     setupKnowledgeBase();
+    setupFolderModals();
     setupProjectsEvents();
     setupColabPanelEvents();
     updateColabStatusUI();
@@ -678,7 +718,99 @@
     elements.chatMessagesContainer.scrollTop = elements.chatMessagesContainer.scrollHeight;
   }
 
-  // --- Right Panel Inspector ---
+  // --- Right Panel Inspector & Sidebar Resizer / Collapsible ---
+  function setupSidebarResizeAndCollapse() {
+    if (!elements.sidebarRight) return;
+
+    // 1. Resizer dragging
+    if (elements.sidebarResizer) {
+      let isResizing = false;
+      let startX = 0;
+      let startWidth = 0;
+
+      elements.sidebarResizer.addEventListener('mousedown', (e) => {
+        isResizing = true;
+        startX = e.clientX;
+        startWidth = elements.sidebarRight.getBoundingClientRect().width;
+        document.body.style.cursor = 'col-resize';
+        document.body.style.userSelect = 'none';
+
+        const onMouseMove = (ev) => {
+          if (!isResizing) return;
+          const diffX = startX - ev.clientX; // dragging left increases right sidebar width
+          let newWidth = startWidth + diffX;
+          if (newWidth < 260) newWidth = 260;
+          if (newWidth > 640) newWidth = 640;
+          elements.sidebarRight.style.width = `${newWidth}px`;
+        };
+
+        const onMouseUp = () => {
+          if (isResizing) {
+            isResizing = false;
+            document.body.style.cursor = '';
+            document.body.style.userSelect = '';
+            window.removeEventListener('mousemove', onMouseMove);
+            window.removeEventListener('mouseup', onMouseUp);
+          }
+        };
+
+        window.addEventListener('mousemove', onMouseMove);
+        window.addEventListener('mouseup', onMouseUp);
+      });
+    }
+
+    // 2. Collapse / Expand Sidebar
+    function setSidebarCollapsed(collapsed) {
+      state.sidebarCollapsed = collapsed;
+      localStorage.setItem('sidebar_collapsed', collapsed ? 'true' : 'false');
+      if (collapsed) {
+        elements.sidebarRight.classList.add('collapsed');
+        if (elements.btnFloatingExpandSidebar) elements.btnFloatingExpandSidebar.style.display = 'flex';
+        if (elements.btnToggleRightPanel) elements.btnToggleRightPanel.classList.add('active');
+      } else {
+        elements.sidebarRight.classList.remove('collapsed');
+        if (elements.btnFloatingExpandSidebar) elements.btnFloatingExpandSidebar.style.display = 'none';
+        if (elements.btnToggleRightPanel) elements.btnToggleRightPanel.classList.remove('active');
+      }
+    }
+
+    if (elements.btnToggleSidebar) {
+      elements.btnToggleSidebar.addEventListener('click', () => {
+        setSidebarCollapsed(true);
+        showToast('Đã thu gọn thanh bên phải. Nhấn nút nổi hoặc icon trên thanh công cụ để mở lại.', 'info');
+      });
+    }
+
+    if (elements.btnToggleRightPanel) {
+      elements.btnToggleRightPanel.addEventListener('click', () => {
+        setSidebarCollapsed(!state.sidebarCollapsed);
+      });
+    }
+
+    if (elements.btnFloatingExpandSidebar) {
+      elements.btnFloatingExpandSidebar.addEventListener('click', () => {
+        setSidebarCollapsed(false);
+      });
+    }
+
+    // Restore initial state
+    if (state.sidebarCollapsed) {
+      setSidebarCollapsed(true);
+    }
+
+    // 3. Chat KB Card Accordion toggle (in right inspector)
+    if (elements.chatKbCardHeader && elements.chatKbCardBody) {
+      elements.chatKbCardHeader.addEventListener('click', (e) => {
+        if (e.target.closest('button') || e.target.closest('input')) return;
+        const isHidden = elements.chatKbCardBody.style.display === 'none';
+        elements.chatKbCardBody.style.display = isHidden ? 'block' : 'none';
+        if (elements.chatKbChevron) {
+          elements.chatKbChevron.style.transform = isHidden ? 'rotate(0deg)' : 'rotate(-90deg)';
+        }
+      });
+    }
+  }
+
   function setupRightPanelTabs() {
     elements.tabRelDocs.addEventListener('click', () => {
       elements.tabRelDocs.classList.add('active');
@@ -786,44 +918,154 @@
 
   // --- Knowledge Base & Backend Status ---
   function setupKnowledgeBase() {
-    elements.btnUploadNewDoc.addEventListener('click', () => {
-      elements.kbViewUploadInput.click();
-    });
+    if (elements.btnUploadNewDoc) {
+      elements.btnUploadNewDoc.addEventListener('click', () => {
+        elements.kbViewUploadInput.click();
+      });
+    }
 
-    elements.kbViewUploadInput.addEventListener('change', (e) => {
-      if (e.target.files && e.target.files[0]) {
-        uploadFileToKnowledgeBase(e.target.files[0]);
-      }
-    });
+    if (elements.kbViewUploadInput) {
+      elements.kbViewUploadInput.addEventListener('change', (e) => {
+        if (e.target.files && e.target.files[0]) {
+          const targetFolder = (elements.kbFolderFilter && elements.kbFolderFilter.value !== 'all') 
+            ? elements.kbFolderFilter.value 
+            : 'Chung';
+          uploadFileWithProgress(e.target.files[0], targetFolder, false);
+          e.target.value = '';
+        }
+      });
+    }
 
-    elements.btnReindexKbView.addEventListener('click', reindexKnowledgeBase);
+    if (elements.btnReindexKbView) {
+      elements.btnReindexKbView.addEventListener('click', reindexKnowledgeBase);
+    }
 
     // Search filter
-    elements.kbSearchBox.addEventListener('input', (e) => {
-      const q = e.target.value.toLowerCase();
-      const rows = elements.kbFullTableBody.querySelectorAll('tr');
-      rows.forEach(r => {
-        const text = r.innerText.toLowerCase();
-        r.style.display = text.includes(q) ? '' : 'none';
+    if (elements.kbSearchBox) {
+      elements.kbSearchBox.addEventListener('input', () => {
+        filterKbTable();
       });
-    });
+    }
 
     // Tab filter
     elements.kbFilterTabs.forEach(tab => {
       tab.addEventListener('click', () => {
         elements.kbFilterTabs.forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
-        const ext = tab.getAttribute('data-ext');
-        const rows = elements.kbFullTableBody.querySelectorAll('tr');
-        rows.forEach(r => {
-          if (ext === 'all') {
-            r.style.display = '';
-          } else {
-            const rowExt = r.getAttribute('data-ext');
-            r.style.display = (rowExt === ext) ? '' : 'none';
-          }
-        });
+        filterKbTable();
       });
+    });
+  }
+
+  function setupFolderModals() {
+    // 1. Create Folder Modal
+    if (elements.btnCreateFolderModal && elements.createFolderModal) {
+      elements.btnCreateFolderModal.addEventListener('click', () => {
+        elements.createFolderModal.style.display = 'flex';
+        if (elements.inputNewFolderName) {
+          elements.inputNewFolderName.value = '';
+          elements.inputNewFolderName.focus();
+        }
+      });
+    }
+
+    const closeCreateFolder = () => {
+      if (elements.createFolderModal) elements.createFolderModal.style.display = 'none';
+    };
+    if (elements.btnCloseFolderModal) elements.btnCloseFolderModal.addEventListener('click', closeCreateFolder);
+    if (elements.btnCancelFolderModal) elements.btnCancelFolderModal.addEventListener('click', closeCreateFolder);
+
+    if (elements.createFolderForm) {
+      elements.createFolderForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const folderName = elements.inputNewFolderName ? elements.inputNewFolderName.value.trim() : '';
+        if (!folderName) return;
+
+        try {
+          const res = await fetch('/api/rag/create-folder', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ folder_name: folderName })
+          });
+          const data = await res.json();
+          if (res.ok) {
+            showToast(data.message || `Đã tạo thư mục "${folderName}"!`, 'success');
+            closeCreateFolder();
+            await loadRagStatus();
+          } else {
+            showToast(data.detail || 'Lỗi khi tạo thư mục', 'error');
+          }
+        } catch (err) {
+          showToast(`Lỗi: ${err.message}`, 'error');
+        }
+      });
+    }
+
+    // 2. Move File Modal
+    const closeMoveModal = () => {
+      if (elements.moveFileModal) elements.moveFileModal.style.display = 'none';
+      state.movingFile = null;
+    };
+    if (elements.btnCloseMoveModal) elements.btnCloseMoveModal.addEventListener('click', closeMoveModal);
+    if (elements.btnCancelMoveModal) elements.btnCancelMoveModal.addEventListener('click', closeMoveModal);
+
+    if (elements.moveFileForm) {
+      elements.moveFileForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        if (!state.movingFile) return;
+        const targetFolder = elements.selectMoveTargetFolder ? elements.selectMoveTargetFolder.value : 'Chung';
+
+        try {
+          showToast(`Đang chuyển "${state.movingFile}" sang thư mục "${targetFolder}"...`, 'info');
+          const res = await fetch('/api/rag/move-file', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              filename: state.movingFile,
+              target_folder: targetFolder
+            })
+          });
+          const data = await res.json();
+          if (res.ok) {
+            showToast(data.message || 'Đã chuyển thư mục thành công!', 'success');
+            closeMoveModal();
+            await loadRagStatus();
+          } else {
+            showToast(data.detail || 'Lỗi khi chuyển thư mục', 'error');
+          }
+        } catch (err) {
+          showToast(`Lỗi: ${err.message}`, 'error');
+        }
+      });
+    }
+
+    // 3. KB Folder Filter Dropdown
+    if (elements.kbFolderFilter) {
+      elements.kbFolderFilter.addEventListener('change', (e) => {
+        state.selectedFolderFilter = e.target.value;
+        filterKbTable();
+      });
+    }
+  }
+
+  function filterKbTable() {
+    if (!elements.kbFullTableBody) return;
+    const filterFolder = state.selectedFolderFilter || 'all';
+    const activeTab = document.querySelector('.filter-tab.active');
+    const extFilter = activeTab ? activeTab.getAttribute('data-ext') : 'all';
+    const searchVal = elements.kbSearchBox ? elements.kbSearchBox.value.toLowerCase().trim() : '';
+
+    const rows = elements.kbFullTableBody.querySelectorAll('tr[data-filename]');
+    rows.forEach(r => {
+      const rowFolder = r.getAttribute('data-folder') || 'Chung';
+      const rowExt = r.getAttribute('data-ext') || '';
+      const rowText = r.innerText.toLowerCase();
+
+      const matchFolder = (filterFolder === 'all') || (rowFolder === filterFolder);
+      const matchExt = (extFilter === 'all') || (rowExt === extFilter);
+      const matchSearch = !searchVal || rowText.includes(searchVal);
+
+      r.style.display = (matchFolder && matchExt && matchSearch) ? '' : 'none';
     });
   }
 
@@ -837,6 +1079,30 @@
         const totalChunks = data.total_chunks || 0;
 
         state.availableDocs = files;
+        state.folders = (data.folders && data.folders.length > 0) ? data.folders : ['Chung'];
+
+        // Populate Folder Filter in KB View
+        if (elements.kbFolderFilter) {
+          const currentVal = elements.kbFolderFilter.value || 'all';
+          elements.kbFolderFilter.innerHTML = `
+            <option value="all">📂 Tất cả thư mục (${files.length})</option>
+            ${state.folders.map(f => {
+              const count = files.filter(x => (x.folder || 'Chung') === f).length;
+              return `<option value="${escapeHTML(f)}">📁 ${escapeHTML(f)} (${count})</option>`;
+            }).join('')}
+          `;
+          if (state.folders.includes(currentVal) || currentVal === 'all') {
+            elements.kbFolderFilter.value = currentVal;
+          }
+        }
+
+        // Populate Target Folder in Move Modal
+        if (elements.selectMoveTargetFolder) {
+          elements.selectMoveTargetFolder.innerHTML = state.folders.map(f => `
+            <option value="${escapeHTML(f)}">📁 ${escapeHTML(f)}</option>
+          `).join('');
+        }
+
         renderChatKbDocsList();
 
         // Update sidebar count
@@ -856,6 +1122,10 @@
         if (elements.kpiTotalChunks) elements.kpiTotalChunks.textContent = totalChunks;
         if (elements.kpiTotalChats) elements.kpiTotalChats.textContent = state.recentChats.length;
 
+        // Update DOCX counter
+        const docxCount = files.filter(f => (f.ext || '').toLowerCase() === 'docx').length;
+        if (elements.kbCountDocx) elements.kbCountDocx.textContent = `(${docxCount})`;
+
         renderKbTable(files);
       }
     } catch (e) {
@@ -868,7 +1138,7 @@
     if (files.length === 0) {
       elements.kbFullTableBody.innerHTML = `
         <tr>
-          <td colspan="6" style="padding: 2rem; text-align: center; color: var(--text-muted);">
+          <td colspan="7" style="padding: 2.5rem; text-align: center; color: var(--text-muted);">
             Kho tri thức data/raw/ chưa có tài liệu. Bấm "+ Thêm tài liệu" để tải lên!
           </td>
         </tr>
@@ -878,27 +1148,66 @@
 
     elements.kbFullTableBody.innerHTML = files.map(f => {
       const ext = f.ext || 'txt';
-      const icon = ext === 'pdf' ? 'fa-regular fa-file-pdf text-red' : (ext === 'md' ? 'fa-regular fa-file-code text-blue' : 'fa-regular fa-file-lines text-purple');
+      const folder = f.folder || 'Chung';
+      const isDocx = ext.toLowerCase() === 'docx';
+      const isPdf = ext.toLowerCase() === 'pdf';
+      const isMd = ext.toLowerCase() === 'md';
+
+      let icon = 'fa-regular fa-file-lines text-purple';
+      let badgeClass = 'docx-purple';
+      if (isPdf) {
+        icon = 'fa-regular fa-file-pdf text-red';
+        badgeClass = 'pdf-purple';
+      } else if (isMd) {
+        icon = 'fa-regular fa-file-code text-blue';
+        badgeClass = 'pdf-blue';
+      } else if (isDocx) {
+        icon = 'fa-regular fa-file-word text-blue';
+        badgeClass = 'docx-purple';
+      }
+
       return `
-        <tr data-ext="${ext}">
+        <tr data-ext="${escapeHTML(ext.toLowerCase())}" data-folder="${escapeHTML(folder)}" data-filename="${escapeHTML(f.name)}">
           <td style="font-weight: 700;">
             <i class="${icon}" style="margin-right: 0.5rem;"></i>
             ${escapeHTML(f.name)}
           </td>
-          <td><span class="badge-num" style="text-transform: uppercase;">${ext}</span></td>
+          <td>
+            <span class="folder-badge" title="Thư mục: ${escapeHTML(folder)}">
+              <i class="fa-regular fa-folder"></i> ${escapeHTML(folder)}
+            </span>
+          </td>
+          <td><span class="badge-num" style="text-transform: uppercase;">${escapeHTML(ext)}</span></td>
           <td class="font-mono text-muted">${f.size_kb} KB</td>
           <td class="text-muted">${escapeHTML(f.mtime)}</td>
           <td>
             <span class="status-badge-live"><i class="fa-solid fa-check"></i> Đã nạp Vector</span>
           </td>
           <td style="text-align: center;">
-            <button type="button" class="msg-action-btn btn-delete-file" data-name="${escapeHTML(f.name)}" title="Xóa tài liệu này">
-              <i class="fa-regular fa-trash-can" style="color: #ef4444;"></i>
-            </button>
+            <div style="display: inline-flex; gap: 0.35rem;">
+              <button type="button" class="msg-action-btn btn-move-file" data-name="${escapeHTML(f.name)}" data-folder="${escapeHTML(folder)}" title="Chuyển thư mục cho tệp này">
+                <i class="fa-solid fa-folder-tree" style="color: var(--accent-primary);"></i>
+              </button>
+              <button type="button" class="msg-action-btn btn-delete-file" data-name="${escapeHTML(f.name)}" title="Xóa tài liệu này">
+                <i class="fa-regular fa-trash-can" style="color: #ef4444;"></i>
+              </button>
+            </div>
           </td>
         </tr>
       `;
     }).join('');
+
+    // Attach move handlers
+    elements.kbFullTableBody.querySelectorAll('.btn-move-file').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const fname = btn.getAttribute('data-name');
+        const curFolder = btn.getAttribute('data-folder') || 'Chung';
+        state.movingFile = fname;
+        if (elements.moveFileTargetName) elements.moveFileTargetName.textContent = fname;
+        if (elements.selectMoveTargetFolder) elements.selectMoveTargetFolder.value = curFolder;
+        if (elements.moveFileModal) elements.moveFileModal.style.display = 'flex';
+      });
+    });
 
     // Attach delete handlers
     elements.kbFullTableBody.querySelectorAll('.btn-delete-file').forEach(btn => {
@@ -909,33 +1218,133 @@
         }
       });
     });
+
+    // Re-apply filter in case an active filter exists
+    filterKbTable();
   }
 
-  async function uploadFileToKnowledgeBase(file) {
-    const reader = new FileReader();
-    reader.onload = async (e) => {
-      try {
-        showToast(`Đang nạp ${file.name} vào kho tri thức...`, 'info');
-        const res = await fetch('/api/rag/upload-file', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            filename: file.name,
-            content_base64: e.target.result
-          })
+  // --- Real Percentage Progress Upload Function ---
+  function uploadFileWithProgress(file, targetFolder = '', bindToChat = false) {
+    return new Promise((resolve, reject) => {
+      if (!file) return reject(new Error('Chưa chọn tệp'));
+
+      // 1. Show Progress Modal
+      if (elements.uploadProgressModal) {
+        elements.uploadProgressModal.style.display = 'flex';
+        if (elements.uploadProgressFilename) elements.uploadProgressFilename.textContent = file.name;
+        if (elements.uploadProgressPct) elements.uploadProgressPct.textContent = '0%';
+        if (elements.uploadProgressFill) elements.uploadProgressFill.style.width = '0%';
+        if (elements.uploadProgressSub) elements.uploadProgressSub.textContent = 'Đang đọc và truyền tệp tin lên máy chủ...';
+        
+        // Reset step classes
+        [elements.stepUpload, elements.stepExtract, elements.stepEmbed, elements.stepDone].forEach(step => {
+          if (step) step.classList.remove('active', 'done');
         });
-        const data = await res.json();
-        if (res.ok) {
-          showToast(`Đã thêm thành công ${file.name}!`, 'success');
-          loadRagStatus();
-        } else {
-          throw new Error(data.detail || 'Lỗi nạp file');
-        }
-      } catch (err) {
-        showToast(`Lỗi: ${err.message}`, 'error');
+        if (elements.stepUpload) elements.stepUpload.classList.add('active');
       }
-    };
-    reader.readAsDataURL(file);
+
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const base64Data = e.target.result;
+        const xhr = new XMLHttpRequest();
+        const endpoint = '/api/rag/upload-file';
+
+        // Track real upload percentage
+        xhr.upload.onprogress = (evt) => {
+          if (evt.lengthComputable && elements.uploadProgressFill && elements.uploadProgressPct) {
+            // Scale upload progress from 0% to 80%
+            const pct = Math.min(80, Math.round((evt.loaded / evt.total) * 80));
+            elements.uploadProgressFill.style.width = `${pct}%`;
+            elements.uploadProgressPct.textContent = `${pct}%`;
+            if (pct >= 40 && elements.stepUpload) {
+              elements.stepUpload.classList.add('done');
+              if (elements.stepExtract) elements.stepExtract.classList.add('active');
+              if (elements.uploadProgressSub) elements.uploadProgressSub.textContent = 'Đang truyền dữ liệu & trích xuất văn bản...';
+            }
+          }
+        };
+
+        xhr.onload = async () => {
+          if (xhr.status >= 200 && xhr.status < 300) {
+            try {
+              const resData = JSON.parse(xhr.responseText);
+              // Advance to 92% (Embedding)
+              if (elements.uploadProgressFill) elements.uploadProgressFill.style.width = '92%';
+              if (elements.uploadProgressPct) elements.uploadProgressPct.textContent = '92%';
+              if (elements.stepUpload) elements.stepUpload.classList.add('done');
+              if (elements.stepExtract) elements.stepExtract.classList.add('done');
+              if (elements.stepEmbed) elements.stepEmbed.classList.add('active');
+              if (elements.uploadProgressSub) elements.uploadProgressSub.textContent = 'Đang vector hóa (Embedding) và cập nhật Vector Store...';
+
+              setTimeout(() => {
+                // Done 100%
+                if (elements.uploadProgressFill) elements.uploadProgressFill.style.width = '100%';
+                if (elements.uploadProgressPct) elements.uploadProgressPct.textContent = '100%';
+                if (elements.stepEmbed) elements.stepEmbed.classList.add('done');
+                if (elements.stepDone) elements.stepDone.classList.add('active', 'done');
+                if (elements.uploadProgressSub) elements.uploadProgressSub.textContent = 'Hoàn tất nạp Vector! Sẵn sàng tra cứu.';
+
+                setTimeout(async () => {
+                  if (elements.uploadProgressModal) elements.uploadProgressModal.style.display = 'none';
+                  showToast(`Đã thêm thành công ${file.name} vào kho tri thức!`, 'success');
+                  await loadRagStatus();
+
+                  if (bindToChat) {
+                    if (!state.chatSessions[state.activeChatId]) {
+                      state.chatSessions[state.activeChatId] = { id: state.activeChatId, allowedDocs: [] };
+                    }
+                    const curr = state.chatSessions[state.activeChatId].allowedDocs || [];
+                    if (!curr.includes('all')) {
+                      if (!curr.includes(file.name)) curr.push(file.name);
+                      state.chatSessions[state.activeChatId].allowedDocs = curr;
+                    }
+                    saveChatSessions();
+                    renderChatKbDocsList();
+                  }
+                  resolve(resData);
+                }, 600);
+              }, 400);
+
+            } catch (err) {
+              if (elements.uploadProgressModal) elements.uploadProgressModal.style.display = 'none';
+              showToast('Lỗi xử lý phản hồi từ máy chủ', 'error');
+              reject(err);
+            }
+          } else {
+            if (elements.uploadProgressModal) elements.uploadProgressModal.style.display = 'none';
+            let errDetail = 'Lỗi nạp file';
+            try {
+              const errJson = JSON.parse(xhr.responseText);
+              errDetail = errJson.detail || errDetail;
+            } catch (ex) {}
+            showToast(`Lỗi: ${errDetail}`, 'error');
+            reject(new Error(errDetail));
+          }
+        };
+
+        xhr.onerror = () => {
+          if (elements.uploadProgressModal) elements.uploadProgressModal.style.display = 'none';
+          showToast('Lỗi mạng khi tải lên tài liệu', 'error');
+          reject(new Error('Network error'));
+        };
+
+        xhr.open('POST', endpoint, true);
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(JSON.stringify({
+          filename: file.name,
+          content_base64: base64Data,
+          folder: targetFolder || 'Chung'
+        }));
+      };
+
+      reader.onerror = (err) => {
+        if (elements.uploadProgressModal) elements.uploadProgressModal.style.display = 'none';
+        showToast('Lỗi khi đọc file cục bộ', 'error');
+        reject(err);
+      };
+
+      reader.readAsDataURL(file);
+    });
   }
 
   async function deleteDocument(filename) {
@@ -1072,22 +1481,61 @@
     const allowed = session.allowedDocs || ['all'];
     const isAll = allowed.includes('all');
 
-    let activeCount = 0;
-    elements.chatKbDocsList.innerHTML = state.availableDocs.map(doc => {
-      const name = doc.name || doc;
-      const isChecked = isAll || allowed.some(a => a.toLowerCase() === name.toLowerCase());
-      if (isChecked) activeCount++;
-      const ext = (doc.ext || name.split('.').pop() || 'txt').toUpperCase();
+    // Group documents by folder
+    const groups = {};
+    state.availableDocs.forEach(doc => {
+      const folder = doc.folder || 'Chung';
+      if (!groups[folder]) groups[folder] = [];
+      groups[folder].push(doc);
+    });
 
-      return `
-        <label class="chat-kb-doc-item" title="${escapeHTML(name)}">
-          <input type="checkbox" class="chat-kb-checkbox" data-doc="${escapeHTML(name)}" ${isChecked ? 'checked' : ''}>
-          <i class="fa-regular ${ext === 'PDF' ? 'fa-file-pdf text-red' : 'fa-file-lines text-blue'}"></i>
-          <span class="doc-name">${escapeHTML(name)}</span>
-          <span class="doc-badge">${escapeHTML(ext)}</span>
-        </label>
+    let activeCount = 0;
+    const folderKeys = Object.keys(groups).sort((a, b) => {
+      if (a === 'Chung') return -1;
+      if (b === 'Chung') return 1;
+      return a.localeCompare(b);
+    });
+
+    let html = '';
+    folderKeys.forEach(folderName => {
+      const docsInFolder = groups[folderName];
+      const folderCheckedCount = docsInFolder.filter(d => isAll || allowed.some(a => a.toLowerCase() === (d.name || d).toLowerCase())).length;
+
+      html += `
+        <div class="chat-kb-folder-group">
+          <div class="chat-kb-folder-header">
+            <i class="fa-regular fa-folder-open text-accent"></i>
+            <span class="folder-title">${escapeHTML(folderName)}</span>
+            <span class="folder-count">${folderCheckedCount}/${docsInFolder.length}</span>
+          </div>
+          <div class="chat-kb-folder-items">
+            ${docsInFolder.map(doc => {
+              const name = doc.name || doc;
+              const isChecked = isAll || allowed.some(a => a.toLowerCase() === name.toLowerCase());
+              if (isChecked) activeCount++;
+              const ext = (doc.ext || name.split('.').pop() || 'txt').toUpperCase();
+              const isPdf = ext === 'PDF';
+              const isDocx = ext === 'DOCX';
+
+              let iconClass = 'fa-file-lines text-purple';
+              if (isPdf) iconClass = 'fa-file-pdf text-red';
+              else if (isDocx) iconClass = 'fa-file-word text-blue';
+
+              return `
+                <label class="chat-kb-doc-item" title="${escapeHTML(name)} (${escapeHTML(folderName)})">
+                  <input type="checkbox" class="chat-kb-checkbox" data-doc="${escapeHTML(name)}" ${isChecked ? 'checked' : ''}>
+                  <i class="fa-regular ${iconClass}"></i>
+                  <span class="doc-name">${escapeHTML(name)}</span>
+                  <span class="doc-badge">${escapeHTML(ext)}</span>
+                </label>
+              `;
+            }).join('')}
+          </div>
+        </div>
       `;
-    }).join('');
+    });
+
+    elements.chatKbDocsList.innerHTML = html;
 
     if (elements.chatKbSelectedCount) {
       if (isAll || activeCount === state.availableDocs.length) {
@@ -1167,49 +1615,18 @@
         if (e.target.files && e.target.files[0]) {
           const file = e.target.files[0];
           await uploadAndBindDocToChat(file);
+          e.target.value = '';
         }
       });
     }
   }
 
   async function uploadAndBindDocToChat(file) {
-    showToast(`Đang tải lên và nạp [${file.name}] vào Knowledge Base...`, 'info');
-    const reader = new FileReader();
-    reader.onload = async (evt) => {
-      try {
-        const payload = {
-          name: file.name,
-          base64: evt.target.result
-        };
-        const res = await fetch('/api/rag/upload', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-        const d = await res.json();
-        if (res.ok) {
-          showToast(`Đã nạp ${file.name} thành công (${d.chunks_created || 0} chunks)!`, 'success');
-          await loadRagStatus();
-
-          // Bind this file specifically to active chat
-          if (!state.chatSessions[state.activeChatId]) {
-            state.chatSessions[state.activeChatId] = { id: state.activeChatId, allowedDocs: [] };
-          }
-          const curr = state.chatSessions[state.activeChatId].allowedDocs || [];
-          if (!curr.includes('all')) {
-            if (!curr.includes(file.name)) curr.push(file.name);
-            state.chatSessions[state.activeChatId].allowedDocs = curr;
-          }
-          saveChatSessions();
-          renderChatKbDocsList();
-        } else {
-          showToast(d.detail || 'Lỗi nạp tệp', 'error');
-        }
-      } catch (err) {
-        showToast(err.message, 'error');
-      }
-    };
-    reader.readAsDataURL(file);
+    try {
+      await uploadFileWithProgress(file, 'Chung', true);
+    } catch (err) {
+      console.warn('Upload to chat error:', err);
+    }
   }
 
   // --- Recent Chats ---

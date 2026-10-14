@@ -205,23 +205,30 @@ class ColabAIRequestHandler(http.server.SimpleHTTPRequestHandler):
             })
             return
 
-        # RAG Status Endpoint (Kiểm tra kho tri thức chi tiết)
+        # RAG Status Endpoint (Kiểm tra kho tri thức chi tiết kèm thư mục)
         if parsed.path == '/api/rag/status':
             raw_dir = os.path.join(PROJECT_ROOT, "data", "raw")
             store_file = os.path.join(PROJECT_ROOT, "data", "processed", "vector_store.npz")
             meta_file = os.path.join(PROJECT_ROOT, "data", "processed", "vector_store.meta.json")
             
             detailed_files = []
+            folders = set(["Chung"])
             if os.path.exists(raw_dir):
-                for f in sorted(os.listdir(raw_dir)):
-                    if f.startswith('.'):
-                        continue
-                    f_path = os.path.join(raw_dir, f)
-                    if os.path.isfile(f_path):
+                for root, dirs, files in os.walk(raw_dir):
+                    rel_dir = os.path.relpath(root, raw_dir)
+                    curr_folder = "Chung" if rel_dir == "." else rel_dir
+                    if curr_folder != "Chung":
+                        folders.add(curr_folder)
+                    for f in sorted(files):
+                        if f.startswith('.'):
+                            continue
+                        f_path = os.path.join(root, f)
                         stat = os.stat(f_path)
                         ext = os.path.splitext(f)[1].lower().replace('.', '') or 'txt'
                         detailed_files.append({
                             "name": f,
+                            "folder": curr_folder,
+                            "rel_path": os.path.relpath(f_path, raw_dir),
                             "size_kb": round(stat.st_size / 1024, 1),
                             "ext": ext,
                             "mtime": time.strftime('%d/%m/%Y %H:%M', time.localtime(stat.st_mtime)),
@@ -240,6 +247,7 @@ class ColabAIRequestHandler(http.server.SimpleHTTPRequestHandler):
             self.send_json_response(200, {
                 "status": "ready",
                 "store_exists": os.path.exists(store_file),
+                "folders": sorted(list(folders)),
                 "raw_files": [f["name"] for f in detailed_files],
                 "files_detail": detailed_files,
                 "raw_count": len(detailed_files),
@@ -272,19 +280,25 @@ class ColabAIRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self.send_json_response(500, {"detail": "Chưa nạp được RAG Pipeline."})
             return
 
-        # 0.1 RAG UPLOAD FILE: /api/rag/upload-file (Thêm tài liệu vào data/raw/)
-        if parsed.path == '/api/rag/upload-file':
+        # 0.1 RAG UPLOAD FILE: /api/rag/upload-file hoặc /api/rag/upload (Thêm tài liệu vào data/raw/)
+        if parsed.path in ['/api/rag/upload-file', '/api/rag/upload']:
             content_length = int(self.headers.get('Content-Length', 0))
             body = self.rfile.read(content_length).decode('utf-8') if content_length > 0 else '{}'
             try:
                 data = json.loads(body)
-                fname = os.path.basename(data.get('filename', 'document.txt'))
-                b64_content = data.get('content_base64', '')
-                text_content = data.get('content_text', '')
+                fname = os.path.basename(data.get('filename') or data.get('name') or 'document.txt')
+                b64_content = data.get('content_base64') or data.get('base64') or ''
+                text_content = data.get('content_text') or data.get('text') or ''
+                target_folder = (data.get('folder') or '').strip()
 
                 raw_dir = os.path.join(PROJECT_ROOT, "data", "raw")
-                os.makedirs(raw_dir, exist_ok=True)
-                dest_path = os.path.join(raw_dir, fname)
+                if target_folder and target_folder != "Chung":
+                    save_dir = os.path.join(raw_dir, target_folder)
+                else:
+                    save_dir = raw_dir
+
+                os.makedirs(save_dir, exist_ok=True)
+                dest_path = os.path.join(save_dir, fname)
 
                 if b64_content:
                     clean_b64 = b64_content.split(',', 1)[1] if ',' in b64_content else b64_content
@@ -308,12 +322,71 @@ class ColabAIRequestHandler(http.server.SimpleHTTPRequestHandler):
                 chunks = pipeline.ingest() if pipeline else 0
                 self.send_json_response(200, {
                     "status": "success",
-                    "message": f"Đã thêm '{fname}' và lập chỉ mục {chunks} vector chunks!",
+                    "message": f"Đã nạp '{fname}' vào thư mục '{target_folder or 'Chung'}' và lập chỉ mục {chunks} vector chunks!",
                     "filename": fname,
+                    "folder": target_folder or "Chung",
                     "total_chunks": chunks
                 })
             except Exception as e:
                 self.send_json_response(500, {"detail": f"Lỗi xử lý file: {str(e)}"})
+            return
+
+        # 0.1b RAG CREATE FOLDER: /api/rag/create-folder (Tạo thư mục trong data/raw/)
+        if parsed.path == '/api/rag/create-folder':
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(content_length).decode('utf-8') if content_length > 0 else '{}'
+            try:
+                data = json.loads(body)
+                folder_name = os.path.basename(data.get('folder_name', '').strip())
+                if not folder_name:
+                    self.send_json_response(400, {"detail": "Tên thư mục không hợp lệ"})
+                    return
+                target_path = os.path.join(PROJECT_ROOT, "data", "raw", folder_name)
+                os.makedirs(target_path, exist_ok=True)
+                self.send_json_response(200, {"status": "success", "message": f"Đã tạo thư mục: {folder_name}", "folder": folder_name})
+            except Exception as e:
+                self.send_json_response(500, {"detail": f"Lỗi tạo thư mục: {str(e)}"})
+            return
+
+        # 0.1c RAG MOVE FILE: /api/rag/move-file (Di chuyển tài liệu sang thư mục)
+        if parsed.path == '/api/rag/move-file':
+            content_length = int(self.headers.get('Content-Length', 0))
+            body = self.rfile.read(content_length).decode('utf-8') if content_length > 0 else '{}'
+            try:
+                data = json.loads(body)
+                fname = data.get('filename', '')
+                target_folder = data.get('target_folder', 'Chung').strip()
+                raw_dir = os.path.join(PROJECT_ROOT, "data", "raw")
+
+                # Tìm vị trí hiện tại của file
+                src_path = None
+                for root, dirs, files in os.walk(raw_dir):
+                    if fname in files:
+                        src_path = os.path.join(root, fname)
+                        break
+
+                if not src_path or not os.path.exists(src_path):
+                    self.send_json_response(404, {"detail": f"Không tìm thấy file: {fname}"})
+                    return
+
+                dest_dir = raw_dir if target_folder in ["", "Chung"] else os.path.join(raw_dir, target_folder)
+                os.makedirs(dest_dir, exist_ok=True)
+                dest_path = os.path.join(dest_dir, fname)
+
+                if src_path != dest_path:
+                    import shutil
+                    shutil.move(src_path, dest_path)
+                    pipeline = get_rag_pipeline()
+                    chunks = pipeline.ingest() if pipeline else 0
+                    self.send_json_response(200, {
+                        "status": "success",
+                        "message": f"Đã chuyển '{fname}' vào thư mục '{target_folder}'",
+                        "total_chunks": chunks
+                    })
+                else:
+                    self.send_json_response(200, {"status": "success", "message": "File đã nằm trong thư mục này"})
+            except Exception as e:
+                self.send_json_response(500, {"detail": f"Lỗi di chuyển file: {str(e)}"})
             return
 
         # 0.2 RAG DELETE FILE: /api/rag/delete-file (Xóa tài liệu khỏi data/raw/)

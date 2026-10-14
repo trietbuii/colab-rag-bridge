@@ -131,6 +131,11 @@
             <button type="button" class="btn-icon-soft" id="btn-fullscreen-toggle" title="Chế độ toàn màn hình">
               <i class="fa-regular fa-square"></i>
             </button>
+
+            <!-- Toggle Right Inspector Panel Button -->
+            <button type="button" class="btn-icon-soft" id="btn-toggle-right-panel" title="Thu gọn / Mở rộng bảng bên phải">
+              <i class="fa-solid fa-table-columns"></i>
+            </button>
           </div>
         </header>
 
@@ -226,6 +231,9 @@
             <button type="button" class="btn btn-secondary btn-sm" id="btn-reindex-kb-view">
               <i class="fa-solid fa-arrows-rotate"></i> Lập chỉ mục lại (Re-index)
             </button>
+            <button type="button" class="btn btn-secondary btn-sm" id="btn-create-folder-modal">
+              <i class="fa-solid fa-folder-plus"></i> Tạo thư mục
+            </button>
             <input type="file" id="kb-view-upload-input" accept=".pdf,.txt,.md,.csv,.doc,.docx" style="display: none;">
             <button type="button" class="btn btn-primary btn-sm" id="btn-upload-new-doc">
               <i class="fa-solid fa-plus"></i> Thêm tài liệu
@@ -240,10 +248,15 @@
               <i class="fa-solid fa-magnifying-glass"></i>
               <input type="text" id="kb-search-box" placeholder="Tìm kiếm tài liệu theo tên...">
             </div>
+            <div class="kb-folder-dropdown-wrapper">
+              <select id="kb-folder-filter" class="folder-select-box" title="Lọc theo thư mục">
+                <option value="all">📂 Tất cả thư mục</option>
+              </select>
+            </div>
             <div class="kb-type-filter-tabs">
-              <button class="filter-tab active" data-ext="all">Tất cả (<span id="kb-count-all">3</span>)</button>
+              <button class="filter-tab active" data-ext="all">Tất cả (<span id="kb-count-all">4</span>)</button>
               <button class="filter-tab" data-ext="pdf">PDF (<span id="kb-count-pdf">1</span>)</button>
-              <button class="filter-tab" data-ext="docx">DOCX (0)</button>
+              <button class="filter-tab" data-ext="docx">DOCX (<span id="kb-count-docx">1</span>)</button>
               <button class="filter-tab" data-ext="txt">TXT (0)</button>
               <button class="filter-tab" data-ext="md">Markdown (2)</button>
             </div>
@@ -255,6 +268,7 @@
               <thead>
                 <tr>
                   <th>Tên tài liệu</th>
+                  <th>Thư mục</th>
                   <th>Loại</th>
                   <th>Dung lượng</th>
                   <th>Ngày thêm</th>
@@ -451,7 +465,10 @@
     </main>
 
     <!-- ==================== CỘT 3: BẢNG TRÍCH DẪN BÊN PHẢI (INSPECTOR PANEL) ==================== -->
-    <aside class="sidebar-right">
+    <aside class="sidebar-right" id="sidebar-right">
+      <!-- Resizer Handle for dragging to resize -->
+      <div class="sidebar-resizer" id="sidebar-resizer" title="Kéo chuột để co giãn độ rộng bảng bên phải"></div>
+
       <!-- Right Panel Header Tabs -->
       <div class="right-panel-tabs">
         <button type="button" class="right-tab-item active" data-tab="sources" id="tab-rel-docs" title="Xem danh sách trích dẫn tài liệu RAG">
@@ -462,28 +479,36 @@
           <i class="fa-solid fa-server"></i>
           <span>Thông tin & Colab GPU</span>
         </button>
+        <button type="button" class="btn-toggle-sidebar" id="btn-toggle-sidebar" title="Thu gọn / Cất bảng vào (Ctrl+B)">
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
       </div>
 
       <!-- Tab Content 1: Tài liệu sử dụng & Thông tin mô hình/hệ thống chuẩn xác -->
       <div class="right-tab-pane active" id="pane-sources">
         <!-- Section 0: Kho Tri Thức riêng cho đoạn chat này (Per-Chat Knowledge Base) -->
         <div class="chat-kb-scope-card" id="chat-kb-scope-card">
-          <div class="pane-section-title" style="display: flex; align-items: center; justify-content: space-between;">
-            <span><i class="fa-solid fa-layer-group" style="color: var(--accent-primary); margin-right: 0.35rem;"></i> KB Cho Đoạn Chat Này</span>
+          <div class="pane-section-title collapsible-card-header" id="chat-kb-card-header" style="cursor: pointer; display: flex; align-items: center; justify-content: space-between;" title="Bấm để thu gọn / mở rộng khối này">
+            <div style="display: flex; align-items: center; gap: 0.45rem;">
+              <i class="fa-solid fa-chevron-down" id="chat-kb-chevron" style="font-size: 0.72rem; transition: transform 0.2s;"></i>
+              <span><i class="fa-solid fa-layer-group" style="color: var(--accent-primary); margin-right: 0.2rem;"></i> KB Đoạn Chat Này</span>
+            </div>
             <span class="badge-num" id="chat-kb-selected-count">Tất cả</span>
           </div>
-          <p class="chat-kb-subdesc">Chọn tài liệu cho phép AI tra cứu trong đoạn chat hiện tại:</p>
-          <div class="chat-kb-actions-bar">
-            <button type="button" class="btn-text-action" id="btn-chat-kb-select-all">Tất cả</button>
-            <span class="divider-dot">•</span>
-            <button type="button" class="btn-text-action" id="btn-chat-kb-clear-all">Bỏ chọn</button>
-            <button type="button" class="btn-action-pill" id="btn-upload-to-chat" title="Nạp tệp mới trực tiếp vào đoạn chat này">
-              <i class="fa-solid fa-plus"></i> Nạp tệp cho chat
-            </button>
-            <input type="file" id="chat-kb-file-input" accept=".pdf,.txt,.md,.csv,.doc,.docx" style="display: none;">
-          </div>
-          <div class="chat-kb-doc-list" id="chat-kb-docs-list">
-            <div class="kb-loading-hint">Đang tải danh sách tài liệu...</div>
+          <div class="chat-kb-card-body" id="chat-kb-card-body">
+            <p class="chat-kb-subdesc">Chọn tài liệu cho phép AI tra cứu trong đoạn chat hiện tại:</p>
+            <div class="chat-kb-actions-bar">
+              <button type="button" class="btn-text-action" id="btn-chat-kb-select-all">Tất cả</button>
+              <span class="divider-dot">•</span>
+              <button type="button" class="btn-text-action" id="btn-chat-kb-clear-all">Bỏ chọn</button>
+              <button type="button" class="btn-action-pill" id="btn-upload-to-chat" title="Nạp tệp mới trực tiếp vào đoạn chat này">
+                <i class="fa-solid fa-plus"></i> Nạp tệp
+              </button>
+              <input type="file" id="chat-kb-file-input" accept=".pdf,.txt,.md,.csv,.doc,.docx" style="display: none;">
+            </div>
+            <div class="chat-kb-doc-list" id="chat-kb-docs-list">
+              <div class="kb-loading-hint">Đang tải danh sách tài liệu...</div>
+            </div>
           </div>
         </div>
 
@@ -763,11 +788,119 @@
     </div>
   </div>
 
+  <!-- ==========================================================================
+       MODAL: TIẾN TRÌNH TẢI LÊN & VECTOR EMBEDDING (UPLOAD PROGRESS MODAL)
+       ========================================================================== -->
+  <div class="modal-overlay" id="upload-progress-modal" style="display: none; z-index: 9999;">
+    <div class="modal-card upload-progress-card">
+      <div class="progress-card-header">
+        <div class="progress-title-row">
+          <div class="progress-icon-circle">
+            <i class="fa-solid fa-cloud-arrow-up"></i>
+          </div>
+          <div>
+            <h3 id="upload-progress-filename">Tài liệu.pdf</h3>
+            <span class="progress-sub" id="upload-progress-sub">Đang bắt đầu tải lên...</span>
+          </div>
+        </div>
+        <div class="progress-percent-badge" id="upload-progress-pct">0%</div>
+      </div>
+
+      <div class="progress-bar-track">
+        <div class="progress-bar-fill" id="upload-progress-fill" style="width: 0%;"></div>
+      </div>
+
+      <div class="progress-steps-list">
+        <div class="step-item active" id="step-upload">
+          <i class="fa-solid fa-arrow-up-from-bracket"></i>
+          <span>1. Tải lên server</span>
+        </div>
+        <div class="step-item" id="step-extract">
+          <i class="fa-solid fa-file-lines"></i>
+          <span>2. Trích xuất văn bản</span>
+        </div>
+        <div class="step-item" id="step-embed">
+          <i class="fa-solid fa-brain"></i>
+          <span>3. Tạo Vector Chunks</span>
+        </div>
+        <div class="step-item" id="step-done">
+          <i class="fa-solid fa-circle-check"></i>
+          <span>4. Hoàn tất</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: TẠO THƯ MỤC KNOWLEDGE BASE (CREATE FOLDER MODAL)
+       ========================================================================== -->
+  <div class="modal-overlay" id="create-folder-modal" style="display: none;">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-folder-plus" style="color: var(--accent-primary);"></i>
+          <span>Tạo Thư Mục Knowledge Base</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-close-folder-modal">&times;</button>
+      </div>
+      <form id="create-folder-form">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="input-new-folder-name">Tên thư mục:</label>
+            <input type="text" id="input-new-folder-name" class="input-box" placeholder="Ví dụ: Đề án & Báo cáo, Nghiên cứu HK5..." required>
+          </div>
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-cancel-folder-modal">Hủy</button>
+          <button type="submit" class="btn btn-primary btn-sm">Tạo Thư Mục</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL: CHUYỂN THƯ MỤC TÀI LIỆU (MOVE FILE MODAL)
+       ========================================================================== -->
+  <div class="modal-overlay" id="move-file-modal" style="display: none;">
+    <div class="modal-card" style="max-width: 440px;">
+      <div class="modal-header">
+        <div class="modal-title">
+          <i class="fa-solid fa-folder-tree" style="color: var(--accent-primary);"></i>
+          <span>Chuyển Thư Mục Tài Liệu</span>
+        </div>
+        <button type="button" class="modal-close-btn" id="btn-close-move-modal">&times;</button>
+      </div>
+      <form id="move-file-form">
+        <div class="modal-body">
+          <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.75rem;">
+            Tệp đang chọn: <strong id="move-file-target-name" style="color: var(--text-main);">...</strong>
+          </p>
+          <div class="form-group">
+            <label class="form-label" for="select-move-target-folder">Chọn thư mục đích:</label>
+            <select id="select-move-target-folder" class="input-box">
+              <option value="Chung">📁 Chung (Thư mục gốc)</option>
+            </select>
+          </div>
+        </div>
+        <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 0.5rem;">
+          <button type="button" class="btn btn-secondary btn-sm" id="btn-cancel-move-modal">Hủy</button>
+          <button type="submit" class="btn btn-primary btn-sm">Xác Nhận Chuyển</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Floating Button to Expand Right Sidebar when Collapsed -->
+  <button type="button" class="floating-expand-btn" id="btn-floating-expand-sidebar" title="Mở bảng tài liệu & thông tin (Inspector)" style="display: none;">
+    <i class="fa-solid fa-book-open"></i>
+    <span>Tài liệu</span>
+  </button>
+
   <!-- Toast Notification Container -->
   <div class="toast-container" id="toast-container"></div>
 
   <!-- Markdown Parser (Marked.js) -->
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-  <script src="app.js?v=20261014_7"></script>
+  <script src="app.js?v=20261014_8"></script>
 </body>
 </html>
